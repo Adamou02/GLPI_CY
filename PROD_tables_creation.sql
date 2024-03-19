@@ -178,7 +178,7 @@ CREATE TABLE GLPI_PROD.COMMENT_RESSOURCES (
 -- les <fk_value> sont des INT et correspondent à la valeur de l’id de la table correspondante. Ce sont des clés étrangères liées à d'autres tables, assurant l'intégrité référentielle entre les tables.
 
 
--- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des observateurs des tickets.
+-- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des observateurs des tickets.a
 CREATE TABLE GLPI_PROD.OBSERVERS (
     fk_ticket INT,
     fk_user INT,
