@@ -21,19 +21,22 @@ $LogFileDirectory = "$($ScriptDir)\log\drop\"
 
 if(-not(Test-Path -Path $LogFileDirectory)) { New-Item -ItemType Directory -Path $LogFileDirectory }
 
-# Définir les informations de connexion pour chaque préfixe de fichier
+# Charger les informations de configuration depuis le fichier
+$config = Get-Content -Path "config.json" | ConvertFrom-Json
+
+# Récupérer les informations des identifiants
 $CredentialMapping = @{
     "BOTH" = @{
-        "Username" = "system"
-        "Password" = "dbadmin"
+        "Username" = $config.Both.Username
+        "Password" = $config.Both.Password
     }
     "PROD" = @{
-        "Username" = "GLPI_PROD"
-        "Password" = "GLPI_PROD_PASSWORD"
+        "Username" = $config.Prod.Username
+        "Password" = $config.Prod.Password
     }
     "TEST" = @{
-        "Username" = "GLPI_TEST"
-        "Password" = "GLPI_TEST_PASSWORD"
+        "Username" = $config.Test.Username
+        "Password" = $config.Test.Password
     }
 }
 
