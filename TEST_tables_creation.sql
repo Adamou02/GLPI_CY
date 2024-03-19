@@ -40,9 +40,9 @@ CREATE TABLE GLPI_TEST.LOCATIONS (
     location_id INT PRIMARY KEY,
     country VARCHAR2(50),
     city VARCHAR2(50),
-    address VARCHAR2(50),
+    street VARCHAR2(50),
     address_number INT,
-    sub_group VARCHAR2(50),
+    address_complement VARCHAR2(50),
     "location" VARCHAR2(70)
 );
 
