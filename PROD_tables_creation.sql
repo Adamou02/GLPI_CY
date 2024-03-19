@@ -1,40 +1,40 @@
--- Table de rÈfÈrence contient une liste prÈdÈfinie de valeurs pour les prioritÈs des commentaires. Elle garantit la cohÈrence dans le niveau de prioritÈ attribuÈ ‡ un commentaire. 
+-- Table de r√©f√©rence contient une liste pr√©d√©finie de valeurs pour les priorit√©s des commentaires. Elle garantit la coh√©rence dans le niveau de priorit√© attribu√© √† un commentaire. 
 
 CREATE TABLE GLPI_PROD.REF_priority (
     priority_id INT PRIMARY KEY,
-    priority VARCHAR2(10) NOT NULL UNIQUE
+    "priority" VARCHAR2(10) NOT NULL UNIQUE
 );
 
--- Table de rÈfÈrence qui permet de dÈfinir une liste prÈdÈfinie de valeurs pour les statuts du ticket.
--- priority est une VARCHAR2(10). Le CHECK nous permet de connaÓtre ‡ líavance les champs possible pour cette colonne, et donc díallouer un espace de stockage optimisÈ.
+-- Table de r√©f√©rence qui permet de d√©finir une liste pr√©d√©finie de valeurs pour les statuts du ticket.
+-- priority est une VARCHAR2(10). Le CHECK nous permet de conna√Ætre √† l‚Äôavance les champs possible pour cette colonne, et donc d‚Äôallouer un espace de stockage optimis√©.
 
 CREATE TABLE GLPI_PROD.REF_status (
     status_id INT PRIMARY KEY,
     status VARCHAR2(50) NOT NULL UNIQUE
 );
 
--- Table de rÈfÈrence qui permet de dÈfinir une liste prÈdÈfinie de catÈgories pour les tickets.
+-- Table de r√©f√©rence qui permet de d√©finir une liste pr√©d√©finie de cat√©gories pour les tickets.
  
 CREATE TABLE GLPI_PROD.REF_category (
     category_id INT PRIMARY KEY,
-    category VARCHAR2(50) NOT NULL UNIQUE
+    "category" VARCHAR2(50) NOT NULL UNIQUE
 );
 
--- Table de rÈfÈrence qui permet de dÈfinir une liste prÈdÈfinie de types pour les tickets. 
+-- Table de r√©f√©rence qui permet de d√©finir une liste pr√©d√©finie de types pour les tickets. 
 
 CREATE TABLE GLPI_PROD.REF_type (
     type_id INT PRIMARY KEY,
-    type VARCHAR2(50) NOT NULL UNIQUE
+    "type" VARCHAR2(50) NOT NULL UNIQUE
 );
 
--- Table de rÈfÈrence qui permet de dÈfinir une liste prÈdÈfinie de rÙles pour les tickets. 
+-- Table de r√©f√©rence qui permet de d√©finir une liste pr√©d√©finie de r√¥les pour les tickets. 
 
 CREATE TABLE GLPI_PROD.REF_role (
     role_id INT PRIMARY KEY,
-    role VARCHAR2(50) NOT NULL UNIQUE
+    "role" VARCHAR2(50) NOT NULL UNIQUE
 );
 
--- Table qui stocke les dÈtails sur les emplacements physiques associÈs aux tickets.
+-- Table qui stocke les d√©tails sur les emplacements physiques associ√©s aux tickets.
 
 CREATE TABLE GLPI_PROD.LOCATIONS (
     location_id INT PRIMARY KEY,
@@ -43,17 +43,17 @@ CREATE TABLE GLPI_PROD.LOCATIONS (
     "location" VARCHAR2(103) UNIQUE -- Concatenation de city + site
 );
 
--- Table de rÈfÈrence qui permet de dÈfinir une liste prÈdÈfinie de groupes pour les tickets. 
+-- Table de r√©f√©rence qui permet de d√©finir une liste pr√©d√©finie de groupes pour les tickets. 
 
 CREATE TABLE GLPI_PROD.REF_group (
-    group_id INT PRIMARY KEY,
+    "group_id" INT PRIMARY KEY,
     "group" VARCHAR2(50),
     fk_location INT,
     FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id)
 );
--- La colonne ìgroupî est entre guillemets pour quíOracle ne la confonde pas avec la commande sql GROUP
+-- La colonne ‚Äúgroup‚Äù est entre guillemets pour qu‚ÄôOracle ne la confonde pas avec la commande sql GROUP
 
---  Table qui stocke les dÈtails sur le matÈriel concernÈ par les tickets.
+--  Table qui stocke les d√©tails sur le mat√©riel concern√© par les tickets.
 
 CREATE TABLE GLPI_PROD.HARDWARES (
     hardware_id INT PRIMARY KEY,
@@ -64,7 +64,7 @@ CREATE TABLE GLPI_PROD.HARDWARES (
 );
 
 
--- Table qui stocke les informations sur les utilisateurs de líoutil de ticketing
+-- Table qui stocke les informations sur les utilisateurs de l‚Äôoutil de ticketing
 
 CREATE TABLE GLPI_PROD.USERS (
     user_id INT PRIMARY KEY,
@@ -88,11 +88,11 @@ CREATE TABLE GLPI_PROD.USERS (
     FOREIGN KEY (fk_group) REFERENCES GLPI_PROD.REF_group(group_id),
     FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id)
 );
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
 
 
 
--- C'est la table principale qui contient les dÈtails de chaque ticket de support.
+-- C'est la table principale qui contient les d√©tails de chaque ticket de support.
 
 CREATE TABLE GLPI_PROD.TICKETS (
     ticket_id INT PRIMARY KEY,
@@ -120,13 +120,13 @@ CREATE TABLE GLPI_PROD.TICKETS (
     FOREIGN KEY (fk_category) REFERENCES GLPI_PROD.REF_category(category_id),
     FOREIGN KEY (fk_hardwares) REFERENCES GLPI_PROD.HARDWARES(hardware_id)
 );
--- title est un VARCHAR2(100) et permettent de titrer les tickets, nous avons rÈduit la taille du VARCHAR2 pour optimiser líespace de stockage. 100 caractËres nous semble Ítre suffisant pour stocker un titre.
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
--- ressources est un CLOB (Character Large Object). Cela permet de stocker des string de plus de 4000 caractËres. Cela est nÈcessaire pour nos images stockÈes en base64.
+-- title est un VARCHAR2(100) et permettent de titrer les tickets, nous avons r√©duit la taille du VARCHAR2 pour optimiser l‚Äôespace de stockage. 100 caract√®res nous semble √™tre suffisant pour stocker un titre.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
+-- ressources est un CLOB (Character Large Object). Cela permet de stocker des string de plus de 4000 caract√®res. Cela est n√©cessaire pour nos images stock√©es en base64.
 -- TIMESTAMP est un type qui permet de stocker une date et heure en SQL.
 
 
--- Table stocke les commentaires associÈs ‡ chaque ticket.
+-- Table stocke les commentaires associ√©s √† chaque ticket.
 
 CREATE TABLE GLPI_PROD.COMMENTS (
     comment_id INT PRIMARY KEY,
@@ -140,23 +140,23 @@ CREATE TABLE GLPI_PROD.COMMENTS (
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),
     FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)
 );
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
--- task est un VARCHAR2(255) et de dÈcrire la t‚che liÈ ‡ la rÈsolution díun ticket. 255 caractËres nous semble Ítre suffisant pour stocker cette information.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
+-- task est un VARCHAR2(255) et de d√©crire la t√¢che li√© √† la r√©solution d‚Äôun ticket. 255 caract√®res nous semble √™tre suffisant pour stocker cette information.
 
 
 
--- Table qui stocke les ressources disponibles.Les ressources peuvent Ítre des fichiers, des liens, ou d'autres types de documents qui peuvent Ítre associÈs ‡ des tickets ou des commentaires.
+-- Table qui stocke les ressources disponibles.Les ressources peuvent √™tre des fichiers, des liens, ou d'autres types de documents qui peuvent √™tre associ√©s √† des tickets ou des commentaires.
 CREATE TABLE GLPI_PROD.RESSOURCES (
     ressource_id INT PRIMARY KEY,
     fk_ticket INT,
     ressource CLOB,
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id)
 );
--- ressources est un CLOB (Character Large Object). Cela permet de stocker des string de plus de 4000 caractËres. Cela est nÈcessaire pour nos images stockÈes en base64.
+-- ressources est un CLOB (Character Large Object). Cela permet de stocker des string de plus de 4000 caract√®res. Cela est n√©cessaire pour nos images stock√©es en base64.
 
 
 
--- Table de liaison entre les tickets et les ressources. Elle permet de gÈrer la relation 1-n entre les tickets et les ressources.
+-- Table de liaison entre les tickets et les ressources. Elle permet de g√©rer la relation 1-n entre les tickets et les ressources.
 CREATE TABLE GLPI_PROD.TICKET_RESSOURCES (
     fk_ressource INT,
     fk_ticket INT,
@@ -164,10 +164,10 @@ CREATE TABLE GLPI_PROD.TICKET_RESSOURCES (
     FOREIGN KEY (fk_ressource) REFERENCES GLPI_PROD.RESSOURCES(ressource_id),
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id)
 );
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
 
 
--- Table de liaison entre les commentaireset les ressources. Elle permet de gÈrer la relation 1-n entre les commentaires et les ressources.
+-- Table de liaison entre les commentaireset les ressources. Elle permet de g√©rer la relation 1-n entre les commentaires et les ressources.
 CREATE TABLE GLPI_PROD.COMMENT_RESSOURCES (
     fk_ressource INT,
     fk_comment INT,
@@ -175,10 +175,10 @@ CREATE TABLE GLPI_PROD.COMMENT_RESSOURCES (
     FOREIGN KEY (fk_ressource) REFERENCES GLPI_PROD.RESSOURCES(ressource_id),
     FOREIGN KEY (fk_comment) REFERENCES GLPI_PROD.COMMENTS(comment_id)
 );
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
 
 
--- Table de liaison entre les tickets et les users. Elle permet de gÈrer la relation n-n des observateurs des tickets.a
+-- Table de liaison entre les tickets et les users. Elle permet de g√©rer la relation n-n des observateurs des tickets.a
 CREATE TABLE GLPI_PROD.OBSERVERS (
     fk_ticket INT,
     fk_user INT,
@@ -186,10 +186,10 @@ CREATE TABLE GLPI_PROD.OBSERVERS (
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),
     FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)
 );
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
 
 
--- Table de liaison entre les tickets et les users. Elle permet de gÈrer la relation n-n des responsables des tickets.
+-- Table de liaison entre les tickets et les users. Elle permet de g√©rer la relation n-n des responsables des tickets.
 
 CREATE TABLE GLPI_PROD.ASSIGNED_TO (
     fk_ticket INT,
@@ -198,7 +198,7 @@ CREATE TABLE GLPI_PROD.ASSIGNED_TO (
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),
     FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)
 );
--- les <fk_value> sont des INT et correspondent ‡ la valeur de líid de la table correspondante. Ce sont des clÈs ÈtrangËres liÈes ‡ d'autres tables, assurant l'intÈgritÈ rÈfÈrentielle entre les tables.
+-- les <fk_value> sont des INT et correspondent √† la valeur de l‚Äôid de la table correspondante. Ce sont des cl√©s √©trang√®res li√©es √† d'autres tables, assurant l'int√©grit√© r√©f√©rentielle entre les tables.
 
 COMMIT;
 EXIT;
