@@ -38,12 +38,9 @@ CREATE TABLE GLPI_PROD.REF_role (
 
 CREATE TABLE GLPI_PROD.LOCATIONS (
     location_id INT PRIMARY KEY,
-    country VARCHAR2(50),
     city VARCHAR2(50),
-    street VARCHAR2(50),
-    address_number INT,
-    address_complement VARCHAR2(50),
-    "location" VARCHAR2(70)
+    "site" VARCHAR2(50),
+    "location" VARCHAR2(103) UNIQUE -- Concatenation de city + site
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de groupes pour les tickets. 
@@ -60,7 +57,8 @@ CREATE TABLE GLPI_PROD.REF_group (
 
 CREATE TABLE GLPI_PROD.HARDWARES (
     hardware_id INT PRIMARY KEY,
-    "name" VARCHAR2(50),
+    "name" VARCHAR2(50) UNIQUE,
+    "model" VARCHAR2(50),
     brand VARCHAR2(50),
     purchase_date TIMESTAMP
 );
@@ -102,7 +100,7 @@ CREATE TABLE GLPI_PROD.TICKETS (
     fk_type INT,
     fk_priority INT,
     title VARCHAR2(100),
-    description VARCHAR2(2000),
+    "description" VARCHAR2(2000),
     fk_location INT,
     creation_datetime TIMESTAMP,
     last_modification_datetime TIMESTAMP,
@@ -112,7 +110,7 @@ CREATE TABLE GLPI_PROD.TICKETS (
     fk_assigned_group INT,
     fk_status INT,
     fk_category INT,
-    fk_hardwares INT,
+    fk_hardwares INT NULL,
     FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id),
     FOREIGN KEY (fk_type) REFERENCES GLPI_PROD.REF_type(type_id),
     FOREIGN KEY (fk_priority) REFERENCES GLPI_PROD.REF_priority(priority_id),
@@ -137,7 +135,7 @@ CREATE TABLE GLPI_PROD.COMMENTS (
     fk_user INT,
     creation_datetime TIMESTAMP,
     task VARCHAR2(255),
-    content CLOB,
+    "content" CLOB,
     FOREIGN KEY (fk_answer_to) REFERENCES GLPI_PROD.COMMENTS(comment_id),
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),
     FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)
@@ -148,7 +146,6 @@ CREATE TABLE GLPI_PROD.COMMENTS (
 
 
 -- Table qui stocke les ressources disponibles.Les ressources peuvent être des fichiers, des liens, ou d'autres types de documents qui peuvent être associés à des tickets ou des commentaires.
-
 CREATE TABLE GLPI_PROD.RESSOURCES (
     ressource_id INT PRIMARY KEY,
     fk_ticket INT,
@@ -160,7 +157,6 @@ CREATE TABLE GLPI_PROD.RESSOURCES (
 
 
 -- Table de liaison entre les tickets et les ressources. Elle permet de gérer la relation 1-n entre les tickets et les ressources.
-
 CREATE TABLE GLPI_PROD.TICKET_RESSOURCES (
     fk_ressource INT,
     fk_ticket INT,
@@ -172,7 +168,6 @@ CREATE TABLE GLPI_PROD.TICKET_RESSOURCES (
 
 
 -- Table de liaison entre les commentaireset les ressources. Elle permet de gérer la relation 1-n entre les commentaires et les ressources.
-
 CREATE TABLE GLPI_PROD.COMMENT_RESSOURCES (
     fk_ressource INT,
     fk_comment INT,
@@ -184,7 +179,6 @@ CREATE TABLE GLPI_PROD.COMMENT_RESSOURCES (
 
 
 -- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des observateurs des tickets.
-
 CREATE TABLE GLPI_PROD.OBSERVERS (
     fk_ticket INT,
     fk_user INT,

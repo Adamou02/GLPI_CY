@@ -2,7 +2,7 @@
 
 CREATE TABLE GLPI_TEST.REF_priority (
     priority_id INT PRIMARY KEY,
-    "priority" VARCHAR2(10) NOT NULL UNIQUE
+    priority VARCHAR2(10) NOT NULL UNIQUE
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de valeurs pour les statuts du ticket.
@@ -10,40 +10,37 @@ CREATE TABLE GLPI_TEST.REF_priority (
 
 CREATE TABLE GLPI_TEST.REF_status (
     status_id INT PRIMARY KEY,
-    "status" VARCHAR2(50) NOT NULL UNIQUE
+    status VARCHAR2(50) NOT NULL UNIQUE
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de catégories pour les tickets.
  
 CREATE TABLE GLPI_TEST.REF_category (
     category_id INT PRIMARY KEY,
-    "category" VARCHAR2(50) NOT NULL UNIQUE
+    category VARCHAR2(50) NOT NULL UNIQUE
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de types pour les tickets. 
 
 CREATE TABLE GLPI_TEST.REF_type (
     type_id INT PRIMARY KEY,
-    "type" VARCHAR2(50) NOT NULL UNIQUE
+    type VARCHAR2(50) NOT NULL UNIQUE
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de rôles pour les tickets. 
 
 CREATE TABLE GLPI_TEST.REF_role (
     role_id INT PRIMARY KEY,
-    "role" VARCHAR2(50) NOT NULL UNIQUE
+    role VARCHAR2(50) NOT NULL UNIQUE
 );
 
 -- Table qui stocke les détails sur les emplacements physiques associés aux tickets.
 
 CREATE TABLE GLPI_TEST.LOCATIONS (
     location_id INT PRIMARY KEY,
-    country VARCHAR2(50),
     city VARCHAR2(50),
-    street VARCHAR2(50),
-    address_number INT,
-    address_complement VARCHAR2(50),
-    "location" VARCHAR2(70)
+    "site" VARCHAR2(50),
+    "location" VARCHAR2(103) UNIQUE -- Concatenation de city + site
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de groupes pour les tickets. 
@@ -60,7 +57,8 @@ CREATE TABLE GLPI_TEST.REF_group (
 
 CREATE TABLE GLPI_TEST.HARDWARES (
     hardware_id INT PRIMARY KEY,
-    "name" VARCHAR2(50),
+    "name" VARCHAR2(50) UNIQUE,
+    "model" VARCHAR2(50),
     brand VARCHAR2(50),
     purchase_date TIMESTAMP
 );
@@ -102,7 +100,7 @@ CREATE TABLE GLPI_TEST.TICKETS (
     fk_type INT,
     fk_priority INT,
     title VARCHAR2(100),
-    description VARCHAR2(2000),
+    "description" VARCHAR2(2000),
     fk_location INT,
     creation_datetime TIMESTAMP,
     last_modification_datetime TIMESTAMP,
@@ -112,7 +110,7 @@ CREATE TABLE GLPI_TEST.TICKETS (
     fk_assigned_group INT,
     fk_status INT,
     fk_category INT,
-    fk_hardwares INT,
+    fk_hardwares INT NULL,
     FOREIGN KEY (fk_user) REFERENCES GLPI_TEST.USERS(user_id),
     FOREIGN KEY (fk_type) REFERENCES GLPI_TEST.REF_type(type_id),
     FOREIGN KEY (fk_priority) REFERENCES GLPI_TEST.REF_priority(priority_id),
@@ -137,7 +135,7 @@ CREATE TABLE GLPI_TEST.COMMENTS (
     fk_user INT,
     creation_datetime TIMESTAMP,
     task VARCHAR2(255),
-    content CLOB,
+    "content" CLOB,
     FOREIGN KEY (fk_answer_to) REFERENCES GLPI_TEST.COMMENTS(comment_id),
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_TEST.TICKETS(ticket_id),
     FOREIGN KEY (fk_user) REFERENCES GLPI_TEST.USERS(user_id)
@@ -148,7 +146,6 @@ CREATE TABLE GLPI_TEST.COMMENTS (
 
 
 -- Table qui stocke les ressources disponibles.Les ressources peuvent être des fichiers, des liens, ou d'autres types de documents qui peuvent être associés à des tickets ou des commentaires.
-
 CREATE TABLE GLPI_TEST.RESSOURCES (
     ressource_id INT PRIMARY KEY,
     fk_ticket INT,
@@ -160,19 +157,17 @@ CREATE TABLE GLPI_TEST.RESSOURCES (
 
 
 -- Table de liaison entre les tickets et les ressources. Elle permet de gérer la relation 1-n entre les tickets et les ressources.
-
 CREATE TABLE GLPI_TEST.TICKET_RESSOURCES (
     fk_ressource INT,
     fk_ticket INT,
     PRIMARY KEY (fk_ressource, fk_ticket),
-    FOREIGN KEY (fk_ressource) REFERENCES GLPI_TEST.RESSOURCES(ressource_id), -- id de la ressouces correspondante dans la table 
+    FOREIGN KEY (fk_ressource) REFERENCES GLPI_TEST.RESSOURCES(ressource_id),
     FOREIGN KEY (fk_ticket) REFERENCES GLPI_TEST.TICKETS(ticket_id)
 );
 -- les <fk_value> sont des INT et correspondent à la valeur de l’id de la table correspondante. Ce sont des clés étrangères liées à d'autres tables, assurant l'intégrité référentielle entre les tables.
 
 
 -- Table de liaison entre les commentaireset les ressources. Elle permet de gérer la relation 1-n entre les commentaires et les ressources.
-
 CREATE TABLE GLPI_TEST.COMMENT_RESSOURCES (
     fk_ressource INT,
     fk_comment INT,
@@ -183,8 +178,7 @@ CREATE TABLE GLPI_TEST.COMMENT_RESSOURCES (
 -- les <fk_value> sont des INT et correspondent à la valeur de l’id de la table correspondante. Ce sont des clés étrangères liées à d'autres tables, assurant l'intégrité référentielle entre les tables.
 
 
--- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des observateurs des tickets.
-
+-- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des observateurs des tickets.a
 CREATE TABLE GLPI_TEST.OBSERVERS (
     fk_ticket INT,
     fk_user INT,
