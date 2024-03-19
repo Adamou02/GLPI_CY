@@ -48,10 +48,11 @@ GROUP BY REF_category.category;
 
 -- Tickets by Location
 CREATE MATERIALIZED VIEW GLPI_PROD.Tickets_By_Location AS
-SELECT LOCATIONS.location, COUNT(*) AS ticket_count
+SELECT LOCATIONS."location", COUNT(*) AS ticket_count
 FROM GLPI_PROD.TICKETS
 JOIN GLPI_PROD.LOCATIONS ON TICKETS.fk_location = LOCATIONS.location_id
-GROUP BY LOCATIONS.location;
+GROUP BY LOCATIONS."location";
+
 
 -- Ticket Resolution Time
 CREATE MATERIALIZED VIEW GLPI_PROD.Ticket_Resolution_Time AS
