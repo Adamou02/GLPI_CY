@@ -1,7 +1,7 @@
 -- Activation du mode de script Oracle
 ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 
--- vues materialis�e global pour les tickets 
+-- vues materialisï¿½e global pour les tickets 
 CREATE MATERIALIZED VIEW GLPI_TEST.GLOBAL_Ticket
 REFRESH COMPLETE
 START WITH SYSDATE NEXT SYSDATE + INTERVAL '1' MINUTE
@@ -52,10 +52,10 @@ GROUP BY REF_category.category;
 
 -- Tickets by Location
 CREATE MATERIALIZED VIEW GLPI_TEST.Tickets_By_Location AS
-SELECT LOCATIONS.location, COUNT(*) AS ticket_count
+SELECT LOCATIONS."location", COUNT(*) AS ticket_count
 FROM GLPI_TEST.TICKETS
 JOIN GLPI_TEST.LOCATIONS ON TICKETS.fk_location = LOCATIONS.location_id
-GROUP BY LOCATIONS.location;
+GROUP BY LOCATIONS."location";
 
 -- Ticket Resolution Time
 CREATE MATERIALIZED VIEW GLPI_TEST.Ticket_Resolution_Time AS
