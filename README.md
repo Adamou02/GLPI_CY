@@ -1,1 +1,1 @@
-# GLPI_CY
+# GLPI_Project
