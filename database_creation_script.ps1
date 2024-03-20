@@ -19,10 +19,10 @@ $SqlplusPath = (Get-Command sqlplus.exe).Source
 $ScriptDir  = $(if ($psISE) {Split-Path -Path $psISE.CurrentFile.FullPath} else {$(if ($global:PSScriptRoot.Length -gt 0) {$global:PSScriptRoot} else {$global:pwd.Path})})
 $LogFileDirectory = "$($ScriptDir)\log\creation\"
 
-$TAD_PATH = "C:\TAD"
-$GLPI_DB_PROD_PATH = "C:\TAD\GLPI_DB_PROD"
-$GLPI_DB_TEST_PATH = "C:\TAD\GLPI_DB_TEST"
-$GLPI_ROLES_PATH = "C:\TAD\GLPI_ROLES"
+$TAD_PATH = "H:\Documents\Aa - ING 2\PROJECTS\"
+$GLPI_DB_PROD_PATH = "H:\Documents\Aa - ING 2\PROJECTS\GLPI_DB_PROD"
+$GLPI_DB_TEST_PATH = "H:\Documents\Aa - ING 2\PROJECTS\GLPI_DB_TEST"
+$GLPI_ROLES_PATH = "H:\Documents\Aa - ING 2\PROJECTS\GLPI_ROLES"
 
 # Vérifie et crée les dossiers s'ils n'existent pas déjà
 $folders = @($TAD_PATH, $GLPI_DB_PROD_PATH, $GLPI_DB_TEST_PATH, $GLPI_ROLES_PATH)
@@ -60,19 +60,19 @@ $CredentialMapping = @{
 $FileOrder = @(
     "BOTH_databases_creation.sql",
     "PROD_tables_creation.sql",
-    "PROD_seq_and_id_triggers_creation.sql",
+	"PROD_index_creation.sql",
+    "PROD_sequences_creation.sql",
+	"PROD_functions_creation.sql",
+	"PROD_triggers_creation.sql",
     "PROD_insert_in_tables.sql",
     "PROD_views_creation.sql",
-    "PROD_complex_trigger_and_procedure_creation.sql",
-    "PROD_index_creation.sql",
     "TEST_tables_creation.sql",
-    "TEST_seq_and_id_triggers_creation.sql",
+	"TEST_index_creation.sql",
+    "TEST_sequences_creation.sql",
+	"TEST_functions_creation.sql",
+	"TEST_triggers_creation.sql",
     "TEST_insert_in_tables.sql",
     "TEST_views_creation.sql",
-    "TEST_complex_trigger_and_procedure_creation.sql",
-    "TEST_index_creation.sql",
-    "BOTH_roles_creation.sql"
-    "BOTH_users_creation.sql"
 )
 
 # Parcourir et exécuter chaque fichier SQL dans l'ordre spécifié

@@ -43,12 +43,13 @@ $CredentialMapping = @{
 # Définir l'ordre des fichiers de suppression (drop) à exécuter
 $DropFileOrder = @(
     "BOTH_drop_tables.sql",
-    "BOTH_drop_seq_and_id_triggers.sql",
+    "BOTH_drop_triggers.sql",
+	"BOTH_drop_sequences.sql",
+	"BOTH_drop_functions.sql",
     "BOTH_drop_index.sql",
     "BOTH_drop_roles.sql",
     "BOTH_drop_views.sql",
     "BOTH_drop_users.sql"
-
 )
 
 # Parcourir et exécuter chaque fichier de suppression (drop) SQL dans l'ordre spécifié
