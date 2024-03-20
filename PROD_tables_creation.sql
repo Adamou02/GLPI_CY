@@ -1,66 +1,66 @@
 -- CREATION DES TABLES
--- Les colonnes qui sont entre guillemets, le sont pour qu’Oracle ne la confonde pas avec des mots potentiellement réservées
+-- Les colonnes qui sont entre guillemets, le sont pour quâ€™Oracle ne la confonde pas avec des mots potentiellement rÃ©servÃ©es
 
 
--- Table de référence contient une liste prédéfinie de valeurs pour les priorités des commentaires. Elle garantit la cohérence dans le niveau de priorité attribué à un commentaire. 
+-- Table de rÃ©fÃ©rence contient une liste prÃ©dÃ©finie de valeurs pour les prioritÃ©s des commentaires. Elle garantit la cohÃ©rence dans le niveau de prioritÃ© attribuÃ© Ã  un commentaire. 
 CREATE TABLE GLPI_PROD.REF_priority (
-    priority_id INT PRIMARY KEY,  -- Identifiant unique de la priorité
-    "priority" VARCHAR2(10) NOT NULL UNIQUE  -- Valeur de la priorité, unique et non nullable
+    priority_id INT PRIMARY KEY,  -- Identifiant unique de la prioritÃ©
+    "priority" VARCHAR2(10) NOT NULL UNIQUE  -- Valeur de la prioritÃ©, unique et non nullable
 );
 
--- Table de référence qui permet de définir une liste prédéfinie de valeurs pour les statuts du ticket.
+-- Table de rÃ©fÃ©rence qui permet de dÃ©finir une liste prÃ©dÃ©finie de valeurs pour les statuts du ticket.
 CREATE TABLE GLPI_PROD.REF_status (
     status_id INT PRIMARY KEY,  -- Identifiant unique du statut
     status VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du statut, unique et non nullable
 );
 
--- Table de référence qui permet de définir une liste prédéfinie de catégories pour les tickets.
+-- Table de rÃ©fÃ©rence qui permet de dÃ©finir une liste prÃ©dÃ©finie de catÃ©gories pour les tickets.
 CREATE TABLE GLPI_PROD.REF_category (
-    category_id INT PRIMARY KEY,  -- Identifiant unique de la catégorie
-    "category" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur de la catégorie, unique et non nullable
+    category_id INT PRIMARY KEY,  -- Identifiant unique de la catÃ©gorie
+    "category" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur de la catÃ©gorie, unique et non nullable
 );
 
--- Table de référence qui permet de définir une liste prédéfinie de types pour les tickets. 
+-- Table de rÃ©fÃ©rence qui permet de dÃ©finir une liste prÃ©dÃ©finie de types pour les tickets. 
 CREATE TABLE GLPI_PROD.REF_type (
     type_id INT PRIMARY KEY,  -- Identifiant unique du type
     "type" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du type, unique et non nullable
 );
 
--- Table de référence qui permet de définir une liste prédéfinie de rôles pour les tickets. 
+-- Table de rÃ©fÃ©rence qui permet de dÃ©finir une liste prÃ©dÃ©finie de rÃ´les pour les tickets. 
 CREATE TABLE GLPI_PROD.REF_role (
-    role_id INT PRIMARY KEY,  -- Identifiant unique du rôle
-    "role" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du rôle, unique et non nullable
+    role_id INT PRIMARY KEY,  -- Identifiant unique du rÃ´le
+    "role" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du rÃ´le, unique et non nullable
 );
 
--- Table qui stocke les détails sur les emplacements physiques associés aux tickets.
+-- Table qui stocke les dÃ©tails sur les emplacements physiques associÃ©s aux tickets.
 CREATE TABLE GLPI_PROD.LOCATIONS (
     location_id INT PRIMARY KEY,  -- Identifiant unique de l'emplacement
     city VARCHAR2(50),  -- Ville de l'emplacement
     "site" VARCHAR2(50),  -- Site de l'emplacement
-    "location" VARCHAR2(103) UNIQUE  -- Concaténation de city + site, unique
+    "location" VARCHAR2(103) UNIQUE  -- ConcatÃ©nation de city + site, unique
 );
 
--- Table de référence qui permet de définir une liste prédéfinie de groupes pour les tickets. 
+-- Table de rÃ©fÃ©rence qui permet de dÃ©finir une liste prÃ©dÃ©finie de groupes pour les tickets. 
 CREATE TABLE GLPI_PROD.REF_group (
     "group_id" INT PRIMARY KEY,  -- Identifiant unique du groupe
-    "group" VARCHAR2(50)  -- Nom du groupe, entre guillemets pour éviter les conflits de nom
+    "group" VARCHAR2(50)  -- Nom du groupe, entre guillemets pour Ã©viter les conflits de nom
 );
 
---  Table qui stocke les détails sur le matériel concerné par les tickets.
+--  Table qui stocke les dÃ©tails sur le matÃ©riel concernÃ© par les tickets.
 CREATE TABLE GLPI_PROD.HARDWARES (
-    hardware_id INT PRIMARY KEY,  -- Identifiant unique du matériel
-    "name" VARCHAR2(50) UNIQUE,  -- Nom du matériel, unique
-    "model" VARCHAR2(50),  -- Modèle du matériel
-    brand VARCHAR2(50),  -- Marque du matériel
-    purchase_date TIMESTAMP  -- Date d'achat du matériel
+    hardware_id INT PRIMARY KEY,  -- Identifiant unique du matÃ©riel
+    "name" VARCHAR2(50) UNIQUE,  -- Nom du matÃ©riel, unique
+    "model" VARCHAR2(50),  -- ModÃ¨le du matÃ©riel
+    brand VARCHAR2(50),  -- Marque du matÃ©riel
+    purchase_date TIMESTAMP  -- Date d'achat du matÃ©riel
 );
 
--- Table qui stocke les informations sur les utilisateurs de l’outil de ticketing
+-- Table qui stocke les informations sur les utilisateurs de lâ€™outil de ticketing
 CREATE TABLE GLPI_PROD.USERS (
     user_id INT PRIMARY KEY,  -- Identifiant unique de l'utilisateur
-    fk_role INT,  -- Clé étrangère vers le role de l'utilisateur
-    fk_group INT,  -- Clé étrangère vers le groupe de l'utilisateur
-    "password" VARCHAR2(255) NOT NULL -- Mot de passe de l'utilisateur, contraintes appliquées
+    fk_role INT,  -- ClÃ© Ã©trangÃ¨re vers le role de l'utilisateur
+    fk_group INT,  -- ClÃ© Ã©trangÃ¨re vers le groupe de l'utilisateur
+    "password" VARCHAR2(255) NOT NULL -- Mot de passe de l'utilisateur, contraintes appliquÃ©es
     CHECK ( 
         LENGTH("password") >= 14
         AND REGEXP_LIKE("password", '[0-9]')
@@ -68,102 +68,102 @@ CREATE TABLE GLPI_PROD.USERS (
         AND REGEXP_LIKE("password", '[a-z]')
         AND REGEXP_LIKE("password", '[[:punct:]]')
     ),
-    email VARCHAR2(50) NOT NULL UNIQUE -- Adresse email de l'utilisateur, contraintes appliquées
+    email VARCHAR2(50) NOT NULL UNIQUE -- Adresse email de l'utilisateur, contraintes appliquÃ©es
         CHECK(REGEXP_LIKE(email, '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')),
     last_name VARCHAR2(50),  -- Nom de famille de l'utilisateur
-    first_name VARCHAR2(50),  -- Prénom de l'utilisateur
+    first_name VARCHAR2(50),  -- PrÃ©nom de l'utilisateur
     company VARCHAR2(50),  -- Nom de l'entreprise de l'utilisateur
-    fk_location INT,  -- Clé étrangère vers l'emplacement de l'utilisateur
-    FOREIGN KEY (fk_role) REFERENCES GLPI_PROD.REF_role(role_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_group) REFERENCES GLPI_PROD.REF_group("group_id"),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id)  -- Contrainte de clé étrangère
+    fk_location INT,  -- ClÃ© Ã©trangÃ¨re vers l'emplacement de l'utilisateur
+    FOREIGN KEY (fk_role) REFERENCES GLPI_PROD.REF_role(role_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_group) REFERENCES GLPI_PROD.REF_group("group_id"),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
--- C'est la table principale qui contient les détails de chaque ticket de support.
+-- C'est la table principale qui contient les dÃ©tails de chaque ticket de support.
 CREATE TABLE GLPI_PROD.TICKETS (
     ticket_id INT PRIMARY KEY,  -- Identifiant unique du ticket
-    fk_created_by_user INT,  -- Clé étrangère vers l'utilisateur qui a creé le ticket
-    fk_type INT,  -- Clé étrangère vers le type de ticket
-    fk_priority INT,  -- Clé étrangère vers la priorité du ticket
+    fk_created_by INT,  -- ClÃ© Ã©trangÃ¨re vers l'utilisateur qui a creÃ© le ticket
+    fk_type INT,  -- ClÃ© Ã©trangÃ¨re vers le type de ticket
+    fk_priority INT,  -- ClÃ© Ã©trangÃ¨re vers la prioritÃ© du ticket
     title VARCHAR2(100),  -- Titre du ticket
     "description" VARCHAR2(2000),  -- Description du ticket
-    fk_location INT,  -- Clé étrangère vers l'emplacement du ticket
-    creation_datetime TIMESTAMP,  -- Date et heure de création du ticket
-    last_modification_datetime TIMESTAMP,  -- Date et heure de derniére modification du ticket
-    resolution_datetime TIMESTAMP,  -- Date et heure de résolution du ticket
-    resolution_note VARCHAR2(2000),  -- Note de résolution du ticket
-    closing_datetime TIMESTAMP,  -- Date et heure de clôture du ticket
-    fk_assigned_group INT,  -- Clé étrangère vers le groupe assigné au ticket
-    fk_status INT, -- Clé étrangère vers le statut du ticket
-    fk_category INT,  -- Clé étrangère vers la catégorie du ticket
-    fk_hardwares INT NULL,  -- Clé étrangère vers le matériel associé au ticket (peut être NULL)
-    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_type) REFERENCES GLPI_PROD.REF_type(type_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_priority) REFERENCES GLPI_PROD.REF_priority(priority_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_assigned_group) REFERENCES GLPI_PROD.REF_group("group_id"),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_status) REFERENCES GLPI_PROD.REF_status(status_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_category) REFERENCES GLPI_PROD.REF_category(category_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_hardwares) REFERENCES GLPI_PROD.HARDWARES(hardware_id)  -- Contrainte de clé étrangère
+    fk_location INT,  -- ClÃ© Ã©trangÃ¨re vers l'emplacement du ticket
+    creation_datetime TIMESTAMP,  -- Date et heure de crÃ©ation du ticket
+    last_modification_datetime TIMESTAMP,  -- Date et heure de derniÃ©re modification du ticket
+    resolution_datetime TIMESTAMP,  -- Date et heure de rÃ©solution du ticket
+    resolution_note VARCHAR2(2000),  -- Note de rÃ©solution du ticket
+    closing_datetime TIMESTAMP,  -- Date et heure de clÃ´ture du ticket
+    fk_assigned_group INT,  -- ClÃ© Ã©trangÃ¨re vers le groupe assignÃ© au ticket
+    fk_status INT, -- ClÃ© Ã©trangÃ¨re vers le statut du ticket
+    fk_category INT,  -- ClÃ© Ã©trangÃ¨re vers la catÃ©gorie du ticket
+    fk_hardwares INT NULL,  -- ClÃ© Ã©trangÃ¨re vers le matÃ©riel associÃ© au ticket (peut Ãªtre NULL)
+    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_type) REFERENCES GLPI_PROD.REF_type(type_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_priority) REFERENCES GLPI_PROD.REF_priority(priority_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_assigned_group) REFERENCES GLPI_PROD.REF_group("group_id"),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_status) REFERENCES GLPI_PROD.REF_status(status_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_category) REFERENCES GLPI_PROD.REF_category(category_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_hardwares) REFERENCES GLPI_PROD.HARDWARES(hardware_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
--- CLOB (Character Large Object) permet de stocker des string de plus de 4000 caractères. Cela est nécessaire pour nos images stockées en base64.
+-- CLOB (Character Large Object) permet de stocker des string de plus de 4000 caractÃ¨res. Cela est nÃ©cessaire pour nos images stockÃ©es en base64.
 
--- Table stocke les commentaires associés à chaque ticket.
+-- Table stocke les commentaires associÃ©s Ã  chaque ticket.
 CREATE TABLE GLPI_PROD.COMMENTS (
     comment_id INT PRIMARY KEY,  -- Identifiant unique du commentaire
-    fk_answer_to INT,  -- Clé étrangère vers le commentaire auquel il répond (peut être NULL)
-    fk_ticket INT,  -- Clé étrangère vers le ticket associé au commentaire
-    fk_user INT,  -- Clé étrangère vers l'utilisateur ayant posté le commentaire
-    creation_datetime TIMESTAMP,  -- Date et heure de création du commentaire
-    task VARCHAR2(255),  -- Tâche liée au commentaire
+    fk_answer_to INT,  -- ClÃ© Ã©trangÃ¨re vers le commentaire auquel il rÃ©pond (peut Ãªtre NULL)
+    fk_ticket INT,  -- ClÃ© Ã©trangÃ¨re vers le ticket associÃ© au commentaire
+    fk_user INT,  -- ClÃ© Ã©trangÃ¨re vers l'utilisateur ayant postÃ© le commentaire
+    creation_datetime TIMESTAMP,  -- Date et heure de crÃ©ation du commentaire
+    task VARCHAR2(255),  -- TÃ¢che liÃ©e au commentaire
     "content" CLOB,  -- Contenu du commentaire
-    FOREIGN KEY (fk_answer_to) REFERENCES GLPI_PROD.COMMENTS(comment_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_answer_to) REFERENCES GLPI_PROD.COMMENTS(comment_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
--- Table qui stocke les ressources disponibles.Les ressources peuvent être des fichiers, des liens, ou d'autres types de documents qui peuvent être associés à des tickets ou des commentaires.
+-- Table qui stocke les ressources disponibles.Les ressources peuvent Ãªtre des fichiers, des liens, ou d'autres types de documents qui peuvent Ãªtre associÃ©s Ã  des tickets ou des commentaires.
 CREATE TABLE GLPI_PROD.RESSOURCES (
     ressource_id INT PRIMARY KEY,  -- Identifiant unique de la ressource
-    fk_ticket INT,  -- Clé étrangère vers le ticket associé é la ressource
+    fk_ticket INT,  -- ClÃ© Ã©trangÃ¨re vers le ticket associÃ© Ã© la ressource
     ressource CLOB,  -- Contenu de la ressource
-    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id)  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
--- Table de liaison entre les tickets et les ressources. Elle permet de gérer la relation 1-n entre les tickets et les ressources.
+-- Table de liaison entre les tickets et les ressources. Elle permet de gÃ©rer la relation 1-n entre les tickets et les ressources.
 CREATE TABLE GLPI_PROD.TICKET_RESSOURCES (
-    fk_ressource INT,  -- Clé étrangère vers la ressource
-    fk_ticket INT,  -- Clé étrangère vers le ticket
-    PRIMARY KEY (fk_ressource, fk_ticket),  -- Clé primaire composée
-    FOREIGN KEY (fk_ressource) REFERENCES GLPI_PROD.RESSOURCES(ressource_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id)  -- Contrainte de clé étrangère
+    fk_ressource INT,  -- ClÃ© Ã©trangÃ¨re vers la ressource
+    fk_ticket INT,  -- ClÃ© Ã©trangÃ¨re vers le ticket
+    PRIMARY KEY (fk_ressource, fk_ticket),  -- ClÃ© primaire composÃ©e
+    FOREIGN KEY (fk_ressource) REFERENCES GLPI_PROD.RESSOURCES(ressource_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
--- Table de liaison entre les commentaireset les ressources. Elle permet de gérer la relation 1-n entre les commentaires et les ressources.
+-- Table de liaison entre les commentaireset les ressources. Elle permet de gÃ©rer la relation 1-n entre les commentaires et les ressources.
 CREATE TABLE GLPI_PROD.COMMENT_RESSOURCES (
-    fk_ressource INT,  -- Clé étrangère vers la ressource
-    fk_comment INT,  -- Clé étrangère vers le commentaire
-    PRIMARY KEY (fk_ressource, fk_comment),  -- Clé primaire composée
-    FOREIGN KEY (fk_ressource) REFERENCES GLPI_PROD.RESSOURCES(ressource_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_comment) REFERENCES GLPI_PROD.COMMENTS(comment_id)  -- Contrainte de clé étrangère
+    fk_ressource INT,  -- ClÃ© Ã©trangÃ¨re vers la ressource
+    fk_comment INT,  -- ClÃ© Ã©trangÃ¨re vers le commentaire
+    PRIMARY KEY (fk_ressource, fk_comment),  -- ClÃ© primaire composÃ©e
+    FOREIGN KEY (fk_ressource) REFERENCES GLPI_PROD.RESSOURCES(ressource_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_comment) REFERENCES GLPI_PROD.COMMENTS(comment_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
--- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des observateurs des tickets.a
+-- Table de liaison entre les tickets et les users. Elle permet de gÃ©rer la relation n-n des observateurs des tickets.a
 CREATE TABLE GLPI_PROD.OBSERVERS (
-    fk_ticket INT,  -- Clé étrangère vers le ticket
-    fk_user INT,  -- Clé étrangère vers l'utilisateur (observateur)
-    PRIMARY KEY (fk_ticket, fk_user),  -- Clé primaire composée
-    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)  -- Contrainte de clé étrangère
+    fk_ticket INT,  -- ClÃ© Ã©trangÃ¨re vers le ticket
+    fk_user INT,  -- ClÃ© Ã©trangÃ¨re vers l'utilisateur (observateur)
+    PRIMARY KEY (fk_ticket, fk_user),  -- ClÃ© primaire composÃ©e
+    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
--- Table de liaison entre les tickets et les users. Elle permet de gérer la relation n-n des responsables des tickets.
+-- Table de liaison entre les tickets et les users. Elle permet de gÃ©rer la relation n-n des responsables des tickets.
 CREATE TABLE GLPI_PROD.ASSIGNED_TO (
-    fk_ticket INT,  -- Clé étrangère vers le ticket
-    fk_user INT,  -- Clé étrangère vers l'utilisateur (responsable)
-    PRIMARY KEY (fk_ticket, fk_user),  -- Clé primaire composée
-    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)  -- Contrainte de clé étrangère
+    fk_ticket INT,  -- ClÃ© Ã©trangÃ¨re vers le ticket
+    fk_user INT,  -- ClÃ© Ã©trangÃ¨re vers l'utilisateur (responsable)
+    PRIMARY KEY (fk_ticket, fk_user),  -- ClÃ© primaire composÃ©e
+    FOREIGN KEY (fk_ticket) REFERENCES GLPI_PROD.TICKETS(ticket_id),  -- Contrainte de clÃ© Ã©trangÃ¨re
+    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id)  -- Contrainte de clÃ© Ã©trangÃ¨re
 );
 
 COMMIT;
