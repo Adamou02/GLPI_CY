@@ -1,5 +1,5 @@
 -- Fonction qui vérifie la précense de la clef dans une table passer en parametre (pour vérifier les dépendance avant insert)
-CREATE OR REPLACE FUNCTION GLPI_PROD.CHECK_DEPENDENCY(p_value IN VARCHAR2, p_column_name IN VARCHAR2, p_table_name IN VARCHAR2)
+CREATE OR REPLACE FUNCTION GLPI_PROD.CHECK_VALUE_EXIST(p_value IN VARCHAR2, p_column_name IN VARCHAR2, p_table_name IN VARCHAR2)
 RETURN BOOLEAN
 IS v_count NUMBER;
 BEGIN
