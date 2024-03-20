@@ -97,7 +97,7 @@ CREATE TABLE GLPI_PROD.TICKETS (
     fk_status INT, -- Clé étrangère vers le statut du ticket
     fk_category INT,  -- Clé étrangère vers la catégorie du ticket
     fk_hardwares INT NULL,  -- Clé étrangère vers le matériel associé au ticket (peut être NULL)
-    FOREIGN KEY (fk_user) REFERENCES GLPI_PROD.USERS(user_id),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_created_by) REFERENCES GLPI_PROD.USERS(user_id),  -- Contrainte de clé étrangère
     FOREIGN KEY (fk_type) REFERENCES GLPI_PROD.REF_type(type_id),  -- Contrainte de clé étrangère
     FOREIGN KEY (fk_priority) REFERENCES GLPI_PROD.REF_priority(priority_id),  -- Contrainte de clé étrangère
     FOREIGN KEY (fk_location) REFERENCES GLPI_PROD.LOCATIONS(location_id),  -- Contrainte de clé étrangère
