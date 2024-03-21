@@ -1,7 +1,7 @@
 {
     "Both": {
       "Username": "system",
-      "Password": "dbadmin"
+      "Password": "root"
     },
     "Prod": {
       "Username": "GLPI_PROD",
