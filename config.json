@@ -1,0 +1,15 @@
+{
+    "Both": {
+      "Username": "system",
+      "Password": "dbadmin"
+    },
+    "CERGY": {
+      "Username": "GLPI_CERGY",
+      "Password": "GLPI_CERGY_PASSWORD"
+    },
+    "PAU": {
+      "Username": "GLPI_PAU",
+      "Password": "GLPI_PAU_PASSWORD"
+    }
+  }
+  
