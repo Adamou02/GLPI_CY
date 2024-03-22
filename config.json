@@ -1,0 +1,15 @@
+{
+    "Both": {
+      "Username": "system",
+      "Password": "dbadmin"
+    },
+    "Prod": {
+      "Username": "GLPI_PROD",
+      "Password": "GLPI_PROD_PASSWORD"
+    },
+    "Test": {
+      "Username": "GLPI_TEST",
+      "Password": "GLPI_TEST_PASSWORD"
+    }
+  }
+  

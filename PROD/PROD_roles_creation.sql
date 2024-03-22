@@ -1,0 +1,85 @@
+ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
+
+-------------------------
+-- GLPI_CERGY_OBSERVER --
+-------------------------
+CREATE ROLE GLPI_CERGY_OBSERVER;
+
+--Droit en select sur toutes les vues
+DECLARE
+  v_sql VARCHAR2(2000);
+BEGIN
+  FOR v IN (SELECT view_name FROM all_views WHERE owner = 'GLPI_PROD') LOOP
+    v_sql := 'GRANT SELECT ON GLPI_PROD.' || v.view_name || ' TO GLPI_CERGY_OBSERVER';
+    EXECUTE IMMEDIATE v_sql;
+  END LOOP;
+END;
+/
+
+------------------------
+-- GLPI_CERGY_ANALYST --
+------------------------
+CREATE ROLE GLPI_CERGY_ANALYST;
+GRANT GLPI_CERGY_OBSERVER TO GLPI_CERGY_ANALYST;
+
+--Droit en select sur toutes les tables
+DECLARE
+  v_sql VARCHAR2(2000);
+BEGIN
+  FOR tbl IN (SELECT table_name FROM all_tables WHERE owner = 'GLPI_PROD') LOOP
+    v_sql := 'GRANT SELECT ON GLPI_PROD.' || tbl.table_name || ' TO GLPI_CERGY_ANALYST';
+    EXECUTE IMMEDIATE v_sql;
+  END LOOP;
+END;
+/
+
+-- Attribution droits sur table pour analyst
+GRANT UPDATE ON GLPI_PROD.TICKETS TO GLPI_CERGY_ANALYST;
+GRANT UPDATE ON GLPI_PROD.COMMENTS TO GLPI_CERGY_ANALYST;
+
+--------------------
+-- GLPI_CERGY_DEV --
+--------------------
+CREATE ROLE GLPI_CERGY_DEV;
+GRANT GLPI_CERGY_ANALYST TO GLPI_CERGY_DEV;
+
+-- Attribution de tous les droits sur les tables pour le dev
+DECLARE
+  v_sql VARCHAR2(2000);
+BEGIN
+  FOR v IN (SELECT view_name FROM all_views WHERE owner = 'GLPI_PROD') LOOP
+    v_sql := 'GRANT ALL PRIVILEGES ON GLPI_PROD.' || v.view_name || ' TO GLPI_CERGY_DEV';
+    EXECUTE IMMEDIATE v_sql;
+  END LOOP;
+END;
+/
+
+-- Tous les droits sur toutes les vues
+DECLARE
+  v_sql VARCHAR2(2000);
+BEGIN
+  FOR v IN (SELECT view_name FROM all_views WHERE owner = 'GLPI_PROD') LOOP
+    v_sql := 'GRANT ALL PRIVILEGES ON GLPI_PROD.' || v.view_name || ' TO GLPI_CERGY_DEV';
+    EXECUTE IMMEDIATE v_sql;
+  END LOOP;
+END;
+/
+
+
+
+-- GLPI_CERGY_ADMIN
+CREATE ROLE GLPI_CERGY_ADMIN;
+
+GRANT GLPI_CERGY_DEV TO GLPI_CERGY_ADMIN
+GRANT ALL PRIVILEGES ON SCHEMA GLPI_PROD TO GLPI_CERGY_ADMIN;
+
+
+GRANT CONNECT, CREATE SESSION TO GLPI_CERGY_OBSERVER;
+GRANT CONNECT, CREATE SESSION TO GLPI_CERGY_ANALYST;
+GRANT CONNECT, CREATE SESSION TO GLPI_CERGY_DEV;
+GRANT CONNECT, CREATE SESSION TO GLPI_CERGY_ADMIN;
+
+COMMIT;
+exit;
+
+
