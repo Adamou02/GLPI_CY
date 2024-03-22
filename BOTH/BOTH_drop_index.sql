@@ -18,6 +18,8 @@ DROP INDEX GLPI_CERGY.idx_comments_user_creation_date;
 DROP INDEX GLPI_CERGY.idx_users_role_company;
 DROP INDEX GLPI_CERGY.idx_users_group_company;
 DROP INDEX GLPI_CERGY.idx_users_location_company;
+DROP INDEX GLPI_CERGY.idx_user_cluster;
+DROP INDEX GLPI_CERGY.idx_ticket_cluster;
 
 
 DROP INDEX GLPI_PAU.idx_tickets_fk_user;
@@ -40,5 +42,8 @@ DROP INDEX GLPI_PAU.idx_comments_user_creation_date;
 DROP INDEX GLPI_PAU.idx_users_role_company;
 DROP INDEX GLPI_PAU.idx_users_group_company;
 DROP INDEX GLPI_PAU.idx_users_location_company;
+DROP INDEX GLPI_PAU.idx_user_cluster;
+DROP INDEX GLPI_PAU.idx_user_cluster;
+DROP INDEX GLPI_PAU.idx_ticket_cluster;
 COMMIT;
 exit;

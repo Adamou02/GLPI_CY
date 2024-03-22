@@ -1,20 +1,20 @@
 ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 
 -- Création de l'utilisateur admin
-CREATE USER glpi_CERGY_cergy_admin IDENTIFIED BY your_password;
-GRANT GLPI_CERGY_ADMIN TO glpi_CERGY_cergy_admin;
+CREATE USER GLPI_CERGY_ADMIN1 IDENTIFIED BY your_password;
+GRANT GLPI_CERGY_ADMIN TO GLPI_CERGY_ADMIN1;
 
 -- Création de l'utilisateur dev
-CREATE USER glpi_CERGY_cergy_dev IDENTIFIED BY your_password;
-GRANT GLPI_CERGY_DEV TO glpi_CERGY_cergy_dev;
+CREATE USER GLPI_CERGY_DEV1 IDENTIFIED BY your_password;
+GRANT GLPI_CERGY_DEV TO GLPI_CERGY_DEV1;
 
 -- Création de l'utilisateur analyst
-CREATE USER glpi_CERGY_cergy_analyst IDENTIFIED BY your_password;
-GRANT GLPI_CERGY_ANALYST TO glpi_CERGY_cergy_analyst;
+CREATE USER GLPI_CERGY_ANALYST1 IDENTIFIED BY your_password;
+GRANT GLPI_CERGY_ANALYST TO GLPI_CERGY_ANALYST1;
 
 -- Création de l'utilisateur observer
-CREATE USER glpi_CERGY_cergy_observer IDENTIFIED BY your_password;
-GRANT GLPI_CERGY_OBSERVER TO glpi_CERGY_cergy_observer;
+CREATE USER GLPI_CERGY_OBSERVER1 IDENTIFIED BY your_password;
+GRANT GLPI_CERGY_OBSERVER TO GLPI_CERGY_OBSERVER1;
 
 
 COMMIT;

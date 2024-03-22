@@ -2,7 +2,7 @@
 
 -- Cet index peut amï¿½liorer les performances des requï¿½tes qui filtrent les tickets par utilisateur. 
 -- Par exemple, lors de la recherche de tous les tickets attribuï¿½s ï¿½ un utilisateur spï¿½cifique.
-CREATE INDEX GLPI_PAU.idx_tickets_fk_user ON GLPI_PAU.TICKETS(fk_user);
+CREATE INDEX GLPI_PAU.idx_tickets_fk_created_by ON GLPI_PAU.TICKETS(fk_created_by);
 
 -- Cet index peut accï¿½lï¿½rer les requï¿½tes qui impliquent le tri ou le filtrage par date de crï¿½ation des tickets.
 CREATE INDEX GLPI_PAU.idx_tickets_creation_date ON GLPI_PAU.TICKETS(creation_datetime);
@@ -32,6 +32,13 @@ CREATE INDEX GLPI_PAU.idx_comments_fk_ticket ON GLPI_PAU.COMMENTS(fk_ticket);
 CREATE INDEX GLPI_PAU.idx_comments_fk_user ON GLPI_PAU.COMMENTS(fk_user);
 
 
+
+-- Création d'index sur les clusters pour améliorer les performances globales des requêtes impliquant des opérations sur les données regroupées dans ces clusters.
+
+-- Index sur le cluster des utilisateurs pour améliorer les performances des requêtes courantes impliquant des opérations sur les utilisateurs.
+CREATE INDEX GLPI_PAU.idx_user_cluster ON CLUSTER GLPI_PAU.user_cluster;
+-- Index sur le cluster des tickets pour améliorer les performances des requêtes courantes impliquant des opérations sur les tickets
+CREATE INDEX GLPI_PAU.idx_ticket_cluster ON CLUSTER GLPI_PAU.ticket_cluster;
 
 -- Creation d'index Bitmap pour les colonnes ï¿½ faible valeurs distinctes. Cela nous permet de faire des opï¿½rations de filtrage sur ces tables.
 

@@ -1,20 +1,20 @@
 ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 
 -- Création de l'utilisateur admin
-CREATE USER glpi_PAU_pau_admin IDENTIFIED BY your_password;
-GRANT GLPI_PAU_ADMIN TO glpi_PAU_pau_admin;
+CREATE USER GLPI_PAU_ADMIN1 IDENTIFIED BY your_password;
+GRANT GLPI_PAU_ADMIN TO GLPI_PAU_ADMIN1;
 
 -- Création de l'utilisateur dev
-CREATE USER glpi_PAU_pau_dev IDENTIFIED BY your_password;
-GRANT GLPI_PAU_DEV TO glpi_PAU_pau_dev;
+CREATE USER GLPI_PAU_DEV1 IDENTIFIED BY your_password;
+GRANT GLPI_PAU_DEV TO GLPI_PAU_DEV1;
 
 -- Création de l'utilisateur analyst
-CREATE USER glpi_PAU_pau_analyst IDENTIFIED BY your_password;
-GRANT GLPI_PAU_ANALYST TO glpi_PAU_pau_analyst;
+CREATE USER GLPI_PAU_ANALYST1 IDENTIFIED BY your_password;
+GRANT GLPI_PAU_ANALYST TO GLPI_PAU_ANALYST1;
 
 -- Création de l'utilisateur observer
-CREATE USER glpi_PAU_pau_observer IDENTIFIED BY your_password;
-GRANT GLPI_PAU_OBSERVER TO glpi_PAU_pau_observer;
+CREATE USER GLPI_PAU_OBSERVER1 IDENTIFIED BY your_password;
+GRANT GLPI_PAU_OBSERVER TO GLPI_PAU_OBSERVER1;
 
 
 COMMIT;

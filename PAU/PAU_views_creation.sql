@@ -2,50 +2,76 @@ ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 
 
 CREATE MATERIALIZED VIEW GLPI_PAU.GLOBAL_Ticket
-REFRESH COMPLETE
-START WITH SYSDATE NEXT SYSDATE + INTERVAL '1' MINUTE
 AS
-SELECT TICKETS.ticket_id, 
-       USERS.last_name || ' ' || USERS.first_name AS created_by,
-       USERS.email AS created_by_user_email,
-       ASSIGNED_USERS.last_name || ' ' || ASSIGNED_USERS.first_name AS assigned_to,
-       ASSIGNED_USERS.email AS assigned_to_user_email,
-       REF_TYPE."type" AS type,
-       REF_priority."priority" AS Priority,
-       TICKETS."description",
-       LOCATIONS."location" as location,
-       TICKETS.creation_datetime,
-       TICKETS.last_modification_datetime,
-       TICKETS.resolution_datetime,
-       TICKETS.resolution_note,
-       TICKETS.closing_datetime,
-       REF_status.status AS STATUS,
-       REF_category."category" AS CATEGORY,
-       HARDWARES."name" || ', ' || HARDWARES."model" || ', ' || HARDWARES.brand || ', ' || TO_CHAR(HARDWARES.purchase_date, 'DD-MON-YYYY') AS hardwares,
-       REF_GROUP."group" AS assigned_group,
-       LAST_COMMENT_1."content" AS "Last Comment 1",
-       LAST_COMMENT_2."content" AS "Last Comment 2"
-FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.USERS ON TICKETS.fk_created_by = USERS.user_id
-JOIN GLPI_PAU.REF_priority ON TICKETS.fk_priority = GLPI_PAU.REF_priority.priority_id
-JOIN GLPI_PAU.REF_TYPE ON TICKETS.fk_type = GLPI_PAU.REF_TYPE.type_id      
-JOIN GLPI_PAU.LOCATIONS ON TICKETS.fk_location = GLPI_PAU.LOCATIONS.location_id
-JOIN GLPI_PAU.REF_category ON TICKETS.fk_category = GLPI_PAU.REF_category.category_id
-JOIN GLPI_PAU.REF_status ON TICKETS.fk_status = GLPI_PAU.REF_status.status_id
+SELECT
+    T.ticket_id,
+    C_BY_U.last_name || ' ' || C_BY_U.first_name AS created_by,
+    C_BY_U.email AS created_by_user_email,
+    ASS_U.assigned_to AS assigned_to,
+    ASS_U.assigned_to_user_email AS assigned_to_user_email,
+    OBS.observers AS observers,
+    OBS.observers_user_email AS observers_user_email,
+    REF_T."type" AS type,
+    REF_P."priority" AS priority,
+    T."description",
+    L."location" as location,
+    T.creation_datetime,
+    T.last_modification_datetime,
+    T.resolution_datetime,
+    T.resolution_note,
+    T.closing_datetime,
+    REF_S.status AS status,
+    REF_C."category" AS category,
+    H."name" || ', ' || H."model" || ', ' || H.brand || ', ' || TO_CHAR(H.purchase_date, 'DD-MON-YYYY') AS hardware,
+    REF_G."group" AS assigned_group,
+    LC1.comment_id AS "Last Comment id",
+    LC1."content" AS "Last Comment",
+    LC2.comment_id AS "Second Last Comment id",
+    LC2."content" AS "Second Last Comment"
+FROM GLPI_PAU.TICKETS T
+JOIN GLPI_PAU.USERS C_BY_U ON T.fk_created_by = C_BY_U.user_id
+JOIN GLPI_PAU.REF_priority REF_P ON T.fk_priority = REF_P.priority_id
+JOIN GLPI_PAU.REF_TYPE REF_T ON T.fk_type = REF_T.type_id
+JOIN GLPI_PAU.LOCATIONS L ON T.fk_location = L.location_id
+JOIN GLPI_PAU.REF_category REF_C ON T.fk_category = REF_C.category_id
+JOIN GLPI_PAU.REF_status REF_S ON T.fk_status = REF_S.status_id
+LEFT JOIN GLPI_PAU.HARDWARES H ON T.fk_hardwares = H.hardware_id
+LEFT JOIN GLPI_PAU.REF_group REF_G ON T.fk_assigned_group = REF_G."group_id"
 LEFT JOIN (
-    SELECT fk_ticket, "content",
+    SELECT fk_ticket, comment_id, "content", 
            ROW_NUMBER() OVER(PARTITION BY fk_ticket ORDER BY creation_datetime DESC) AS rn
     FROM GLPI_PAU.COMMENTS
-) LAST_COMMENT_1 ON GLPI_PAU.TICKETS.ticket_id = LAST_COMMENT_1.fk_ticket AND LAST_COMMENT_1.rn = 1
+) LC1 ON GLPI_PAU.T.ticket_id = LC1.fk_ticket AND LC1.rn = 1
 LEFT JOIN (
-    SELECT fk_ticket, "content",
+    SELECT fk_ticket, comment_id, "content", 
            ROW_NUMBER() OVER(PARTITION BY fk_ticket ORDER BY creation_datetime DESC) AS rn
     FROM GLPI_PAU.COMMENTS
-) LAST_COMMENT_2 ON GLPI_PAU.TICKETS.ticket_id = LAST_COMMENT_2.fk_ticket AND LAST_COMMENT_2.rn = 2
-LEFT JOIN GLPI_PAU.ASSIGNED_TO ON TICKETS.ticket_id = GLPI_PAU.ASSIGNED_TO.fk_ticket
-LEFT JOIN GLPI_PAU.USERS ASSIGNED_USERS ON GLPI_PAU.ASSIGNED_TO.fk_user = ASSIGNED_USERS.user_id
-LEFT JOIN GLPI_PAU.HARDWARES ON TICKETS.fk_hardwares = GLPI_PAU.HARDWARES.hardware_id
-LEFT JOIN GLPI_PAU.REF_group ON TICKETS.fk_assigned_group = GLPI_PAU.REF_group."group_id";
+) LC2 ON GLPI_PAU.T.ticket_id = LC2.fk_ticket AND LC2.rn = 2
+LEFT JOIN (
+    SELECT
+        T.ticket_id,
+        LISTAGG(U.last_name || '  ' || U.first_name || ' ; ') WITHIN GROUP (ORDER BY AU.fk_user) AS assigned_to,
+        LISTAGG(U.email || ' ; ') WITHIN GROUP (ORDER BY AU.fk_user) AS assigned_to_user_email
+    FROM GLPI_PAU.TICKETS T
+    JOIN GLPI_PAU.ASSIGNED_TO AU
+        ON T.ticket_id = AU.fk_ticket
+    JOIN GLPI_PAU.USERS U
+        ON AU.fk_user = U.user_id
+    GROUP BY T.ticket_id
+) ASS_U ON ASS_U.ticket_id = T.ticket_id
+LEFT JOIN (
+    SELECT
+        T.ticket_id,
+        LISTAGG(U.last_name || ' ' || U.first_name || ' ; ') WITHIN GROUP (ORDER BY O.fk_user) AS observers,
+        LISTAGG(U.email || ' ; ') WITHIN GROUP (ORDER BY O.fk_user) AS observers_user_email
+    FROM GLPI_PAU.TICKETS T
+    JOIN GLPI_PAU.OBSERVERS O
+        ON T.ticket_id = O.fk_ticket
+    JOIN GLPI_PAU.USERS U
+        ON O.fk_user = U.user_id
+    GROUP BY T.ticket_id
+) OBS ON OBS.ticket_id = T.ticket_id
+;
 
 
 
