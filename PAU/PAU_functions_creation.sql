@@ -18,7 +18,7 @@ EXCEPTION
         IF SQLCODE = -904 THEN
             DBMS_OUTPUT.PUT_LINE('La colonne ' || p_column_name || ' n''existe pas dans la table ' || p_table_name || '.');
         ELSE
-            RAISE_APPLICATION_ERROR(-20030,'Une erreur s''est produite lors de l''exécution de la fonction CHECK_VALUE_EXIST : ' || SQLERRM);
+            RAISE_APPLICATION_ERROR(-20030,'Une erreur s''est CERGYuite lors de l''exécution de la fonction CHECK_VALUE_EXIST : ' || SQLERRM);
         END IF;
         RETURN FALSE;
 END;
@@ -99,34 +99,39 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.GET_USER_TICKETS(
     p_user_id IN INT
 )
 IS
+    v_ticket GLPI_PAU.GLOBAL_Ticket%ROWTYPE; -- Déclarer une variable pour stocker les informations du ticket
 BEGIN
-    -- SÃ©lectionne tous les tickets attribuÃ©s Ã  l'utilisateur passÃ© en paramÃ¨tre
+    -- Sélectionne tous les tickets attribués à l'utilisateur passé en paramètre
     FOR ticket_rec IN (
         SELECT ticket_id
         FROM GLPI_PAU.GLOBAL_Ticket
-        WHERE ticket_id IN (
-            SELECT ticket_id
-            FROM GLPI_PAU.GLOBAL_Ticket
-            WHERE created_by_user_email = (
-                SELECT email
-                FROM GLPI_PAU.USERS
-                WHERE user_id = p_user_id
-            )
+        WHERE created_by_user_email = (
+            SELECT email
+            FROM GLPI_PAU.USERS
+            WHERE user_id = p_user_id
         )
     )
     LOOP
-        -- Appelle la procÃ©dure GET_TICKET pour chaque ticket de la boucle
-        BEGIN
-            GLPI_PAU.GET_TICKET(ticket_rec.ticket_id);
-        EXCEPTION
-            WHEN NO_DATA_FOUND THEN
-                DBMS_OUTPUT.PUT_LINE('Aucun ticket trouvÃ© pour l''utilisateur avec l''ID ' || p_user_id);
-            WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du ticket ' || ticket_rec.ticket_id || ' : ' || SQLERRM);
-        END;
+        -- Appelle la fonction GET_TICKET pour chaque ticket de la boucle
+        v_ticket := GLPI_PAU.GET_TICKET(ticket_rec.ticket_id);
+        
+        -- Vérifie si le ticket existe
+        IF v_ticket.ticket_id IS NOT NULL THEN
+            -- Affiche les informations du ticket
+            DBMS_OUTPUT.PUT_LINE('Ticket ID: ' || v_ticket.ticket_id);
+            DBMS_OUTPUT.PUT_LINE('Created By: ' || v_ticket.created_by);
+            -- Afficher d'autres champs si nécessaire
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du ticket ' || ticket_rec.ticket_id || ' : Ticket introuvable');
+        END IF;
     END LOOP;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Erreur lors de la récupération des tickets de l''utilisateur avec l''ID ' || p_user_id || ' : ' || SQLERRM);
 END;
 /
+
+
 
 
 -- Procedure qui recupere tous les commentaires d'un ticket
@@ -134,27 +139,17 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.GET_TICKET_COMMENTS(
     p_ticket_id IN INT
 )
 IS
+    TYPE comment_list IS TABLE OF GLPI_PAU.COMMENTS%ROWTYPE INDEX BY PLS_INTEGER;
+    v_comments comment_list;
 BEGIN
-    -- SÃ©lectionne tous les commentaires associÃ©s au ticket passÃ© en paramÃ¨tre
-    FOR comment_rec IN (
-        SELECT comment_id
-        FROM GLPI_PAU.Ticket_Comments
-        WHERE ticket_id = p_ticket_id
-    )
-    LOOP
-        -- Affiche ou traite chaque commentaire
-        BEGIN
-            -- Traitement du commentaire, ici je suppose une simple sortie de message
-            DBMS_OUTPUT.PUT_LINE('Commentaire avec l''ID ' || comment_rec.comment_id || ' pour le ticket avec l''ID ' || p_ticket_id);
-        EXCEPTION
-            WHEN NO_DATA_FOUND THEN
-                DBMS_OUTPUT.PUT_LINE('Aucun commentaire trouvÃ© pour le ticket avec l''ID ' || p_ticket_id);
-            WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du commentaire ' || comment_rec.comment_id || ' pour le ticket avec l''ID ' || p_ticket_id || ' : ' || SQLERRM);
-        END;
-    END LOOP;
+    -- Sélectionner tous les commentaires associés au ticket passé en paramètre
+    SELECT *
+    BULK COLLECT INTO v_comments
+    FROM GLPI_PAU.COMMENTS
+    WHERE FK_TICKET = p_ticket_id;
 END;
 /
+
 
 
 -- Affecte le status passÃ© en parametre pour le ticket dont l'id est passÃ© en paramÃ¨tre
@@ -165,9 +160,9 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.SET_TICKET_STATUS(
 IS
     v_status_id INT;
 BEGIN
-    -- VÃ©rifier si le statut passÃ© en paramÃ¨tre existe dans la table REF_Status
-    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_status_name, 'status', 'REF_Status') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le statut spÃ©cifiÃ© n''existe pas dans la table REF_Status.');
+    -- VÃ©rifier si le statut passÃ© en paramÃ¨tre existe dans la table REF_STATUS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_status_name, 'status', 'REF_STATUS') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Le statut spÃ©cifiÃ© n''existe pas dans la table.REF_STATUS.');
     END IF;
 
     -- VÃ©rifier si le ticket existe dans la table TICKETS
@@ -177,7 +172,7 @@ BEGIN
 
     -- RÃ©cupÃ©rer l'ID du statut correspondant au nom de statut passÃ© en paramÃ¨tre
     SELECT status_id INTO v_status_id
-    FROM REF_Status
+    FROM.REF_STATUS
     WHERE status = p_status_name;
 
     -- Mettre Ã  jour le ticket avec le nouveau statut et la date de derniÃ¨re modification
@@ -254,29 +249,33 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.ASSIGN_TICKET_TO_USER(
     p_user_id IN INT
 )
 IS
+    v_count INT;
 BEGIN
-    -- VÃ©rifier si le ticket existe dans la table TICKETS
-    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spÃ©cifiÃ© n''existe pas dans la table TICKETS.');
+    -- Vérifier si la relation existe déjà
+    SELECT COUNT(*)
+    INTO v_count
+    FROM ASSIGNED_TO
+    WHERE fk_ticket = p_ticket_id
+    AND fk_user = p_user_id;
+
+    IF v_count > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('La relation entre le ticket et l''utilisateur existe déjà.');
+    ELSE
+        -- Insérer la relation entre le ticket et l'utilisateur dans la table ASSIGN_TO
+        INSERT INTO ASSIGNED_TO (fk_ticket, fk_user)
+        VALUES (p_ticket_id, p_user_id);
+
+        DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' attribué avec succès à l''utilisateur avec l''ID ' || p_user_id);
     END IF;
-
-    -- VÃ©rifier si l'utilisateur existe dans la table USERS
-    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_user_id, 'user_id', 'USERS') THEN
-        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur spÃ©cifiÃ© n''existe pas dans la table USERS.');
-    END IF;
-
-    -- InsÃ©rer la relation entre le ticket et l'utilisateur dans la table ASSIGN_TO
-    INSERT INTO ASSIGNED_TO (fk_ticket, fk_user)
-    VALUES (p_ticket_id, p_user_id);
-
-    DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' attribuÃ© avec succÃ¨s Ã  l''utilisateur avec l''ID ' || p_user_id);
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''attribution du ticket Ã  l''utilisateur : ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''attribution du ticket à l''utilisateur : ' || SQLERRM);
 END;
 /
 
--- Procédure qui cree ou supprime l'observer d'un ticket
+
+
+-- Procedure qui cree ou supprime l'observer d'un ticket
 CREATE OR REPLACE PROCEDURE GLPI_PAU.ADD_REMOVE_OBSERVER_OF_TICKET(
     p_ticket_id IN INT,
     p_user_id IN INT
