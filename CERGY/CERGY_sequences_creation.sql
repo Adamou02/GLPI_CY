@@ -1,31 +1,31 @@
 --Creation des sequences pour gerer les id des tables  
--- Création de la sequence pour.REF_PRIORITY
-CREATE SEQUENCE GLPI_CERGY.seq_id.REF_PRIORITY
+-- Création de la sequence pour REF_priority
+CREATE SEQUENCE GLPI_CERGY.seq_id_ref_priority
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour.REF_STATUS
-CREATE SEQUENCE GLPI_CERGY.seq_id.REF_STATUS
+-- Création de la sequence pour REF_status
+CREATE SEQUENCE GLPI_CERGY.seq_id_ref_status
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour.REF_CATEGORY
-CREATE SEQUENCE GLPI_CERGY.seq_id.REF_CATEGORY
+-- Création de la sequence pour REF_category
+CREATE SEQUENCE GLPI_CERGY.seq_id_ref_category
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour.REF_TYPE
-CREATE SEQUENCE GLPI_CERGY.seq_id.REF_TYPE
+-- Création de la sequence pour REF_type
+CREATE SEQUENCE GLPI_CERGY.seq_id_ref_type
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour.REF_ROLE
-CREATE SEQUENCE GLPI_CERGY.seq_id.REF_ROLE
+-- Création de la sequence pour REF_role
+CREATE SEQUENCE GLPI_CERGY.seq_id_ref_role
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour.REF_GROUP
-CREATE SEQUENCE GLPI_CERGY.seq_id.REF_GROUP
+-- Création de la sequence pour REF_group
+CREATE SEQUENCE GLPI_CERGY.seq_id_ref_group
   START WITH 1
   INCREMENT BY 1;
 

@@ -1,38 +1,38 @@
--- Supprimer la séquence pour.REF_PRIORITY dans GLPI_CERGY
-DROP SEQUENCE GLPI_CERGY.seq_id.REF_PRIORITY;
+-- Supprimer la séquence pour REF_priority dans GLPI_CERGY
+DROP SEQUENCE GLPI_CERGY.seq_id_ref_priority;
 
--- Supprimer la séquence pour.REF_PRIORITY dans GLPI_PAU
-DROP SEQUENCE GLPI_PAU.seq_id.REF_PRIORITY;
+-- Supprimer la séquence pour REF_priority dans GLPI_PAU
+DROP SEQUENCE GLPI_PAU.seq_id_ref_priority;
 
--- Supprimer la séquence pour.REF_STATUS dans GLPI_CERGY
-DROP SEQUENCE GLPI_CERGY.seq_id.REF_STATUS;
+-- Supprimer la séquence pour REF_status dans GLPI_CERGY
+DROP SEQUENCE GLPI_CERGY.seq_id_ref_status;
 
--- Supprimer la séquence pour.REF_STATUS dans GLPI_PAU
-DROP SEQUENCE GLPI_PAU.seq_id.REF_STATUS;
+-- Supprimer la séquence pour REF_status dans GLPI_PAU
+DROP SEQUENCE GLPI_PAU.seq_id_ref_status;
 
--- Supprimer la séquence pour.REF_CATEGORY dans GLPI_CERGY
-DROP SEQUENCE GLPI_CERGY.seq_id.REF_CATEGORY;
+-- Supprimer la séquence pour REF_category dans GLPI_CERGY
+DROP SEQUENCE GLPI_CERGY.seq_id_ref_category;
 
--- Supprimer la séquence pour.REF_CATEGORY dans GLPI_PAU
-DROP SEQUENCE GLPI_PAU.seq_id.REF_CATEGORY;
+-- Supprimer la séquence pour REF_category dans GLPI_PAU
+DROP SEQUENCE GLPI_PAU.seq_id_ref_category;
 
--- Supprimer la séquence pour.REF_TYPE dans GLPI_CERGY
-DROP SEQUENCE GLPI_CERGY.seq_id.REF_TYPE;
+-- Supprimer la séquence pour REF_type dans GLPI_CERGY
+DROP SEQUENCE GLPI_CERGY.seq_id_ref_type;
 
--- Supprimer la séquence pour.REF_TYPE dans GLPI_PAU
-DROP SEQUENCE GLPI_PAU.seq_id.REF_TYPE;
+-- Supprimer la séquence pour REF_type dans GLPI_PAU
+DROP SEQUENCE GLPI_PAU.seq_id_ref_type;
 
--- Supprimer la séquence pour.REF_ROLE dans GLPI_CERGY
-DROP SEQUENCE GLPI_CERGY.seq_id.REF_ROLE;
+-- Supprimer la séquence pour REF_role dans GLPI_CERGY
+DROP SEQUENCE GLPI_CERGY.seq_id_ref_role;
 
--- Supprimer la séquence pour.REF_ROLE dans GLPI_PAU
-DROP SEQUENCE GLPI_PAU.seq_id.REF_ROLE;
+-- Supprimer la séquence pour REF_role dans GLPI_PAU
+DROP SEQUENCE GLPI_PAU.seq_id_ref_role;
 
--- Supprimer la séquence pour.REF_GROUP dans GLPI_CERGY
-DROP SEQUENCE GLPI_CERGY.seq_id.REF_GROUP;
+-- Supprimer la séquence pour REF_group dans GLPI_CERGY
+DROP SEQUENCE GLPI_CERGY.seq_id_ref_group;
 
--- Supprimer la séquence pour.REF_GROUP dans GLPI_PAU
-DROP SEQUENCE GLPI_PAU.seq_id.REF_GROUP;
+-- Supprimer la séquence pour REF_group dans GLPI_PAU
+DROP SEQUENCE GLPI_PAU.seq_id_ref_group;
 
 -- Supprimer la séquence pour HARDWARES dans GLPI_CERGY
 DROP SEQUENCE GLPI_CERGY.seq_id_hardwares;
