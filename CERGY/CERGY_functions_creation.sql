@@ -136,28 +136,16 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.GET_TICKET_COMMENTS(
     p_ticket_id IN INT
 )
 IS
+    TYPE comment_list IS TABLE OF GLPI_CERGY.COMMENTS%ROWTYPE INDEX BY PLS_INTEGER;
+    v_comments comment_list;
 BEGIN
-    -- Selectionne tous les commentaires associes au ticket passe en parametre
-    FOR comment_rec IN (
-        SELECT comment_id
-        FROM GLPI_CERGY.Ticket_Comments
-        WHERE ticket_id = p_ticket_id
-    )
-    LOOP
-        -- Affiche ou traite chaque commentaire
-        BEGIN
-            -- Traitement du commentaire, ici je suppose une simple sortie de message
-            DBMS_OUTPUT.PUT_LINE('Commentaire avec l''ID ' || comment_rec.comment_id || ' pour le ticket avec l''ID ' || p_ticket_id);
-        EXCEPTION
-            WHEN NO_DATA_FOUND THEN
-                DBMS_OUTPUT.PUT_LINE('Aucun commentaire trouve pour le ticket avec l''ID ' || p_ticket_id);
-            WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du commentaire ' || comment_rec.comment_id || ' pour le ticket avec l''ID ' || p_ticket_id || ' : ' || SQLERRM);
-        END;
-    END LOOP;
+    -- Sélectionner tous les commentaires associés au ticket passé en paramètre
+    SELECT *
+    BULK COLLECT INTO v_comments
+    FROM GLPI_CERGY.COMMENTS
+    WHERE FK_TICKET = p_ticket_id;
 END;
 /
-
 
 -- Affecte le status passe en parametre pour le ticket dont l'id est passe en parametre
 CREATE OR REPLACE PROCEDURE GLPI_CERGY.SET_TICKET_STATUS(
