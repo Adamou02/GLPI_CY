@@ -4,9 +4,7 @@ ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 CREATE MATERIALIZED VIEW GLPI_PAU.GLOBAL_Ticket
 AS
 SELECT
-    L.city as location,
     T.ticket_id,
-    T.title,
     C_BY_U.last_name || ' ' || C_BY_U.first_name AS created_by,
     C_BY_U.email AS created_by_user_email,
     ASS_U.assigned_to AS assigned_to,
@@ -16,6 +14,7 @@ SELECT
     REF_T."type" AS type,
     REF_P."priority" AS priority,
     T."description",
+    L."location" as location,
     T.creation_datetime,
     T.last_modification_datetime,
     T.resolution_datetime,
@@ -31,13 +30,13 @@ SELECT
     LC2."content" AS "Second Last Comment"
 FROM GLPI_PAU.TICKETS T
 JOIN GLPI_PAU.USERS C_BY_U ON T.fk_created_by = C_BY_U.user_id
-JOIN GLPI_PAU.REF_PRIORITY REF_P ON T.fk_priority = REF_P.priority_id
+JOIN GLPI_PAU.REF_priority REF_P ON T.fk_priority = REF_P.priority_id
 JOIN GLPI_PAU.REF_TYPE REF_T ON T.fk_type = REF_T.type_id
 JOIN GLPI_PAU.LOCATIONS L ON T.fk_location = L.location_id
-JOIN GLPI_PAU.REF_CATEGORY REF_C ON T.fk_category = REF_C.category_id
-JOIN GLPI_PAU.REF_STATUS REF_S ON T.fk_status = REF_S.status_id
+JOIN GLPI_PAU.REF_category REF_C ON T.fk_category = REF_C.category_id
+JOIN GLPI_PAU.REF_status REF_S ON T.fk_status = REF_S.status_id
 LEFT JOIN GLPI_PAU.HARDWARES H ON T.fk_hardwares = H.hardware_id
-LEFT JOIN GLPI_PAU.REF_GROUP REF_G ON T.fk_assigned_group = REF_G."group_id"
+LEFT JOIN GLPI_PAU.REF_group REF_G ON T.fk_assigned_group = REF_G."group_id"
 LEFT JOIN (
     SELECT fk_ticket, comment_id, "content", 
            ROW_NUMBER() OVER(PARTITION BY fk_ticket ORDER BY creation_datetime DESC) AS rn
@@ -78,10 +77,10 @@ LEFT JOIN (
 
 -- Ticket Counts by Category
 CREATE MATERIALIZED VIEW GLPI_PAU.Ticket_Counts_By_Category AS
-SELECT REF_CATEGORY."category", COUNT(*) AS ticket_count
+SELECT REF_category."category", COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_CATEGORY ON TICKETS.fk_category = REF_CATEGORY.category_id
-GROUP BY REF_CATEGORY."category";
+JOIN GLPI_PAU.REF_category ON TICKETS.fk_category = REF_category.category_id
+GROUP BY REF_category."category";
 
 -- Tickets by Location
 CREATE MATERIALIZED VIEW GLPI_PAU.Tickets_By_Location AS
@@ -123,8 +122,8 @@ WHERE ROWNUM <= 100;
 CREATE VIEW GLPI_PAU.Open_Tickets_By_Category AS
 SELECT c."category", s.status, COUNT(*) AS open_ticket_count
 FROM GLPI_PAU.TICKETS t
-JOIN GLPI_PAU.REF_CATEGORY c ON t.fk_category = c.category_id
-JOIN GLPI_PAU.REF_STATUS s ON t.fk_status = s.status_id
+JOIN GLPI_PAU.REF_category c ON t.fk_category = c.category_id
+JOIN GLPI_PAU.REF_status s ON t.fk_status = s.status_id
 WHERE UPPER(s.status) = 'TO DO' OR UPPER(s.status) = 'IN PROGRESS'
 GROUP BY c."category", s.status;
 
@@ -133,31 +132,31 @@ GROUP BY c."category", s.status;
 CREATE VIEW GLPI_PAU.Closed_Tickets AS
 SELECT t.*, s.status
 FROM GLPI_PAU.TICKETS t
-JOIN GLPI_PAU.REF_STATUS s ON t.fk_status = s.status_id
+JOIN GLPI_PAU.REF_status s ON t.fk_status = s.status_id
 WHERE s.status = 'DONE';
 
 
 -- Tickets by Priority View
 CREATE VIEW GLPI_PAU.Tickets_By_Priority AS
-SELECT REF_PRIORITY."priority", COUNT(*) AS ticket_count
+SELECT REF_priority."priority", COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_PRIORITY ON TICKETS.fk_priority = REF_PRIORITY.priority_id
-GROUP BY REF_PRIORITY."priority";
+JOIN GLPI_PAU.REF_priority ON TICKETS.fk_priority = REF_priority.priority_id
+GROUP BY REF_priority."priority";
 
 -- Tickets by Status View
 CREATE VIEW GLPI_PAU.Tickets_By_Status AS
-SELECT REF_STATUS.status, COUNT(*) AS ticket_count
+SELECT REF_status.status, COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_STATUS ON TICKETS.fk_status = REF_STATUS.status_id
-GROUP BY REF_STATUS.status;
+JOIN GLPI_PAU.REF_status ON TICKETS.fk_status = REF_status.status_id
+GROUP BY REF_status.status;
 
 
 -- Tickets by Type View
 CREATE VIEW GLPI_PAU.Tickets_By_Type AS
-SELECT REF_TYPE."type", COUNT(*) AS ticket_count
+SELECT REF_type."type", COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_TYPE ON TICKETS.fk_type = REF_TYPE.type_id
-GROUP BY REF_TYPE."type";
+JOIN GLPI_PAU.REF_type ON TICKETS.fk_type = REF_type.type_id
+GROUP BY REF_type."type";
 
 COMMIT;
 exit;
