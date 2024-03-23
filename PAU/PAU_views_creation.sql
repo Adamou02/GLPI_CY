@@ -1,17 +1,13 @@
 ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 
-CREATE VIEW GLPI_PAU.FULL_GLOBAL_TICKET
-AS
-SELECT * FROM GLPI_PAU.GLOBAL_TICKET
-UNION 
-SELECT * FROM GLPI_CERGY.GLOBAL_TICKET@LK_GLPI_CERGY;
-
+SELECT * FROM  GLPI_PAU.FULL_GLOBAL_Ticket;
 
 CREATE MATERIALIZED VIEW GLPI_PAU.GLOBAL_Ticket
 AS
 SELECT
-    'PAU' AS SITE,
+    L.city as location,
     T.ticket_id,
+    T.title,
     C_BY_U.last_name || ' ' || C_BY_U.first_name AS created_by,
     C_BY_U.email AS created_by_user_email,
     ASS_U.assigned_to AS assigned_to,
@@ -21,7 +17,6 @@ SELECT
     REF_T."type" AS type,
     REF_P."priority" AS priority,
     T."description",
-    L."location" as location,
     T.creation_datetime,
     T.last_modification_datetime,
     T.resolution_datetime,
