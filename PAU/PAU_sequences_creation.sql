@@ -1,31 +1,31 @@
 --Creation des sequences pour gerer les id des tables  
--- Création de la sequence pour REF_priority
-CREATE SEQUENCE GLPI_PAU.seq_id_ref_priority
+-- Création de la sequence pour.REF_PRIORITY
+CREATE SEQUENCE GLPI_PAU.seq_id.REF_PRIORITY
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour REF_status
-CREATE SEQUENCE GLPI_PAU.seq_id_ref_status
+-- Création de la sequence pour.REF_STATUS
+CREATE SEQUENCE GLPI_PAU.seq_id.REF_STATUS
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour REF_category
-CREATE SEQUENCE GLPI_PAU.seq_id_ref_category
+-- Création de la sequence pour.REF_CATEGORY
+CREATE SEQUENCE GLPI_PAU.seq_id.REF_CATEGORY
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour REF_type
-CREATE SEQUENCE GLPI_PAU.seq_id_ref_type
+-- Création de la sequence pour.REF_TYPE
+CREATE SEQUENCE GLPI_PAU.seq_id.REF_TYPE
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour REF_role
-CREATE SEQUENCE GLPI_PAU.seq_id_ref_role
+-- Création de la sequence pour.REF_ROLE
+CREATE SEQUENCE GLPI_PAU.seq_id.REF_ROLE
   START WITH 1
   INCREMENT BY 1;
 
--- Création de la sequence pour REF_group
-CREATE SEQUENCE GLPI_PAU.seq_id_ref_group
+-- Création de la sequence pour.REF_GROUP
+CREATE SEQUENCE GLPI_PAU.seq_id.REF_GROUP
   START WITH 1
   INCREMENT BY 1;
 

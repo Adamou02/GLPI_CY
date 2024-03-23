@@ -1,38 +1,38 @@
--- Supprimer le trigger pour la table REF_priority dans GLPI_CERGY
-DROP TRIGGER GLPI_CERGY.trg_upsert_ref_priority;
+-- Supprimer le trigger pour la table.REF_PRIORITY dans GLPI_CERGY
+DROP TRIGGER GLPI_CERGY.trg_upsert.REF_PRIORITY;
 
--- Supprimer le trigger pour la table REF_priority dans GLPI_PAU
-DROP TRIGGER GLPI_PAU.trg_upsert_ref_priority;
+-- Supprimer le trigger pour la table.REF_PRIORITY dans GLPI_PAU
+DROP TRIGGER GLPI_PAU.trg_upsert.REF_PRIORITY;
 
--- Supprimer le trigger pour la table REF_status dans GLPI_CERGY
-DROP TRIGGER GLPI_CERGY.trg_upsert_ref_status;
+-- Supprimer le trigger pour la table.REF_STATUS dans GLPI_CERGY
+DROP TRIGGER GLPI_CERGY.trg_upsert.REF_STATUS;
 
--- Supprimer le trigger pour la table REF_status dans GLPI_PAU
-DROP TRIGGER GLPI_PAU.trg_upsert_ref_status;
+-- Supprimer le trigger pour la table.REF_STATUS dans GLPI_PAU
+DROP TRIGGER GLPI_PAU.trg_upsert.REF_STATUS;
 
--- Supprimer le trigger pour la table REF_category dans GLPI_CERGY
-DROP TRIGGER GLPI_CERGY.trg_upsert_ref_category;
+-- Supprimer le trigger pour la table.REF_CATEGORY dans GLPI_CERGY
+DROP TRIGGER GLPI_CERGY.trg_upsert.REF_CATEGORY;
 
--- Supprimer le trigger pour la table REF_category dans GLPI_PAU
-DROP TRIGGER GLPI_PAU.trg_upsert_ref_category;
+-- Supprimer le trigger pour la table.REF_CATEGORY dans GLPI_PAU
+DROP TRIGGER GLPI_PAU.trg_upsert.REF_CATEGORY;
 
--- Supprimer le trigger pour la table REF_type dans GLPI_CERGY
-DROP TRIGGER GLPI_CERGY.trg_upsert_ref_type;
+-- Supprimer le trigger pour la table.REF_TYPE dans GLPI_CERGY
+DROP TRIGGER GLPI_CERGY.trg_upsert.REF_TYPE;
 
--- Supprimer le trigger pour la table REF_type dans GLPI_PAU
-DROP TRIGGER GLPI_PAU.trg_upsert_ref_type;
+-- Supprimer le trigger pour la table.REF_TYPE dans GLPI_PAU
+DROP TRIGGER GLPI_PAU.trg_upsert.REF_TYPE;
 
--- Supprimer le trigger pour la table REF_role dans GLPI_CERGY
-DROP TRIGGER GLPI_CERGY.trg_upsert_ref_role;
+-- Supprimer le trigger pour la table.REF_ROLE dans GLPI_CERGY
+DROP TRIGGER GLPI_CERGY.trg_upsert.REF_ROLE;
 
--- Supprimer le trigger pour la table REF_role dans GLPI_PAU
-DROP TRIGGER GLPI_PAU.trg_upsert_ref_role;
+-- Supprimer le trigger pour la table.REF_ROLE dans GLPI_PAU
+DROP TRIGGER GLPI_PAU.trg_upsert.REF_ROLE;
 
--- Supprimer le trigger pour la table REF_group dans GLPI_CERGY
-DROP TRIGGER GLPI_CERGY.trg_upsert_ref_group;
+-- Supprimer le trigger pour la table.REF_GROUP dans GLPI_CERGY
+DROP TRIGGER GLPI_CERGY.trg_upsert.REF_GROUP;
 
--- Supprimer le trigger pour la table REF_group dans GLPI_PAU
-DROP TRIGGER GLPI_PAU.trg_upsert_ref_group;
+-- Supprimer le trigger pour la table.REF_GROUP dans GLPI_PAU
+DROP TRIGGER GLPI_PAU.trg_upsert.REF_GROUP;
 
 -- Supprimer le trigger pour la table LOCATIONS dans GLPI_CERGY
 DROP TRIGGER GLPI_CERGY.trg_upsert_locations;

@@ -4,31 +4,31 @@ ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
 
 
 -- Table de référence contient une liste prédéfinie de valeurs pour les priorités des commentaires. Elle garantit la cohérence dans le niveau de priorité attribué à un commentaire. 
-CREATE TABLE GLPI_PAU.REF_priority (
+CREATE TABLE GLPI_PAU.REF_PRIORITY (
     priority_id INT PRIMARY KEY,  -- Identifiant unique de la priorité
     "priority" VARCHAR2(10) NOT NULL UNIQUE  -- Valeur de la priorité, unique et non nullable
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de valeurs pour les statuts du ticket.
-CREATE TABLE GLPI_PAU.REF_status (
+CREATE TABLE GLPI_PAU.REF_STATUS (
     status_id INT PRIMARY KEY,  -- Identifiant unique du statut
     status VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du statut, unique et non nullable
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de catégories pour les tickets.
-CREATE TABLE GLPI_PAU.REF_category (
+CREATE TABLE GLPI_PAU.REF_CATEGORY (
     category_id INT PRIMARY KEY,  -- Identifiant unique de la catégorie
     "category" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur de la catégorie, unique et non nullable
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de types pour les tickets. 
-CREATE TABLE GLPI_PAU.REF_type (
+CREATE TABLE GLPI_PAU.REF_TYPE (
     type_id INT PRIMARY KEY,  -- Identifiant unique du type
     "type" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du type, unique et non nullable
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de rôles pour les tickets. 
-CREATE TABLE GLPI_PAU.REF_role (
+CREATE TABLE GLPI_PAU.REF_ROLE (
     role_id INT PRIMARY KEY,  -- Identifiant unique du rôle
     "role" VARCHAR2(50) NOT NULL UNIQUE  -- Valeur du rôle, unique et non nullable
 );
@@ -42,7 +42,7 @@ CREATE TABLE GLPI_PAU.LOCATIONS (
 );
 
 -- Table de référence qui permet de définir une liste prédéfinie de groupes pour les tickets. 
-CREATE TABLE GLPI_PAU.REF_group (
+CREATE TABLE GLPI_PAU.REF_GROUP (
     "group_id" INT PRIMARY KEY,  -- Identifiant unique du groupe
     "group" VARCHAR2(50) NOT NULL UNIQUE-- Nom du groupe, entre guillemets pour éviter les conflits de nom
 );
@@ -75,8 +75,8 @@ CREATE TABLE GLPI_PAU.USERS (
     first_name VARCHAR2(50) NOT NULL,  -- Prénom de l'utilisateur
     company VARCHAR2(50) NULL,  -- Nom de l'entreprise de l'utilisateur
     fk_location INT NULL,  -- Clé étrangère vers l'emplacement de l'utilisateur
-    FOREIGN KEY (fk_role) REFERENCES GLPI_PAU.REF_role(role_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_group) REFERENCES GLPI_PAU.REF_group("group_id"),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_role) REFERENCES GLPI_PAU.REF_ROLE(role_id),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_group) REFERENCES GLPI_PAU.REF_GROUP("group_id"),  -- Contrainte de clé étrangère
     FOREIGN KEY (fk_location) REFERENCES GLPI_PAU.LOCATIONS(location_id)  -- Contrainte de clé étrangère
 )
 CLUSTER GLPI_PAU.user_cluster(user_id);
@@ -100,12 +100,12 @@ CREATE TABLE GLPI_PAU.TICKETS (
     fk_category INT NOT NULL,  -- Clé étrangère vers la catégorie du ticket
     fk_hardwares INT NULL,  -- Clé étrangère vers le matériel associé au ticket (peut être NULL)
     FOREIGN KEY (fk_created_by) REFERENCES GLPI_PAU.USERS(user_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_type) REFERENCES GLPI_PAU.REF_type(type_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_priority) REFERENCES GLPI_PAU.REF_priority(priority_id),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_type) REFERENCES GLPI_PAU.REF_TYPE(type_id),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_priority) REFERENCES GLPI_PAU.REF_PRIORITY(priority_id),  -- Contrainte de clé étrangère
     FOREIGN KEY (fk_location) REFERENCES GLPI_PAU.LOCATIONS(location_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_assigned_group) REFERENCES GLPI_PAU.REF_group("group_id"),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_status) REFERENCES GLPI_PAU.REF_status(status_id),  -- Contrainte de clé étrangère
-    FOREIGN KEY (fk_category) REFERENCES GLPI_PAU.REF_category(category_id),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_assigned_group) REFERENCES GLPI_PAU.REF_GROUP("group_id"),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_status) REFERENCES GLPI_PAU.REF_STATUS(status_id),  -- Contrainte de clé étrangère
+    FOREIGN KEY (fk_category) REFERENCES GLPI_PAU.REF_CATEGORY(category_id),  -- Contrainte de clé étrangère
     FOREIGN KEY (fk_hardwares) REFERENCES GLPI_PAU.HARDWARES(hardware_id)  -- Contrainte de clé étrangère
 )
 CLUSTER GLPI_PAU.ticket_cluster(ticket_id);
@@ -128,7 +128,7 @@ CLUSTER GLPI_PAU.ticket_cluster(fk_ticket);
 -- Table qui stocke les ressources disponibles.Les ressources peuvent être des fichiers, des liens, ou d'autres types de documents qui peuvent être associés à des tickets ou des commentaires.
 CREATE TABLE GLPI_PAU.RESSOURCES (
     ressource_id INT PRIMARY KEY,  -- Identifiant unique de la ressource
-    ressource VARCHAR2(2000) NOT NULL -- Chemin vers la ressource
+    ressource VARCHAR2(2000) UNIQUE NOT NULL -- Chemin vers la ressource
 );
 
 -- Table de liaison entre les tickets et les ressources. Elle permet de gérer la relation 1-n entre les tickets et les ressources.
