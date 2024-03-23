@@ -3,16 +3,16 @@
 -- Si elle poss�de des d�pendances (foreign keys) :
 -- V�rifie la pr�sence des values des colonnes poss�dant des d�pendances et g�re l'erreur (INSERT et UPDATE)
 
--- Trigger pour REF_priority
-CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert_ref_priority
-BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_priority
+-- Trigger pour.REF_PRIORITY
+CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert.REF_PRIORITY
+BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_PRIORITY
 FOR EACH ROW
 BEGIN
     IF INSERTING THEN
-        SELECT GLPI_PAU.seq_id_ref_priority.nextval INTO :NEW.priority_id FROM dual;
+        SELECT GLPI_PAU.seq_id.REF_PRIORITY.nextval INTO :NEW.priority_id FROM dual;
     END IF;
     
-    IF (CHECK_VALUE_EXIST(:NEW."priority", '"priority"', 'REF_PRIORITY')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."priority", '"priority"', .REF_PRIORITY')) THEN 
         RAISE_APPLICATION_ERROR(-20001, 'Priority ' || :NEW."priority" || ' already exists in table GLPI_PAU.REF_PRIORITY');
     END IF;
 EXCEPTION
@@ -22,14 +22,14 @@ END;
 /
 
 
--- Trigger pour REF_status
-CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert_ref_status
-BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_status
+-- Trigger pour.REF_STATUS
+CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert.REF_STATUS
+BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_STATUS
 FOR EACH ROW
 BEGIN
-    SELECT GLPI_PAU.seq_id_ref_status.nextval INTO :NEW.status_id FROM dual;
+    SELECT GLPI_PAU.seq_id.REF_STATUS.nextval INTO :NEW.status_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW.status, 'status', 'REF_STATUS')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW.status, 'status', .REF_STATUS')) THEN 
         RAISE_APPLICATION_ERROR(-20002, 'Status ' || :NEW.status || ' already exists in table GLPI_PAU.REF_STATUS');
     END IF;
 EXCEPTION
@@ -38,14 +38,14 @@ EXCEPTION
 END;
 /
 
--- Trigger pour REF_category
-CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert_ref_category
-BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_category
+-- Trigger pour.REF_CATEGORY
+CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert.REF_CATEGORY
+BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_CATEGORY
 FOR EACH ROW
 BEGIN
-    SELECT GLPI_PAU.seq_id_ref_category.nextval INTO :NEW.category_id FROM dual;
+    SELECT GLPI_PAU.seq_id.REF_CATEGORY.nextval INTO :NEW.category_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."category", '"category"', 'REF_CATEGORY')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."category", '"category"', .REF_CATEGORY')) THEN 
         RAISE_APPLICATION_ERROR(-20003, 'Category ' || :NEW."category" || ' already exists in table GLPI_PAU.REF_CATEGORY');
     END IF;
 EXCEPTION
@@ -54,14 +54,14 @@ EXCEPTION
 END;
 /
 
--- Trigger pour REF_type
-CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert_ref_type
-BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_type
+-- Trigger pour.REF_TYPE
+CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert.REF_TYPE
+BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_TYPE
 FOR EACH ROW
 BEGIN
-    SELECT GLPI_PAU.seq_id_ref_type.nextval INTO :NEW.type_id FROM dual;
+    SELECT GLPI_PAU.seq_id.REF_TYPE.nextval INTO :NEW.type_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."type", '"type"', 'REF_TYPE')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."type", '"type"', .REF_TYPE')) THEN 
         RAISE_APPLICATION_ERROR(-20004, 'Type ' || :NEW."type" || ' already exists in table GLPI_PAU.REF_TYPE');
     END IF;
 EXCEPTION
@@ -70,14 +70,14 @@ EXCEPTION
 END;
 /
 
--- Trigger pour REF_role
-CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert_ref_role
-BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_role
+-- Trigger pour.REF_ROLE
+CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert.REF_ROLE
+BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_ROLE
 FOR EACH ROW
 BEGIN
-    SELECT GLPI_PAU.seq_id_ref_role.nextval INTO :NEW.role_id FROM dual;
+    SELECT GLPI_PAU.seq_id.REF_ROLE.nextval INTO :NEW.role_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."role", '"role"', 'REF_ROLE')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."role", '"role"', .REF_ROLE')) THEN 
         RAISE_APPLICATION_ERROR(-20005, 'Role ' || :NEW."role" || ' already exists in table GLPI_PAU.REF_ROLE');
     END IF;
 EXCEPTION
@@ -86,14 +86,14 @@ EXCEPTION
 END;
 /
 
--- Trigger pour REF_group
-CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert_ref_group
-BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_group
+-- Trigger pour.REF_GROUP
+CREATE OR REPLACE TRIGGER GLPI_PAU.trg_upsert.REF_GROUP
+BEFORE INSERT OR UPDATE ON GLPI_PAU.REF_GROUP
 FOR EACH ROW
 BEGIN
-    SELECT GLPI_PAU.seq_id_ref_group.nextval INTO :NEW."group_id" FROM dual;
+    SELECT GLPI_PAU.seq_id.REF_GROUP.nextval INTO :NEW."group_id" FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."group", '"group"', 'REF_GROUP')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."group", '"group"', .REF_GROUP')) THEN 
         RAISE_APPLICATION_ERROR(-20006, 'Group ' || :NEW."group" || ' already exists in table GLPI_PAU.REF_GROUP');
     END IF;
 EXCEPTION
@@ -186,14 +186,14 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20011, 'User with ID ' || :NEW.fk_created_by || ' does not exist in table GLPI_PAU.USERS');
     END IF;
     
-    -- V�rifier si la valeur de fk_type existe dans la table REF_type
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_type, 'type_id', 'REF_type') THEN 
-        RAISE_APPLICATION_ERROR(-20012, 'Type with ID ' || :NEW.fk_type || ' does not exist in table GLPI_PAU.REF_type');
+    -- V�rifier si la valeur de fk_type existe dans la table.REF_TYPE
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_type, 'type_id', .REF_TYPE') THEN 
+        RAISE_APPLICATION_ERROR(-20012, 'Type with ID ' || :NEW.fk_type || ' does not exist in table GLPI_PAU.REF_TYPE');
     END IF;
     
-    -- V�rifier si la valeur de fk_priority existe dans la table REF_priority
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_priority, 'priority_id', 'REF_priority') THEN 
-        RAISE_APPLICATION_ERROR(-20013, 'Priority with ID ' || :NEW.fk_priority || ' does not exist in table GLPI_PAU.REF_priority');
+    -- V�rifier si la valeur de fk_priority existe dans la table.REF_PRIORITY
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_priority, 'priority_id', .REF_PRIORITY') THEN 
+        RAISE_APPLICATION_ERROR(-20013, 'Priority with ID ' || :NEW.fk_priority || ' does not exist in table GLPI_PAU.REF_PRIORITY');
     END IF;
     
     -- V�rifier si la valeur de fk_location existe dans la table LOCATIONS
@@ -201,19 +201,19 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20014, 'Location with ID ' || :NEW.fk_location || ' does not exist in table GLPI_PAU.LOCATIONS');
     END IF;
     
-    -- V�rifier si la valeur de fk_assigned_group existe dans la table REF_group
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_assigned_group, '"group_id"', 'REF_group') THEN 
-        RAISE_APPLICATION_ERROR(-20015, 'Group with ID ' || :NEW.fk_assigned_group || ' does not exist in table GLPI_PAU.REF_group');
+    -- V�rifier si la valeur de fk_assigned_group existe dans la table.REF_GROUP
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_assigned_group, '"group_id"', .REF_GROUP') THEN 
+        RAISE_APPLICATION_ERROR(-20015, 'Group with ID ' || :NEW.fk_assigned_group || ' does not exist in table GLPI_PAU.REF_GROUP');
     END IF;
     
-    -- V�rifier si la valeur de fk_status existe dans la table REF_status
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_status, 'status_id', 'REF_status') THEN 
-        RAISE_APPLICATION_ERROR(-20016, 'Status with ID ' || :NEW.fk_status || ' does not exist in table GLPI_PAU.REF_status');
+    -- V�rifier si la valeur de fk_status existe dans la table.REF_STATUS
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_status, 'status_id', .REF_STATUS') THEN 
+        RAISE_APPLICATION_ERROR(-20016, 'Status with ID ' || :NEW.fk_status || ' does not exist in table GLPI_PAU.REF_STATUS');
     END IF;
     
-    -- V�rifier si la valeur de fk_category existe dans la table REF_category
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_category, 'category_id', 'REF_category') THEN 
-        RAISE_APPLICATION_ERROR(-20017, 'Category with ID ' || :NEW.fk_category || ' does not exist in table GLPI_PAU.REF_category');
+    -- V�rifier si la valeur de fk_category existe dans la table.REF_CATEGORY
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_category, 'category_id', .REF_CATEGORY') THEN 
+        RAISE_APPLICATION_ERROR(-20017, 'Category with ID ' || :NEW.fk_category || ' does not exist in table GLPI_PAU.REF_CATEGORY');
     END IF;
     
     -- V�rifier si la valeur de fk_hardwares existe dans la table

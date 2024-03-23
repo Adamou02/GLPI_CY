@@ -160,9 +160,9 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.SET_TICKET_STATUS(
 IS
     v_status_id INT;
 BEGIN
-    -- Vérifier si le statut passé en paramètre existe dans la table REF_Status
-    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_status_name, 'status', 'REF_Status') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le statut spécifié n''existe pas dans la table REF_Status.');
+    -- Vérifier si le statut passé en paramètre existe dans la table.REF_STATUS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_status_name, 'status', .REF_STATUS') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Le statut spécifié n''existe pas dans la table.REF_STATUS.');
     END IF;
 
     -- Vérifier si le ticket existe dans la table TICKETS
@@ -172,7 +172,7 @@ BEGIN
 
     -- Récupérer l'ID du statut correspondant au nom de statut passé en paramètre
     SELECT status_id INTO v_status_id
-    FROM REF_Status
+    FROM.REF_STATUS
     WHERE status = p_status_name;
 
     -- Mettre à jour le ticket avec le nouveau statut et la date de dernière modification

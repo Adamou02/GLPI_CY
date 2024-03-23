@@ -29,22 +29,22 @@ TRUNCATE TABLE GLPI_PAU.HARDWARES;
 TRUNCATE TABLE GLPI_PAU.LOCATIONS;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de groupes pour les tickets
-TRUNCATE TABLE GLPI_PAU.REF_group;
+TRUNCATE TABLE GLPI_PAU.REF_GROUP;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de rôles pour les tickets
-TRUNCATE TABLE GLPI_PAU.REF_role;
+TRUNCATE TABLE GLPI_PAU.REF_ROLE;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de types pour les tickets
-TRUNCATE TABLE GLPI_PAU.REF_type;
+TRUNCATE TABLE GLPI_PAU.REF_TYPE;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de catégories pour les tickets
-TRUNCATE TABLE GLPI_PAU.REF_category;
+TRUNCATE TABLE GLPI_PAU.REF_CATEGORY;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de statuts pour les tickets
-TRUNCATE TABLE GLPI_PAU.REF_status;
+TRUNCATE TABLE GLPI_PAU.REF_STATUS;
 
 -- Vidage des données de la table de référence contient une liste prédéfinie de valeurs pour les priorités des commentaires
-TRUNCATE TABLE GLPI_PAU.REF_priority;
+TRUNCATE TABLE GLPI_PAU.REF_PRIORITY;
 
 -- Vidage des données de la table de liaison entre les tickets et les utilisateurs (observateurs)
 TRUNCATE TABLE GLPI_CERGY.OBSERVERS;
@@ -77,22 +77,22 @@ TRUNCATE TABLE GLPI_CERGY.HARDWARES;
 TRUNCATE TABLE GLPI_CERGY.LOCATIONS;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de groupes pour les tickets
-TRUNCATE TABLE GLPI_CERGY.REF_group;
+TRUNCATE TABLE GLPI_CERGY.REF_GROUP;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de rôles pour les tickets
-TRUNCATE TABLE GLPI_CERGY.REF_role;
+TRUNCATE TABLE GLPI_CERGY.REF_ROLE;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de types pour les tickets
-TRUNCATE TABLE GLPI_CERGY.REF_type;
+TRUNCATE TABLE GLPI_CERGY.REF_TYPE;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de catégories pour les tickets
-TRUNCATE TABLE GLPI_CERGY.REF_category;
+TRUNCATE TABLE GLPI_CERGY.REF_CATEGORY;
 
 -- Vidage des données de la table de référence qui permet de définir une liste prédéfinie de statuts pour les tickets
-TRUNCATE TABLE GLPI_CERGY.REF_status;
+TRUNCATE TABLE GLPI_CERGY.REF_STATUS;
 
 -- Vidage des données de la table de référence contient une liste prédéfinie de valeurs pour les priorités des commentaires
-TRUNCATE TABLE GLPI_CERGY.REF_priority;
+TRUNCATE TABLE GLPI_CERGY.REF_PRIORITY;
 
 COMMIT;
 EXIT;

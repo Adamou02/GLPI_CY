@@ -29,22 +29,22 @@ DROP TABLE GLPI_PAU.HARDWARES CASCADE CONSTRAINTS PURGE;
 DROP TABLE GLPI_PAU.LOCATIONS CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de groupes pour les tickets
-DROP TABLE GLPI_PAU.REF_group CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_PAU.REF_GROUP CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de r�les pour les tickets
-DROP TABLE GLPI_PAU.REF_role CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_PAU.REF_ROLE CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de types pour les tickets
-DROP TABLE GLPI_PAU.REF_type CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_PAU.REF_TYPE CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de cat�gories pour les tickets
-DROP TABLE GLPI_PAU.REF_category CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_PAU.REF_CATEGORY CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de statuts pour les tickets
-DROP TABLE GLPI_PAU.REF_status CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_PAU.REF_STATUS CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence contient une liste pr�d�finie de valeurs pour les priorit�s des commentaires
-DROP TABLE GLPI_PAU.REF_priority CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_PAU.REF_PRIORITY CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de liaison entre les tickets et les utilisateurs (observateurs)
 DROP TABLE GLPI_CERGY.OBSERVERS CASCADE CONSTRAINTS PURGE;
@@ -77,21 +77,21 @@ DROP TABLE GLPI_CERGY.HARDWARES CASCADE CONSTRAINTS PURGE;
 DROP TABLE GLPI_CERGY.LOCATIONS CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de groupes pour les tickets
-DROP TABLE GLPI_CERGY.REF_group CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_CERGY.REF_GROUP CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de r�les pour les tickets
-DROP TABLE GLPI_CERGY.REF_role CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_CERGY.REF_ROLE CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de types pour les tickets
-DROP TABLE GLPI_CERGY.REF_type CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_CERGY.REF_TYPE CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de cat�gories pour les tickets
-DROP TABLE GLPI_CERGY.REF_category CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_CERGY.REF_CATEGORY CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence qui permet de d�finir une liste pr�d�finie de statuts pour les tickets
-DROP TABLE GLPI_CERGY.REF_status CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_CERGY.REF_STATUS CASCADE CONSTRAINTS PURGE;
 
 -- Suppression de la table de r�f�rence contient une liste pr�d�finie de valeurs pour les priorit�s des commentaires
-DROP TABLE GLPI_CERGY.REF_priority CASCADE CONSTRAINTS PURGE;
+DROP TABLE GLPI_CERGY.REF_PRIORITY CASCADE CONSTRAINTS PURGE;
 COMMIT;
 exit;

@@ -159,9 +159,9 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.SET_TICKET_STATUS(
 IS
     v_status_id INT;
 BEGIN
-    -- VÃ©rifier si le statut passÃ© en paramÃ¨tre existe dans la table REF_Status
-    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_status_name, 'status', 'REF_Status') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le statut spÃ©cifiÃ© n''existe pas dans la table REF_Status.');
+    -- VÃ©rifier si le statut passÃ© en paramÃ¨tre existe dans la table.REF_STATUS
+    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_status_name, 'status', .REF_STATUS') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Le statut spÃ©cifiÃ© n''existe pas dans la table.REF_STATUS.');
     END IF;
 
     -- VÃ©rifier si le ticket existe dans la table TICKETS
@@ -171,7 +171,7 @@ BEGIN
 
     -- RÃ©cupÃ©rer l'ID du statut correspondant au nom de statut passÃ© en paramÃ¨tre
     SELECT status_id INTO v_status_id
-    FROM REF_Status
+    FROM.REF_STATUS
     WHERE status = p_status_name;
 
     -- Mettre Ã  jour le ticket avec le nouveau statut et la date de derniÃ¨re modification

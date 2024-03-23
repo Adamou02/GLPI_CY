@@ -1,33 +1,33 @@
--- Inserts suppl�mentaires pour REF_priority
-INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (1, 'Emergency');
-INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (2, 'Urgent');
-INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (3, 'Normal');
-INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (4, 'Low');
-INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (5, 'Infos');
+-- Inserts suppl�mentaires pour.REF_PRIORITY
+INSERT INTO GLPI_PAU.REF_PRIORITY (priority_id, "priority") VALUES (1, 'Emergency');
+INSERT INTO GLPI_PAU.REF_PRIORITY (priority_id, "priority") VALUES (2, 'Urgent');
+INSERT INTO GLPI_PAU.REF_PRIORITY (priority_id, "priority") VALUES (3, 'Normal');
+INSERT INTO GLPI_PAU.REF_PRIORITY (priority_id, "priority") VALUES (4, 'Low');
+INSERT INTO GLPI_PAU.REF_PRIORITY (priority_id, "priority") VALUES (5, 'Infos');
 
--- Inserts suppl�mentaires pour REF_status
-INSERT INTO GLPI_PAU.REF_status (status_id, status) VALUES (1, 'To do');
-INSERT INTO GLPI_PAU.REF_status (status_id, status) VALUES (2, 'In Progress');
-INSERT INTO GLPI_PAU.REF_status (status_id, status) VALUES (3, 'Done');
+-- Inserts suppl�mentaires pour.REF_STATUS
+INSERT INTO GLPI_PAU.REF_STATUS (status_id, status) VALUES (1, 'To do');
+INSERT INTO GLPI_PAU.REF_STATUS (status_id, status) VALUES (2, 'In Progress');
+INSERT INTO GLPI_PAU.REF_STATUS (status_id, status) VALUES (3, 'Done');
 
--- Inserts suppl�mentaires pour REF_category
-INSERT INTO GLPI_PAU.REF_category (category_id, "category") VALUES (1, 'Software');
-INSERT INTO GLPI_PAU.REF_category (category_id, "category") VALUES (2, 'Network');
-INSERT INTO GLPI_PAU.REF_category (category_id, "category") VALUES (3, 'Security');
+-- Inserts suppl�mentaires pour.REF_CATEGORY
+INSERT INTO GLPI_PAU.REF_CATEGORY (category_id, "category") VALUES (1, 'Software');
+INSERT INTO GLPI_PAU.REF_CATEGORY (category_id, "category") VALUES (2, 'Network');
+INSERT INTO GLPI_PAU.REF_CATEGORY (category_id, "category") VALUES (3, 'Security');
 
--- Inserts suppl�mentaires pour REF_type
-INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (1, 'Incident');
-INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (2, 'Change');
+-- Inserts suppl�mentaires pour.REF_TYPE
+INSERT INTO GLPI_PAU.REF_TYPE (type_id, "type") VALUES (1, 'Incident');
+INSERT INTO GLPI_PAU.REF_TYPE (type_id, "type") VALUES (2, 'Change');
 
--- Inserts suppl�mentaires pour REF_role
-INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (1, 'Manager');
-INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (2, 'Technician');
-INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (3, 'Customer');
+-- Inserts suppl�mentaires pour.REF_ROLE
+INSERT INTO GLPI_PAU.REF_ROLE (role_id, "role") VALUES (1, 'Manager');
+INSERT INTO GLPI_PAU.REF_ROLE (role_id, "role") VALUES (2, 'Technician');
+INSERT INTO GLPI_PAU.REF_ROLE (role_id, "role") VALUES (3, 'Customer');
 
--- Inserts suppl�mentaires pour REF_group
-INSERT INTO GLPI_PAU.REF_group ("group_id", "group") VALUES (1, 'Development Team');
-INSERT INTO GLPI_PAU.REF_group ("group_id", "group") VALUES (2, 'Quality Assurance Team');
-INSERT INTO GLPI_PAU.REF_group ("group_id", "group") VALUES (3, 'Sales Department');
+-- Inserts suppl�mentaires pour.REF_GROUP
+INSERT INTO GLPI_PAU.REF_GROUP ("group_id", "group") VALUES (1, 'Development Team');
+INSERT INTO GLPI_PAU.REF_GROUP ("group_id", "group") VALUES (2, 'Quality Assurance Team');
+INSERT INTO GLPI_PAU.REF_GROUP ("group_id", "group") VALUES (3, 'Sales Department');
 
 -- Inserts suppl�mentaires pour LOCATIONS
 INSERT INTO GLPI_PAU.LOCATIONS (location_id, "location", "site", city) VALUES (1, 'Building A, Floor 1', 'Site 1', 'City 1');
