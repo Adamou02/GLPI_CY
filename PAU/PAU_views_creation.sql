@@ -78,10 +78,10 @@ LEFT JOIN (
 
 -- Ticket Counts by Category
 CREATE MATERIALIZED VIEW GLPI_PAU.Ticket_Counts_By_Category AS
-SELECT.REF_CATEGORY."category", COUNT(*) AS ticket_count
+SELECT REF_CATEGORY."category", COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_CATEGORY ON TICKETS.fk_category =.REF_CATEGORY.category_id
-GROUP BY.REF_CATEGORY."category";
+JOIN GLPI_PAU.REF_CATEGORY ON TICKETS.fk_category = REF_CATEGORY.category_id
+GROUP BY REF_CATEGORY."category";
 
 -- Tickets by Location
 CREATE MATERIALIZED VIEW GLPI_PAU.Tickets_By_Location AS
@@ -139,25 +139,25 @@ WHERE s.status = 'DONE';
 
 -- Tickets by Priority View
 CREATE VIEW GLPI_PAU.Tickets_By_Priority AS
-SELECT.REF_PRIORITY."priority", COUNT(*) AS ticket_count
+SELECT REF_PRIORITY."priority", COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_PRIORITY ON TICKETS.fk_priority =.REF_PRIORITY.priority_id
-GROUP BY.REF_PRIORITY."priority";
+JOIN GLPI_PAU.REF_PRIORITY ON TICKETS.fk_priority = REF_PRIORITY.priority_id
+GROUP BY REF_PRIORITY."priority";
 
 -- Tickets by Status View
 CREATE VIEW GLPI_PAU.Tickets_By_Status AS
-SELECT.REF_STATUS.status, COUNT(*) AS ticket_count
+SELECT REF_STATUS.status, COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_STATUS ON TICKETS.fk_status =.REF_STATUS.status_id
-GROUP BY.REF_STATUS.status;
+JOIN GLPI_PAU.REF_STATUS ON TICKETS.fk_status = REF_STATUS.status_id
+GROUP BY REF_STATUS.status;
 
 
 -- Tickets by Type View
 CREATE VIEW GLPI_PAU.Tickets_By_Type AS
-SELECT.REF_TYPE."type", COUNT(*) AS ticket_count
+SELECT REF_TYPE."type", COUNT(*) AS ticket_count
 FROM GLPI_PAU.TICKETS
-JOIN GLPI_PAU.REF_TYPE ON TICKETS.fk_type =.REF_TYPE.type_id
-GROUP BY.REF_TYPE."type";
+JOIN GLPI_PAU.REF_TYPE ON TICKETS.fk_type = REF_TYPE.type_id
+GROUP BY REF_TYPE."type";
 
 COMMIT;
 exit;
