@@ -62,11 +62,11 @@ INSERT INTO GLPI_CERGY.COMMENTS (comment_id, fk_answer_to, fk_ticket, fk_user, c
 INSERT INTO GLPI_CERGY.COMMENTS (comment_id, fk_answer_to, fk_ticket, fk_user, creation_datetime, task, "content") VALUES (5, NULL, 1, 3, CURRENT_TIMESTAMP, 'Inquiry Details', 'Interested in bulk purchasing options.');
 
 -- Inserts supplémentaires pour RESSOURCES
-INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, fk_ticket, ressource) VALUES (1, 1, 'Base64EncodedImageStringHere==');
-INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, fk_ticket, ressource) VALUES (2, 2, 'Base64EncodedImageStringHere==');
-INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, fk_ticket, ressource) VALUES (3, 3, 'Base64EncodedImageStringHere==');
-INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, fk_ticket, ressource) VALUES (4, 4, 'Base64EncodedImageStringHere==');
-INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, fk_ticket, ressource) VALUES (5, 5, 'Base64EncodedImageStringHere==');
+INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (1, 'Base64EncodedImageStringHere==');
+INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (2, 'Base64EncodedImageStringHere==');
+INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (3, 'Base64EncodedImageStringHere==');
+INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (4, 'Base64EncodedImageStringHere==');
+INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (5, 'Base64EncodedImageStringHere==');
 
 -- Inserts supplémentaires pour TICKET_RESSOURCES
 INSERT INTO GLPI_CERGY.TICKET_RESSOURCES (fk_ressource, fk_ticket) VALUES (1, 1);
