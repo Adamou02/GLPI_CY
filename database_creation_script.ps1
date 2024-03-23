@@ -75,10 +75,10 @@ $FileOrder = @(
 	"PAU\PAU_triggers_creation.sql",
     "PAU\PAU_insert_in_tables.sql",
     "PAU\PAU_views_creation.sql",
-    "BOTH\BOTH_full_global_ticket_creation",
     "BOTH\BOTH_roles_creation.sql",
     "PAU\PAU_users_creation.sql",
-    "CERGY\CERGY_users_creation.sql"
+    "CERGY\CERGY_users_creation.sql",
+    "BOTH\BOTH_full_global_ticket_creation"
     
 )
 
