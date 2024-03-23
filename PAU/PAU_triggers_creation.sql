@@ -257,10 +257,6 @@ BEGIN
     IF INSERTING THEN
         SELECT GLPI_PAU.seq_id_ressources.nextval INTO :NEW.ressource_id FROM dual;
     END IF;
-    -- V�rifier si la valeur de fk_ticket existe dans la table TICKETS
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_ticket, 'ticket_id', 'TICKETS') THEN 
-        RAISE_APPLICATION_ERROR(-20021, 'Ticket with ID ' || :NEW.fk_ticket || ' does not exist in table GLPI_PAU.TICKETS');
-    END IF;
 EXCEPTION
     WHEN OTHERS THEN
         RAISE;
