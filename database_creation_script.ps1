@@ -59,6 +59,7 @@ $CredentialMapping = @{
 # Définir l'ordre des fichiers à exécuter
 $FileOrder = @(
     "BOTH\BOTH_databases_creation.sql",
+    "BOTH\BOTH_database_link_creation",
     "BOTH\BOTH_clusters_creation",
     "CERGY\CERGY_tables_creation.sql",
 	"CERGY\CERGY_index_creation.sql",

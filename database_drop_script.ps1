@@ -52,6 +52,7 @@ $DropFileOrder = @(
     "PAU\PAU_drop_users.sql",
     "BOTH\BOTH_drop_roles.sql",
     "BOTH\BOTH_drop_views.sql",
+    "BOTH\BOTH_database_link_drop",
     "BOTH\BOTH_drop_databases.sql"
 )
 
