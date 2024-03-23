@@ -77,29 +77,6 @@ BEGIN
 END;
 /
 
--- Attribution de tous les droits sur les déclencheurs pour le rôle
-DECLARE
-  v_sql VARCHAR2(2000);
-BEGIN
-  FOR v IN (SELECT trigger_name FROM all_triggers WHERE owner = 'GLPI_CERGY') LOOP
-    v_sql := 'GRANT SELECT, INSERT, UPDATE, DELETE ON GLPI_CERGY.' || v.trigger_name || ' TO GLPI_CERGY_DEV';
-    EXECUTE IMMEDIATE v_sql;
-  END LOOP;
-END;
-/
-
--- Attribution de tous les droits sur les index pour le rôle
-DECLARE
-  v_sql VARCHAR2(2000);
-BEGIN
-  FOR v IN (SELECT index_name FROM all_indexes WHERE table_owner = 'GLPI_CERGY') LOOP
-    v_sql := 'GRANT SELECT, INSERT, UPDATE, DELETE ON GLPI_CERGY.' || v.index_name || ' TO GLPI_CERGY_DEV';
-    EXECUTE IMMEDIATE v_sql;
-  END LOOP;
-END;
-/
-
-
 -- GLPI_CERGY_ADMIN
 CREATE ROLE GLPI_CERGY_ADMIN;
 
@@ -190,27 +167,6 @@ BEGIN
 END;
 /
 
--- Attribution de tous les droits sur les déclencheurs pour le rôle
-DECLARE
-  v_sql VARCHAR2(2000);
-BEGIN
-  FOR v IN (SELECT trigger_name FROM all_triggers WHERE owner = 'GLPI_PAU') LOOP
-    v_sql := 'GRANT SELECT, INSERT, UPDATE, DELETE ON GLPI_PAU.' || v.trigger_name || ' TO GLPI_PAU_DEV';
-    EXECUTE IMMEDIATE v_sql;
-  END LOOP;
-END;
-/
-
--- Attribution de tous les droits sur les index pour le rôle
-DECLARE
-  v_sql VARCHAR2(2000);
-BEGIN
-  FOR v IN (SELECT index_name FROM all_indexes WHERE table_owner = 'GLPI_PAU') LOOP
-    v_sql := 'GRANT SELECT, INSERT, UPDATE, DELETE ON GLPI_PAU.' || v.index_name || ' TO GLPI_PAU_DEV';
-    EXECUTE IMMEDIATE v_sql;
-  END LOOP;
-END;
-/
 
 -- GLPI_PAU_ADMIN
 CREATE ROLE GLPI_PAU_ADMIN;

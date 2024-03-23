@@ -15,7 +15,6 @@ SELECT
     REF_T."type" AS type,
     REF_P."priority" AS priority,
     T."description",
-    L."location" as location,
     T.creation_datetime,
     T.last_modification_datetime,
     T.resolution_datetime,
@@ -73,7 +72,6 @@ LEFT JOIN (
     GROUP BY T.ticket_id
 ) OBS ON OBS.ticket_id = T.ticket_id
 ;
-
 
 
 -- Ticket Counts by Category
