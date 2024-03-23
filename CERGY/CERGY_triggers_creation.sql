@@ -28,7 +28,7 @@ FOR EACH ROW
 BEGIN
     SELECT GLPI_CERGY.seq_id.REF_STATUS.nextval INTO :NEW.status_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW.status, 'status', .REF_STATUS')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW.status, 'status', 'REF_STATUS')) THEN 
         RAISE_APPLICATION_ERROR(-20002, 'Status ' || :NEW.status || ' already exists in table GLPI_CERGY.REF_STATUS');
     END IF;
 EXCEPTION
@@ -44,7 +44,7 @@ FOR EACH ROW
 BEGIN
     SELECT GLPI_CERGY.seq_id.REF_CATEGORY.nextval INTO :NEW.category_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."category", '"category"', .REF_CATEGORY')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."category", '"category"', 'REF_CATEGORY')) THEN 
         RAISE_APPLICATION_ERROR(-20003, 'Category ' || :NEW."category" || ' already exists in table GLPI_CERGY.REF_CATEGORY');
     END IF;
 EXCEPTION
@@ -60,7 +60,7 @@ FOR EACH ROW
 BEGIN
     SELECT GLPI_CERGY.seq_id.REF_TYPE.nextval INTO :NEW.type_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."type", '"type"', .REF_TYPE')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."type", '"type"', 'REF_TYPE')) THEN 
         RAISE_APPLICATION_ERROR(-20004, 'Type ' || :NEW."type" || ' already exists in table GLPI_CERGY.REF_TYPE');
     END IF;
 EXCEPTION
@@ -76,7 +76,7 @@ FOR EACH ROW
 BEGIN
     SELECT GLPI_CERGY.seq_id.REF_ROLE.nextval INTO :NEW.role_id FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."role", '"role"', .REF_ROLE')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."role", '"role"', 'REF_ROLE')) THEN 
         RAISE_APPLICATION_ERROR(-20005, 'Role ' || :NEW."role" || ' already exists in table GLPI_CERGY.REF_ROLE');
     END IF;
 EXCEPTION
@@ -92,7 +92,7 @@ FOR EACH ROW
 BEGIN
     SELECT GLPI_CERGY.seq_id.REF_GROUP.nextval INTO :NEW."group_id" FROM dual;
     
-    IF (CHECK_VALUE_EXIST(:NEW."group", '"group"', .REF_GROUP')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."group", '"group"', 'REF_GROUP')) THEN 
         RAISE_APPLICATION_ERROR(-20006, 'Group ' || :NEW."group" || ' already exists in table GLPI_CERGY.REF_GROUP');
     END IF;
 EXCEPTION
@@ -186,12 +186,12 @@ BEGIN
     END IF;
     
     -- V�rifier si la valeur de fk_type existe dans la table.REF_TYPE
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_type, 'type_id', .REF_TYPE') THEN 
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_type, 'type_id', 'REF_TYPE') THEN 
         RAISE_APPLICATION_ERROR(-20012, 'Type with ID ' || :NEW.fk_type || ' does not exist in table GLPI_CERGY.REF_TYPE');
     END IF;
     
     -- V�rifier si la valeur de fk_priority existe dans la table.REF_PRIORITY
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_priority, 'priority_id', .REF_PRIORITY') THEN 
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_priority, 'priority_id', 'REF_PRIORITY') THEN 
         RAISE_APPLICATION_ERROR(-20013, 'Priority with ID ' || :NEW.fk_priority || ' does not exist in table GLPI_CERGY.REF_PRIORITY');
     END IF;
     
@@ -201,17 +201,17 @@ BEGIN
     END IF;
     
     -- V�rifier si la valeur de fk_assigned_group existe dans la table.REF_GROUP
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_assigned_group, '"group_id"', .REF_GROUP') THEN 
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_assigned_group, '"group_id"', 'REF_GROUP') THEN 
         RAISE_APPLICATION_ERROR(-20015, 'Group with ID ' || :NEW.fk_assigned_group || ' does not exist in table GLPI_CERGY.REF_GROUP');
     END IF;
     
     -- V�rifier si la valeur de fk_status existe dans la table.REF_STATUS
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_status, 'status_id', .REF_STATUS') THEN 
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_status, 'status_id', 'REF_STATUS') THEN 
         RAISE_APPLICATION_ERROR(-20016, 'Status with ID ' || :NEW.fk_status || ' does not exist in table GLPI_CERGY.REF_STATUS');
     END IF;
     
     -- V�rifier si la valeur de fk_category existe dans la table.REF_CATEGORY
-    IF NOT CHECK_VALUE_EXIST(:NEW.fk_category, 'category_id', .REF_CATEGORY') THEN 
+    IF NOT CHECK_VALUE_EXIST(:NEW.fk_category, 'category_id', 'REF_CATEGORY') THEN 
         RAISE_APPLICATION_ERROR(-20017, 'Category with ID ' || :NEW.fk_category || ' does not exist in table GLPI_CERGY.REF_CATEGORY');
     END IF;
     
