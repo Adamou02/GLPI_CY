@@ -6,6 +6,7 @@ DROP MATERIALIZED VIEW GLPI_CERGY.Ticket_Resolution_Time;
 DROP MATERIALIZED VIEW GLPI_CERGY.Recent_Ticket_Activity;
 
 -- Drop Views
+DROP VIEW GLPI_CERGY.FULL_GLOBAL_Ticket;
 DROP VIEW GLPI_CERGY.Open_Tickets_By_Category;
 DROP VIEW GLPI_CERGY.Closed_Tickets;
 DROP VIEW GLPI_CERGY.Tickets_By_Priority;
@@ -20,6 +21,7 @@ DROP MATERIALIZED VIEW GLPI_PAU.Ticket_Resolution_Time;
 DROP MATERIALIZED VIEW GLPI_PAU.Recent_Ticket_Activity;
 
 -- Drop Views
+DROP VIEW GLPI_PAU.FULL_GLOBAL_Ticket;
 DROP VIEW GLPI_PAU.Open_Tickets_By_Category;
 DROP VIEW GLPI_PAU.Closed_Tickets;
 DROP VIEW GLPI_PAU.Tickets_By_Priority;
