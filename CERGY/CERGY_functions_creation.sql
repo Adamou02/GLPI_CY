@@ -99,34 +99,38 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.GET_USER_TICKETS(
     p_user_id IN INT
 )
 IS
+    v_ticket GLPI_CERGY.GLOBAL_Ticket%ROWTYPE; -- Déclarer une variable pour stocker les informations du ticket
 BEGIN
-    -- SÃƒÂ©lectionne tous les tickets attribuÃƒÂ©s ÃƒÂ  l'utilisateur passÃƒÂ© en paramÃƒÂ¨tre
+    -- Sélectionne tous les tickets attribués à l'utilisateur passé en paramètre
     FOR ticket_rec IN (
         SELECT ticket_id
         FROM GLPI_CERGY.GLOBAL_Ticket
-        WHERE ticket_id IN (
-            SELECT ticket_id
-            FROM GLPI_CERGY.GLOBAL_Ticket
-            WHERE created_by_user_email = (
-                SELECT email
-                FROM GLPI_CERGY.USERS
-                WHERE user_id = p_user_id
-            )
+        WHERE created_by_user_email = (
+            SELECT email
+            FROM GLPI_CERGY.USERS
+            WHERE user_id = p_user_id
         )
     )
     LOOP
-        -- Appelle la procÃƒÂ©dure GET_TICKET pour chaque ticket de la boucle
-        BEGIN
-            GLPI_CERGY.GET_TICKET(ticket_rec.ticket_id);
-        EXCEPTION
-            WHEN NO_DATA_FOUND THEN
-                DBMS_OUTPUT.PUT_LINE('Aucun ticket trouvÃƒÂ© pour l''utilisateur avec l''ID ' || p_user_id);
-            WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du ticket ' || ticket_rec.ticket_id || ' : ' || SQLERRM);
-        END;
+        -- Appelle la fonction GET_TICKET pour chaque ticket de la boucle
+        v_ticket := GLPI_CERGY.GET_TICKET(ticket_rec.ticket_id);
+        
+        -- Vérifie si le ticket existe
+        IF v_ticket.ticket_id IS NOT NULL THEN
+            -- Affiche les informations du ticket
+            DBMS_OUTPUT.PUT_LINE('Ticket ID: ' || v_ticket.ticket_id);
+            DBMS_OUTPUT.PUT_LINE('Created By: ' || v_ticket.created_by);
+            -- Afficher d'autres champs si nécessaire
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du ticket ' || ticket_rec.ticket_id || ' : Ticket introuvable');
+        END IF;
     END LOOP;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Erreur lors de la récupération des tickets de l''utilisateur avec l''ID ' || p_user_id || ' : ' || SQLERRM);
 END;
 /
+
 
 
 -- Procedure qui recupere tous les commentaires d'un ticket
@@ -134,27 +138,17 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.GET_TICKET_COMMENTS(
     p_ticket_id IN INT
 )
 IS
+    TYPE comment_list IS TABLE OF GLPI_CERGY.COMMENTS%ROWTYPE INDEX BY PLS_INTEGER;
+    v_comments comment_list;
 BEGIN
-    -- SÃƒÂ©lectionne tous les commentaires associÃƒÂ©s au ticket passÃƒÂ© en paramÃƒÂ¨tre
-    FOR comment_rec IN (
-        SELECT comment_id
-        FROM GLPI_CERGY.Ticket_Comments
-        WHERE ticket_id = p_ticket_id
-    )
-    LOOP
-        -- Affiche ou traite chaque commentaire
-        BEGIN
-            -- Traitement du commentaire, ici je suppose une simple sortie de message
-            DBMS_OUTPUT.PUT_LINE('Commentaire avec l''ID ' || comment_rec.comment_id || ' pour le ticket avec l''ID ' || p_ticket_id);
-        EXCEPTION
-            WHEN NO_DATA_FOUND THEN
-                DBMS_OUTPUT.PUT_LINE('Aucun commentaire trouvÃƒÂ© pour le ticket avec l''ID ' || p_ticket_id);
-            WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du commentaire ' || comment_rec.comment_id || ' pour le ticket avec l''ID ' || p_ticket_id || ' : ' || SQLERRM);
-        END;
-    END LOOP;
+    -- Sélectionner tous les commentaires associés au ticket passé en paramètre
+    SELECT *
+    BULK COLLECT INTO v_comments
+    FROM GLPI_CERGY.COMMENTS
+    WHERE FK_TICKET = p_ticket_id;
 END;
 /
+
 
 
 -- Affecte le status passÃƒÂ© en parametre pour le ticket dont l'id est passÃƒÂ© en paramÃƒÂ¨tre
@@ -254,27 +248,73 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.ASSIGN_TICKET_TO_USER(
     p_user_id IN INT
 )
 IS
+    v_count INT;
 BEGIN
-    -- VÃƒÂ©rifier si le ticket existe dans la table TICKETS
-    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spÃƒÂ©cifiÃƒÂ© n''existe pas dans la table TICKETS.');
+    -- Vérifier si la relation existe déjà
+    SELECT COUNT(*)
+    INTO v_count
+    FROM ASSIGNED_TO
+    WHERE fk_ticket = p_ticket_id
+    AND fk_user = p_user_id;
+
+    IF v_count > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('La relation entre le ticket et l''utilisateur existe déjà.');
+    ELSE
+        -- Insérer la relation entre le ticket et l'utilisateur dans la table ASSIGN_TO
+        INSERT INTO ASSIGNED_TO (fk_ticket, fk_user)
+        VALUES (p_ticket_id, p_user_id);
+
+        DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' attribué avec succès à l''utilisateur avec l''ID ' || p_user_id);
     END IF;
-
-    -- VÃƒÂ©rifier si l'utilisateur existe dans la table USERS
-    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_user_id, 'user_id', 'USERS') THEN
-        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur spÃƒÂ©cifiÃƒÂ© n''existe pas dans la table USERS.');
-    END IF;
-
-    -- InsÃƒÂ©rer la relation entre le ticket et l'utilisateur dans la table ASSIGN_TO
-    INSERT INTO ASSIGNED_TO (fk_ticket, fk_user)
-    VALUES (p_ticket_id, p_user_id);
-
-    DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' attribuÃƒÂ© avec succÃƒÂ¨s ÃƒÂ  l''utilisateur avec l''ID ' || p_user_id);
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''attribution du ticket ÃƒÂ  l''utilisateur : ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''attribution du ticket à l''utilisateur : ' || SQLERRM);
 END;
 /
+
+
+
+-- Procédure qui cree ou supprime l'observer d'un ticket
+CREATE OR REPLACE PROCEDURE GLPI_CERGY.ADD_REMOVE_OBSERVER_OF_TICKET(
+    p_ticket_id IN INT,
+    p_user_id IN INT
+)
+IS
+    v_observer_count INT;
+BEGIN
+    -- Verifier si le ticket existe dans la table TICKETS
+    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spécifié n''existe pas dans la table TICKETS.');
+    END IF;
+
+    -- Verifie si l'utilisateur existe dans la table USERS
+    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_user_id, 'user_id', 'USERS') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur spécifié n''existe pas dans la table USERS.');
+    END IF;
+
+    -- Verifie si la ligne observer existe deja
+    SELECT COUNT(*)
+    INTO v_observer_count
+    FROM GLPI_CERGY.OBSERVERS
+    WHERE fk_ticket = p_ticket_id AND fk_user = p_user_id;
+
+    IF v_observer_count > 0 THEN
+        -- Supprime la ligne observer
+        DELETE FROM GLPI_CERGY.OBSERVERS
+        WHERE fk_ticket = p_ticket_id AND fk_user = p_user_id;
+        DBMS_OUTPUT.PUT_LINE('Utilisateur avec l''ID ' || p_user_id || ' supprimé de la liste des observateurs du ticket avec l''ID ' || p_ticket_id);
+    ELSE
+        -- Ajoute la ligne observer
+        INSERT INTO GLPI_CERGY.OBSERVERS (fk_ticket, fk_user)
+        VALUES (p_ticket_id, p_user_id);
+        DBMS_OUTPUT.PUT_LINE('Utilisateur avec l''ID ' || p_user_id || ' ajouté à la liste des observateurs du ticket avec l''ID ' || p_ticket_id);
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''ajout/suppression de l''observateur du ticket : ' || SQLERRM);
+END;
+/
+
 
 
 --ProcÃƒÂ©dure qui met ÃƒÂ  jour une vue
@@ -284,7 +324,7 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.REFRESH_MATERIALIZED_VIEW(
 IS
 BEGIN
     DBMS_MVIEW.REFRESH(p_view_name);
-END REFRESH_VIEW;
+END REFRESH_MATERIALIZED_VIEW;
 /
 
 COMMIT;
