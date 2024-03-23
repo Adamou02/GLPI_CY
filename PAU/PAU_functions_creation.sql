@@ -1,4 +1,4 @@
--- Fonction qui vï¿½rifie la prï¿½cense de la clef dans une table passer en parametre (pour vï¿½rifier les dï¿½pendance avant insert)
+-- Fonction qui v�rifie la pr�cense de la clef dans une table passer en parametre (pour v�rifier les d�pendance avant insert)
 CREATE OR REPLACE FUNCTION GLPI_PAU.CHECK_VALUE_EXIST(p_value IN VARCHAR2, p_column_name IN VARCHAR2, p_table_name IN VARCHAR2)
 RETURN BOOLEAN
 IS v_count NUMBER;
@@ -18,13 +18,13 @@ EXCEPTION
         IF SQLCODE = -904 THEN
             DBMS_OUTPUT.PUT_LINE('La colonne ' || p_column_name || ' n''existe pas dans la table ' || p_table_name || '.');
         ELSE
-            RAISE_APPLICATION_ERROR(-20030,'Une erreur s''est CERGYuite lors de l''exécution de la fonction CHECK_VALUE_EXIST : ' || SQLERRM);
+            RAISE_APPLICATION_ERROR(-20030,'Une erreur s''est CERGYuite lors de l''ex�cution de la fonction CHECK_VALUE_EXIST : ' || SQLERRM);
         END IF;
         RETURN FALSE;
 END;
 /
 
--- Recupere la primary pour une colonne unique donnï¿½e en parametre d'une table donnï¿½e en parametre
+-- Recupere la primary pour une colonne unique donn�e en parametre d'une table donn�e en parametre
 CREATE OR REPLACE FUNCTION GLPI_PAU.GET_ID_WHERE(
     p_value IN VARCHAR2, 
     p_column_name IN VARCHAR2, 
@@ -35,18 +35,18 @@ IS
     v_id INT;
     v_count INT;
 BEGIN
-    -- Vï¿½rifier si la valeur est unique dans la colonne spï¿½cifiï¿½e
+    -- V�rifier si la valeur est unique dans la colonne sp�cifi�e
     EXECUTE IMMEDIATE 'SELECT COUNT(*) FROM ' || p_table_name || ' WHERE ' || p_column_name || ' = :1' INTO v_count USING p_value;
     
     IF v_count <> 1 THEN
         RAISE_APPLICATION_ERROR(-20031, 'La valeur "' || p_value || '" n''est pas unique dans la colonne "' || p_column_name || '" de la table "' || p_table_name || '".');
     END IF;
     
-    -- Rï¿½cupï¿½rer le nom de la colonne de clï¿½ primaire
+    -- R�cup�rer le nom de la colonne de cl� primaire
     DECLARE
         v_pk_column VARCHAR2(100);
     BEGIN
-        -- Rï¿½cupï¿½rer le nom de la colonne de clï¿½ primaire
+        -- R�cup�rer le nom de la colonne de cl� primaire
         SELECT column_name INTO v_pk_column
         FROM user_cons_columns
         WHERE constraint_name = (
@@ -55,7 +55,7 @@ BEGIN
             WHERE table_name = p_table_name AND constraint_type = 'P'
         );
 
-        -- Exï¿½cuter la requï¿½te pour rï¿½cupï¿½rer l'ID
+        -- Ex�cuter la requ�te pour r�cup�rer l'ID
         EXECUTE IMMEDIATE 'SELECT ' || v_pk_column || ' FROM ' || p_table_name || ' WHERE ' || p_column_name || ' = :1' INTO v_id USING p_value;
 
         RETURN v_id;
@@ -64,13 +64,13 @@ EXCEPTION
     WHEN NO_DATA_FOUND THEN
         RETURN NULL;
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20032, 'Erreur lors de l''exï¿½cution de la fonction GET_ID_WHERE : ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20032, 'Erreur lors de l''ex�cution de la fonction GET_ID_WHERE : ' || SQLERRM);
 END;
 /
 
 
 
--- Procedure qui select un ticket selon le ticket_id passÃ© en parametre
+-- Procedure qui select un ticket selon le ticket_id passé en parametre
 CREATE OR REPLACE FUNCTION GLPI_PAU.GET_TICKET(
     p_ticket_id IN INT
 ) RETURN GLPI_PAU.GLOBAL_Ticket%ROWTYPE
@@ -86,22 +86,22 @@ BEGIN
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
         DBMS_OUTPUT.PUT_LINE('Le ticket avec l''ID ' || p_ticket_id || ' n''existe pas.');
-        RETURN NULL; -- Ou une valeur par dÃ©faut, selon le besoin
+        RETURN NULL; -- Ou une valeur par défaut, selon le besoin
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Erreur lors de l''exÃ©cution de la fonction GET_TICKET : ' || SQLERRM);
-        RETURN NULL; -- Ou une valeur par dÃ©faut, selon le besoin
+        DBMS_OUTPUT.PUT_LINE('Erreur lors de l''exécution de la fonction GET_TICKET : ' || SQLERRM);
+        RETURN NULL; -- Ou une valeur par défaut, selon le besoin
 END;
 /
 
 
--- Procedure qui select tous les tickets grace Ã  la procedure GET_TICKET selon le user_id passÃ© en parametre
+-- Procedure qui select tous les tickets grace à la procedure GET_TICKET selon le user_id passé en parametre
 CREATE OR REPLACE PROCEDURE GLPI_PAU.GET_USER_TICKETS(
     p_user_id IN INT
 )
 IS
-    v_ticket GLPI_PAU.GLOBAL_Ticket%ROWTYPE; -- Déclarer une variable pour stocker les informations du ticket
+    v_ticket GLPI_PAU.GLOBAL_Ticket%ROWTYPE; -- D�clarer une variable pour stocker les informations du ticket
 BEGIN
-    -- Sélectionne tous les tickets attribués à l'utilisateur passé en paramètre
+    -- S�lectionne tous les tickets attribu�s � l'utilisateur pass� en param�tre
     FOR ticket_rec IN (
         SELECT ticket_id
         FROM GLPI_PAU.GLOBAL_Ticket
@@ -115,19 +115,19 @@ BEGIN
         -- Appelle la fonction GET_TICKET pour chaque ticket de la boucle
         v_ticket := GLPI_PAU.GET_TICKET(ticket_rec.ticket_id);
         
-        -- Vérifie si le ticket existe
+        -- V�rifie si le ticket existe
         IF v_ticket.ticket_id IS NOT NULL THEN
             -- Affiche les informations du ticket
             DBMS_OUTPUT.PUT_LINE('Ticket ID: ' || v_ticket.ticket_id);
             DBMS_OUTPUT.PUT_LINE('Created By: ' || v_ticket.created_by);
-            -- Afficher d'autres champs si nécessaire
+            -- Afficher d'autres champs si n�cessaire
         ELSE
             DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du ticket ' || ticket_rec.ticket_id || ' : Ticket introuvable');
         END IF;
     END LOOP;
 EXCEPTION
     WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Erreur lors de la récupération des tickets de l''utilisateur avec l''ID ' || p_user_id || ' : ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE('Erreur lors de la r�cup�ration des tickets de l''utilisateur avec l''ID ' || p_user_id || ' : ' || SQLERRM);
 END;
 /
 
@@ -142,7 +142,7 @@ IS
     TYPE comment_list IS TABLE OF GLPI_PAU.COMMENTS%ROWTYPE INDEX BY PLS_INTEGER;
     v_comments comment_list;
 BEGIN
-    -- Sélectionner tous les commentaires associés au ticket passé en paramètre
+    -- S�lectionner tous les commentaires associ�s au ticket pass� en param�tre
     SELECT *
     BULK COLLECT INTO v_comments
     FROM GLPI_PAU.COMMENTS
@@ -152,7 +152,7 @@ END;
 
 
 
--- Affecte le status passÃ© en parametre pour le ticket dont l'id est passÃ© en paramÃ¨tre
+-- Affecte le status passé en parametre pour le ticket dont l'id est passé en paramètre
 CREATE OR REPLACE PROCEDURE GLPI_PAU.SET_TICKET_STATUS(
     p_ticket_id IN INT,
     p_status_name IN VARCHAR2
@@ -160,82 +160,82 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.SET_TICKET_STATUS(
 IS
     v_status_id INT;
 BEGIN
-    -- VÃ©rifier si le statut passÃ© en paramÃ¨tre existe dans la table REF_STATUS
+    -- Vérifier si le statut passé en paramètre existe dans la table REF_STATUS
     IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_status_name, 'status', 'REF_STATUS') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le statut spÃ©cifiÃ© n''existe pas dans la table.REF_STATUS.');
+        RAISE_APPLICATION_ERROR(-20001, 'Le statut spécifié n''existe pas dans la table.REF_STATUS.');
     END IF;
 
-    -- VÃ©rifier si le ticket existe dans la table TICKETS
+    -- Vérifier si le ticket existe dans la table TICKETS
     IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Le ticket spÃ©cifiÃ© n''existe pas dans la table TICKETS.');
+        RAISE_APPLICATION_ERROR(-20002, 'Le ticket spécifié n''existe pas dans la table TICKETS.');
     END IF;
 
-    -- RÃ©cupÃ©rer l'ID du statut correspondant au nom de statut passÃ© en paramÃ¨tre
+    -- Récupérer l'ID du statut correspondant au nom de statut passé en paramètre
     SELECT status_id INTO v_status_id
     FROM.REF_STATUS
     WHERE status = p_status_name;
 
-    -- Mettre Ã  jour le ticket avec le nouveau statut et la date de derniÃ¨re modification
+    -- Mettre à jour le ticket avec le nouveau statut et la date de dernière modification
     UPDATE TICKETS
     SET fk_status = v_status_id,
         last_modification_datetime = CURRENT_TIMESTAMP
     WHERE ticket_id = p_ticket_id;
 
-    DBMS_OUTPUT.PUT_LINE('Statut du ticket avec l''ID ' || p_ticket_id || ' mis Ã  jour avec succÃ¨s.');
+    DBMS_OUTPUT.PUT_LINE('Statut du ticket avec l''ID ' || p_ticket_id || ' mis à jour avec succès.');
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de la mise Ã  jour du statut du ticket : ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de la mise à jour du statut du ticket : ' || SQLERRM);
 END;
 /
 
 
--- Fait passer un ticket en solved selon l'id du ticket passÃ© en parametre et sa note de resolution
+-- Fait passer un ticket en solved selon l'id du ticket passé en parametre et sa note de resolution
 CREATE OR REPLACE PROCEDURE GLPI_PAU.SOLVE_TICKET(
     p_ticket_id IN INT,
     p_resolution_note IN VARCHAR2
 )
 IS
 BEGIN
-    -- VÃ©rifier si le ticket existe dans la table TICKETS
+    -- Vérifier si le ticket existe dans la table TICKETS
     IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spÃ©cifiÃ© n''existe pas dans la table TICKETS.');
+        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spécifié n''existe pas dans la table TICKETS.');
     END IF;
 
-    -- ExÃ©cuter SET_TICKET_STATUS pour marquer le ticket comme rÃ©solu
+    -- Exécuter SET_TICKET_STATUS pour marquer le ticket comme résolu
     GLPI_PAU.SET_TICKET_STATUS(p_ticket_id, 'Done');
 
-    -- Mettre Ã  jour le ticket avec la note de rÃ©solution et la date de rÃ©solution
+    -- Mettre à jour le ticket avec la note de résolution et la date de résolution
     UPDATE TICKETS
     SET resolution_note = p_resolution_note,
         resolution_datetime = CURRENT_TIMESTAMP
     WHERE ticket_id = p_ticket_id;
 
-    DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' rÃ©solu avec succÃ¨s.');
+    DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' résolu avec succès.');
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Erreur lors de la rÃ©solution du ticket : ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20002, 'Erreur lors de la résolution du ticket : ' || SQLERRM);
 END;
 /
 
 
--- Ferme le ticket dont l'id est passÃ© en paramÃ¨tre
+-- Ferme le ticket dont l'id est passé en paramètre
 CREATE OR REPLACE PROCEDURE GLPI_PAU.CLOSE_TICKET(
     p_ticket_id IN INT
 )
 IS
 BEGIN
-    -- VÃ©rifier si le ticket existe dans la table TICKETS
+    -- Vérifier si le ticket existe dans la table TICKETS
     IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spÃ©cifiÃ© n''existe pas dans la table TICKETS.');
+        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spécifié n''existe pas dans la table TICKETS.');
     END IF;
 
-    -- Mettre Ã  jour le ticket avec la date de fermeture et la date de derniÃ¨re modification
+    -- Mettre à jour le ticket avec la date de fermeture et la date de dernière modification
     UPDATE TICKETS
     SET closing_datetime = CURRENT_TIMESTAMP,
         last_modification_datetime = CURRENT_TIMESTAMP
     WHERE ticket_id = p_ticket_id;
 
-    DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' fermÃ© avec succÃ¨s.');
+    DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' fermé avec succès.');
 EXCEPTION
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20002, 'Erreur lors de la fermeture du ticket : ' || SQLERRM);
@@ -243,7 +243,7 @@ END;
 /
 
 
--- Assigne un ticket Ã  un utilisateur
+-- Assigne un ticket à un utilisateur
 CREATE OR REPLACE PROCEDURE GLPI_PAU.ASSIGN_TICKET_TO_USER(
     p_ticket_id IN INT,
     p_user_id IN INT
@@ -251,7 +251,7 @@ CREATE OR REPLACE PROCEDURE GLPI_PAU.ASSIGN_TICKET_TO_USER(
 IS
     v_count INT;
 BEGIN
-    -- Vérifier si la relation existe déjà
+    -- V�rifier si la relation existe d�j�
     SELECT COUNT(*)
     INTO v_count
     FROM ASSIGNED_TO
@@ -259,17 +259,17 @@ BEGIN
     AND fk_user = p_user_id;
 
     IF v_count > 0 THEN
-        DBMS_OUTPUT.PUT_LINE('La relation entre le ticket et l''utilisateur existe déjà.');
+        DBMS_OUTPUT.PUT_LINE('La relation entre le ticket et l''utilisateur existe d�j�.');
     ELSE
-        -- Insérer la relation entre le ticket et l'utilisateur dans la table ASSIGN_TO
+        -- Ins�rer la relation entre le ticket et l'utilisateur dans la table ASSIGN_TO
         INSERT INTO ASSIGNED_TO (fk_ticket, fk_user)
         VALUES (p_ticket_id, p_user_id);
 
-        DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' attribué avec succès à l''utilisateur avec l''ID ' || p_user_id);
+        DBMS_OUTPUT.PUT_LINE('Ticket avec l''ID ' || p_ticket_id || ' attribu� avec succ�s � l''utilisateur avec l''ID ' || p_user_id);
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''attribution du ticket à l''utilisateur : ' || SQLERRM);
+        RAISE_APPLICATION_ERROR(-20003, 'Erreur lors de l''attribution du ticket � l''utilisateur : ' || SQLERRM);
 END;
 /
 
@@ -285,12 +285,12 @@ IS
 BEGIN
     -- Verifier si le ticket existe dans la table TICKETS
     IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ticket_id, 'ticket_id', 'TICKETS') THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Le ticket spécifié n''existe pas dans la table TICKETS.');
+        RAISE_APPLICATION_ERROR(-20001, 'Le ticket sp�cifi� n''existe pas dans la table TICKETS.');
     END IF;
 
     -- Verifie si l'utilisateur existe dans la table USERS
     IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_user_id, 'user_id', 'USERS') THEN
-        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur spécifié n''existe pas dans la table USERS.');
+        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur sp�cifi� n''existe pas dans la table USERS.');
     END IF;
 
     -- Verifie si la ligne observer existe deja
@@ -303,12 +303,12 @@ BEGIN
         -- Supprime la ligne observer
         DELETE FROM GLPI_PAU.OBSERVERS
         WHERE fk_ticket = p_ticket_id AND fk_user = p_user_id;
-        DBMS_OUTPUT.PUT_LINE('Utilisateur avec l''ID ' || p_user_id || ' supprimé de la liste des observateurs du ticket avec l''ID ' || p_ticket_id);
+        DBMS_OUTPUT.PUT_LINE('Utilisateur avec l''ID ' || p_user_id || ' supprim� de la liste des observateurs du ticket avec l''ID ' || p_ticket_id);
     ELSE
         -- Ajoute la ligne observer
         INSERT INTO GLPI_PAU.OBSERVERS (fk_ticket, fk_user)
         VALUES (p_ticket_id, p_user_id);
-        DBMS_OUTPUT.PUT_LINE('Utilisateur avec l''ID ' || p_user_id || ' ajouté à la liste des observateurs du ticket avec l''ID ' || p_ticket_id);
+        DBMS_OUTPUT.PUT_LINE('Utilisateur avec l''ID ' || p_user_id || ' ajout� � la liste des observateurs du ticket avec l''ID ' || p_ticket_id);
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
@@ -316,10 +316,7 @@ EXCEPTION
 END;
 /
 
-
-
-
---ProcÃ©dure qui met Ã  jour une vue
+--Procédure qui met à jour une vue
 CREATE OR REPLACE PROCEDURE GLPI_PAU.REFRESH_MATERIALIZED_VIEW(
     p_view_name IN VARCHAR2
 )
@@ -329,6 +326,195 @@ BEGIN
 END REFRESH_MATERIALIZED_VIEW;
 /
 
+-- Procedure pour creer un Ticket
+CREATE OR REPLACE PROCEDURE GLPI_PAU.NEW_TICKET(
+    p_created_by IN INT, --id of the user that as created the ticket
+    p_type IN VARCHAR2,
+    p_priority IN VARCHAR2,
+    p_category IN VARCHAR2,
+    p_assigned_group IN INT, -- id of the group assigned to the ticket
+    p_description IN VARCHAR2,
+    p_title IN VARCHAR2,
+    p_site IN VARCHAR2,
+    p_hardware IN INT, -- id of the hardware the ticket refers to (set to NULL if no hardware)
+    p_ressource IN INT  -- id of the hardware the ticket refers to (set to NULL if no hardware)
+)
+IS
+    p_location VARCHAR2(200) := 'Pau - '|| p_site;
+    v_type_id INT;
+    v_priority_id INT;
+    v_category_id INT;
+    v_location_id INT;
+    v_ticket_id INT;
+    v_status_id INT;
+BEGIN
+    
+    -- Verifier si l'utilisateur existe dans la table USERS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_created_by, 'user_id', 'USERS') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur specifier n''existe pas dans la table USERS.');
+    END IF;
+    -- Verifier si le hardware existe dans la table HARDWARES
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_hardware, 'hardaware_id', 'HARDWARES') AND p_hardware <> NULL THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Le hardware specifier n''existe pas dans la table HARDWARES.');
+    END IF;
+    -- Verifier si le assigne group existe dans la table GROUP
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_assigned_group, '"group_id"', 'REF_GROUP') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Le group specifier n''existe pas dans la table REF_GROUP.');
+    END IF;
+    -- Verifier si le type passe en parametre existe dans la table REF_Type
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_type, '"type"', 'REF_type') THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Le type specifie n''existe pas dans la table REF_type.');
+    END IF;
+     -- Verifier si le priority passe en parametre existe dans la table REF_priority
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_priority, '"priority"', 'REF_priority') THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Le priority specifie n''existe pas dans la table REF_priority.');
+    END IF;
+     -- Verifier si le priority passe en parametre existe dans la table REF_category
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_category, '"category"', 'REF_category') THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Le category specifie n''existe pas dans la table REF_category.');
+    END IF;
+    -- Verifier que le site existe 
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_location, '"location"', 'LOCATIONS') THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Le site specifie n''existe pas dans la table LOCATIONS ou n''est pas associer a cette ville.');
+    END IF;
+   -- Verifier si la ressource existe dans la table HARDWARES
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ressource, 'ressource_id', 'RESSOURCES') AND p_ressource <> NULL THEN
+        RAISE_APPLICATION_ERROR(-20002, 'La ressource specifier n''existe pas dans la table RESSOURCES.');
+    END IF;
+    
+    -- Recuperer les ID correspondant au valuer passes en parametre    
+    SELECT type_id INTO v_type_id
+    FROM GLPI_PAU.REF_TYPE
+    WHERE "type" = p_type;
+    
+    SELECT status_id INTO v_status_id
+    FROM GLPI_PAU.REF_STATUS
+    WHERE UPPER(status) ='TO DO';
+    
+    SELECT priority_id INTO v_priority_id
+    FROM GLPI_PAU.REF_PRIORITY
+    WHERE "priority" = p_priority;
+    
+    SELECT category_id INTO v_category_id
+    FROM GLPI_PAU.REF_CATEGORY
+    WHERE "category" = p_category;
+    
+    SELECT location_id INTO v_location_id
+    FROM GLPI_PAU.LOCATIONS
+    WHERE "location" = p_location;
+    
+    SELECT priority_id INTO v_priority_id
+    FROM GLPI_PAU.REF_PRIORITY
+    WHERE "priority" = p_priority;
+    
+    --INSERT du TICKET
+    INSERT INTO GLPI_PAU.TICKETS 
+    (ticket_id, fk_created_by, fk_type, fk_priority, title, "description", fk_location, creation_datetime, last_modification_datetime, resolution_datetime, resolution_note, closing_datetime, fk_assigned_group, fk_status, fk_category, fk_hardwares) 
+    VALUES 
+    (0, p_created_by, v_type_id, v_priority_id, p_title, p_description, v_location_id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL, NULL,p_assigned_group, v_status_id, v_category_id, p_hardware);
+    
+    --INSERT dans TICKET_RESSOURCES si non null
+    IF(p_ressource IS NOT NULL) THEN 
+        v_ticket_id := GLPI_PAU.SEQ_ID_TICKETS.CURRVAL;
+        INSERT INTO GLPI_PAU.TICKET_RESSOURCES 
+        (fk_ressource, fk_ticket) 
+        VALUES 
+        (p_ressource, v_ticket_id);
+    END IF;
+END;
+/
+
+-- Procedure pour creer un USER
+CREATE OR REPLACE PROCEDURE GLPI_PAU.NEW_USER(
+    p_role IN VARCHAR2,
+    p_group IN INT, -- user's group id
+    p_password IN VARCHAR2,
+    p_email IN VARCHAR2,
+    p_lastname IN VARCHAR2,
+    p_firstname IN VARCHAR2,
+    p_company IN VARCHAR2, 
+    p_site IN VARCHAR2 
+)
+IS
+    p_location VARCHAR2(200) := 'Pau - '|| p_site;
+    v_role_id INT;
+    v_location_id INT;
+BEGIN
+    
+    -- Verifier si l'utilisateur existe dans la table USERS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_role, '"role"', 'REF_ROLE') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Le role specifier n''existe pas dans la table REF_ROLE.');
+    END IF;
+    -- Verifier si le group existe dans la table GROUP
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_group, '"group_id"', 'REF_GROUP') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Le group specifier n''existe pas dans la table REF_GROUP.');
+    END IF;
+    -- Verifier que le site existe 
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_location, '"location"', 'LOCATIONS') THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Le site specifie n''existe pas dans la table LOCATIONS ou n''est pas associer a cette ville.');
+    END IF;
+    
+    -- Recuperer les ID correspondant au valuer passes en parametre    
+    SELECT role_id INTO v_role_id
+    FROM GLPI_PAU.REF_ROLE
+    WHERE "role" = p_role;
+    
+    SELECT location_id INTO v_location_id
+    FROM GLPI_PAU.LOCATIONS
+    WHERE "location" = p_location;
+    
+    --INSERT du USER
+    INSERT INTO GLPI_PAU.USERS 
+    (user_id, fk_role, fk_group, "password", email ,last_name, first_name, company, fk_location) 
+    VALUES 
+    (0, v_role_id, p_group, p_password, p_email, p_lastname, p_firstname, p_company ,v_location_id);
+END;
+/
+
+-- Procedure pour creer un Commentaire
+CREATE OR REPLACE PROCEDURE GLPI_PAU.NEW_COMMENT(
+    p_user IN INT, --id of the user that as created the ticket
+    p_answer_to IN INT, --id of the user that as created the ticket
+    p_ticket IN INT, -- ticket id od which belong the comment
+    p_task IN VARCHAR2,
+    p_content IN VARCHAR2,
+    p_ressource IN INT  -- id of the hardware the ticket refers to (set to NULL if no hardware)
+)
+IS
+    v_comment_id INT;
+BEGIN
+    -- Verifier si l'utilisateur p_user existe dans la table USERS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_user, 'user_id', 'USERS') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur p_user specifier n''existe pas dans la table USERS.');
+    END IF;
+    -- Verifier si l'utilisateur p_answer_to existe dans la table USERS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_answer_to, 'user_id', 'USERS') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur p_answer_to specifier n''existe pas dans la table USERS.');
+    END IF;
+    -- Verifier si le ticket existe dans la table TICKETS
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ticket, 'ticket_id', 'TICKETS') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Le ticket specifier n''existe pas dans la table TICKETS.');
+    END IF;
+   -- Verifier si la ressource existe dans la table HARDWARES
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_ressource, 'ressource_id', 'RESSOURCES') AND p_ressource <> NULL THEN
+        RAISE_APPLICATION_ERROR(-20002, 'La ressource specifier n''existe pas dans la table RESSOURCES.');
+    END IF;    
+    --INSERT du COMMENTS
+    INSERT INTO GLPI_PAU.COMMENTS 
+    (comment_id, fk_answer_to, fk_ticket, fk_user, creation_datetime, task, "content") 
+    VALUES 
+    (0, p_answer_to, p_ticket, p_user, CURRENT_TIMESTAMP, p_task, p_content);
+
+    --INSERT dans COMMENT_RESSOURCES si non null
+    IF(p_ressource IS NOT NULL) THEN 
+        v_comment_id := GLPI_PAU.SEQ_ID_COMMENTS.CURRVAL;
+        INSERT INTO GLPI_PAU.COMMENT_RESSOURCES 
+        (fk_ressource, fk_comment) 
+        VALUES 
+        (p_ressource, v_comment_id);
+    END IF;
+END;
+/
 
 COMMIT;
 exit;
