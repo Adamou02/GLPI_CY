@@ -12,7 +12,7 @@ BEGIN
         SELECT GLPI_CERGY.seq_id.REF_PRIORITY.nextval INTO :NEW.priority_id FROM dual;
     END IF;
     
-    IF (CHECK_VALUE_EXIST(:NEW."priority", '"priority"', .REF_PRIORITY')) THEN 
+    IF (CHECK_VALUE_EXIST(:NEW."priority", '"priority"', 'REF_PRIORITY')) THEN 
         RAISE_APPLICATION_ERROR(-20001, 'Priority ' || :NEW."priority" || ' already exists in table GLPI_CERGY.REF_PRIORITY');
     END IF;
 EXCEPTION
