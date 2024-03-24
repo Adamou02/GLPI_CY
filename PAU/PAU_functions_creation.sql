@@ -172,7 +172,7 @@ BEGIN
 
     -- Récupérer l'ID du statut correspondant au nom de statut passé en paramètre
     SELECT status_id INTO v_status_id
-    FROM.REF_STATUS
+    FROM GLPI_PAU.REF_STATUS
     WHERE status = p_status_name;
 
     -- Mettre à jour le ticket avec le nouveau statut et la date de dernière modification

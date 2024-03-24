@@ -171,7 +171,7 @@ BEGIN
 
     -- RÃ©cupÃ©rer l'ID du statut correspondant au nom de statut passÃ© en paramÃ¨tre
     SELECT status_id INTO v_status_id
-    FROM.REF_STATUS
+    FROM GLPI_CERGY.REF_STATUS
     WHERE status = p_status_name;
 
     -- Mettre Ã  jour le ticket avec le nouveau statut et la date de derniÃ¨re modification
