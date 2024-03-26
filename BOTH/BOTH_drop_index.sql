@@ -43,7 +43,6 @@ DROP INDEX GLPI_PAU.idx_users_role_company;
 DROP INDEX GLPI_PAU.idx_users_group_company;
 DROP INDEX GLPI_PAU.idx_users_location_company;
 DROP INDEX GLPI_PAU.idx_user_cluster;
-DROP INDEX GLPI_PAU.idx_user_cluster;
 DROP INDEX GLPI_PAU.idx_ticket_cluster;
 COMMIT;
 exit;

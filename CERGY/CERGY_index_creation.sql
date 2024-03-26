@@ -32,15 +32,6 @@ CREATE INDEX GLPI_CERGY.idx_comments_fk_ticket ON GLPI_CERGY.COMMENTS(fk_ticket)
 CREATE INDEX GLPI_CERGY.idx_comments_fk_user ON GLPI_CERGY.COMMENTS(fk_user);
 
 
-
--- Création d'index sur les clusters pour améliorer les performances globales des requêtes impliquant des opérations sur les données regroupées dans ces clusters.
-
--- Index sur le cluster des utilisateurs pour améliorer les performances des requêtes courantes impliquant des opérations sur les utilisateurs.
-CREATE INDEX GLPI_CERGY.idx_user_cluster ON CLUSTER GLPI_CERGY.user_cluster;
--- Index sur le cluster des tickets pour améliorer les performances des requêtes courantes impliquant des opérations sur les tickets
-CREATE INDEX GLPI_CERGY.idx_ticket_cluster ON CLUSTER GLPI_CERGY.ticket_cluster;
-
-
 -- Creation d'index Bitmap pour les colonnes ï¿½ faible valeurs distinctes. Cela nous permet de faire des opï¿½rations de filtrage sur ces tables.
 
 -- ï¿½tant donnï¿½ que le rï¿½le d'un utilisateur est souvent limitï¿½ ï¿½ un nombre restreint de valeurs (par exemple, "Support", "IT", "RH"), 
