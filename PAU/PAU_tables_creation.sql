@@ -37,7 +37,7 @@ CREATE TABLE GLPI_PAU.REF_ROLE (
 CREATE TABLE GLPI_PAU.LOCATIONS (
     location_id INT PRIMARY KEY,  -- Identifiant unique de l'emplacement
     city VARCHAR2(50) NOT NULL,  -- Ville de l'emplacement
-    "site" VARCHAR2(50) NOT NULL,  -- Site de l'emplacement
+    "site" VARCHAR2(50) NULL,  -- Site de l'emplacement
     "location" VARCHAR2(103) UNIQUE  -- Concaténation de city + site, unique
 );
 
