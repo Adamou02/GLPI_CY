@@ -94,59 +94,51 @@ END;
 /
 
 
--- Procedure qui select tous les tickets grace Ã  la procedure GET_TICKET selon le user_id passÃ© en parametre
-CREATE OR REPLACE PROCEDURE GLPI_PAU.GET_USER_TICKETS(
+-- Procedure qui select une list de tous les id des tickets selon le user_id passÃƒÂ© en parametre
+CREATE OR REPLACE FUNCTION GLPI_PAU.GET_USER_TICKETS(
     p_user_id IN INT
 )
-IS
-    v_ticket GLPI_PAU.GLOBAL_Ticket%ROWTYPE; -- Déclarer une variable pour stocker les informations du ticket
+RETURN SYS.ODCINUMBERLIST IS
+    ticket_id_list SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST(); -- Initialisation du tableau
 BEGIN
-    -- Sélectionne tous les tickets attribués à l'utilisateur passé en paramètre
+    -- Ouvrir un curseur pour récupérer les résultats
     FOR ticket_rec IN (
         SELECT ticket_id
-        FROM GLPI_PAU.GLOBAL_Ticket
-        WHERE created_by_user_email = (
-            SELECT email
-            FROM GLPI_PAU.USERS
-            WHERE user_id = p_user_id
-        )
-    )
-    LOOP
-        -- Appelle la fonction GET_TICKET pour chaque ticket de la boucle
-        v_ticket := GLPI_PAU.GET_TICKET(ticket_rec.ticket_id);
-        
-        -- Vérifie si le ticket existe
-        IF v_ticket.ticket_id IS NOT NULL THEN
-            -- Affiche les informations du ticket
-            DBMS_OUTPUT.PUT_LINE('Ticket ID: ' || v_ticket.ticket_id);
-            DBMS_OUTPUT.PUT_LINE('Created By: ' || v_ticket.created_by);
-            -- Afficher d'autres champs si nécessaire
-        ELSE
-            DBMS_OUTPUT.PUT_LINE('Erreur lors du traitement du ticket ' || ticket_rec.ticket_id || ' : Ticket introuvable');
-        END IF;
+         FROM GLPI_PAU.TICKETS
+         WHERE fk_created_by = p_user_id
+    ) LOOP
+        -- Ajouter chaque ticket_id à la liste
+        ticket_id_list.EXTEND;
+        ticket_id_list(ticket_id_list.LAST) := ticket_rec.ticket_id;
     END LOOP;
+
+    -- Retourner le tableau de tickets
+    RETURN ticket_id_list;
 EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Erreur lors de la récupération des tickets de l''utilisateur avec l''ID ' || p_user_id || ' : ' || SQLERRM);
+        RETURN NULL; -- Retourner NULL en cas d'erreur
 END;
 /
 
-
-
-
--- Procedure qui recupere tous les commentaires d'un ticket
-CREATE OR REPLACE PROCEDURE GLPI_PAU.GET_TICKET_COMMENTS(
+-- Procedure qui recupere tous id des commentaires d'un ticket
+CREATE OR REPLACE FUNCTION GLPI_PAU.GET_TICKET_COMMENTS(
     p_ticket_id IN INT
-)
-IS
-    TYPE comment_list IS TABLE OF GLPI_PAU.COMMENTS%ROWTYPE INDEX BY PLS_INTEGER;
-    v_comments comment_list;
+) RETURN SYS.ODCINUMBERLIST IS
+    comment_id_list SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST(); -- Initialisation du tableau
 BEGIN
-    -- Sélectionner tous les commentaires associés au ticket passé en paramètre
-    SELECT *
-    BULK COLLECT INTO v_comments
-    FROM GLPI_PAU.COMMENTS
-    WHERE FK_TICKET = p_ticket_id;
+    FOR comment_rec IN (
+        SELECT comment_id
+         FROM GLPI_PAU.COMMENTS
+         WHERE fk_ticket = p_ticket_id
+    ) LOOP
+        -- Ajouter chaque comment_id à la liste
+        comment_id_list.EXTEND;
+        comment_id_list(comment_id_list.LAST) := comment_rec.comment_id;
+    END LOOP;
+
+    -- Retourner le tableau de comment
+    RETURN comment_id_list;
 END;
 /
 
