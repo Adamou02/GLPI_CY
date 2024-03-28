@@ -78,7 +78,7 @@ GLPI_collaborate-main/<br>
 
 ### Installation
 
-Pour créer la base de données, exécutez les scripts situés dans les dossiers `BOTH`, `CERGY` et `PAU`. Assurez-vous d'avoir les droits nécessaires pour exécuter les scripts.
+Pour créer la base de données, exécutez les scripts situés dans le dossier racine, database_creation_script.ps1 pour la création, et database_drop_script pour la supression.
 
 ### Documentation
 
