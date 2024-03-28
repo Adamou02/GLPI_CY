@@ -98,6 +98,37 @@ EXECUTE GLPI_PAU.NEW_COMMENT(1, 1, 3, 'Change Request Details', 'The new branch 
 EXECUTE GLPI_PAU.NEW_COMMENT(1, 2, 2, 'Training Details', 'The security training should cover basic awareness and best practices.', 1);
 EXECUTE GLPI_PAU.NEW_COMMENT(2, 2, 3, 'Access Issue Details', 'Error message indicates permission denied.', 3);
 EXECUTE GLPI_PAU.NEW_COMMENT(3, 2, 1, 'Inquiry Details', 'Interested in bulk purchasing options.', 3);
+EXECUTE GLPI_PAU.NEW_COMMENT(4, 3, 1, 'Update Request', 'Could you please provide an estimated time for the software update?', 2);
+EXECUTE GLPI_PAU.NEW_COMMENT(5, 2, 2, 'Configuration Details', 'Ensure that the new branch office network configuration aligns with our security policies.', 1);
+EXECUTE GLPI_PAU.NEW_COMMENT(6, 4, 2, 'Error Analysis', 'Investigating the access issue further to identify the root cause.', 3);
+EXECUTE GLPI_PAU.NEW_COMMENT(7, 3, 3, 'Pricing Inquiry', 'We offer discounted rates for bulk purchases. I will send you the details shortly.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(8, 1, 4, 'Permission Issue', 'Checking the firewall logs for any denied access attempts.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(8, 5, 1, 'Update Progress', 'The update process has started. Will keep you updated on the progress.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(3, 1, 2, 'Configuration Confirmation', 'Confirming the location and IP range for the new branch office.', 2);
+EXECUTE GLPI_PAU.NEW_COMMENT(1, 2, 2, 'Access Issue Resolution', 'Resolved the access issue by updating the permissions for the sales report folder.', 3);
+EXECUTE GLPI_PAU.NEW_COMMENT(2, 4, 3, 'Pricing Details', 'The discounted rates for bulk purchases have been emailed to you. Please check your inbox.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(3, 3, 4, 'Firewall Logs Analysis', 'No denied access attempts found in the firewall logs. Investigating further.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(4, 5, 1, 'Update Progress', 'The Adobe Acrobat Reader update has been successfully installed. Verifying functionality now.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(5, 1, 2, 'Configuration Confirmation', 'The IP range has been confirmed for the new branch office. Configuration changes will be applied shortly.', 2);
+EXECUTE GLPI_PAU.NEW_COMMENT(6, 2, 2, 'Access Issue Resolution', 'Permissions have been updated, and the access issue has been resolved. Users can now access the sales report without any errors.', 3);
+EXECUTE GLPI_PAU.NEW_COMMENT(7, 3, 3, 'Training Schedule', 'The security training session has been scheduled for next Monday. Invitations will be sent out to all new employees shortly.', 1);
+EXECUTE GLPI_PAU.NEW_COMMENT(1, 4, 4, 'Pricing Confirmation', 'Confirming receipt of the pricing details. We will review the rates and get back to you with any questions.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(4, 5, 5, 'General Inquiry Response', 'Thank you for your inquiry. Our sales team will reach out to discuss bulk purchasing options and provide further assistance.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(2, 1, 1, 'Update Verification', 'Verified that the latest version of Adobe Acrobat Reader is installed and functioning correctly. Ticket can now be closed.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(1, 2, 2, 'Configuration Applied', 'Configuration changes for the new branch office have been successfully applied. Network connectivity has been tested and is stable.', 2);
+EXECUTE GLPI_PAU.NEW_COMMENT(2, 3, 3, 'Training Session Reminder', 'A reminder email has been sent out to all employees regarding the upcoming security training session. Please ensure attendance.', 1);
+EXECUTE GLPI_PAU.NEW_COMMENT(3, 4, 4, 'Pricing Review', 'Reviewed the provided pricing details. Everything looks good, and we are proceeding with the bulk purchase order.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(4, 5, 5, 'Follow-Up Action', 'Our sales team has initiated contact to discuss bulk purchasing options. Please check your inbox for further communication.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(5, 1, 1, 'Ticket Closure', 'Confirmed successful resolution of the software update request. Closing the ticket now. Thank you for your cooperation.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(6, 2, 2, 'Configuration Validation', 'Validation tests have been conducted, and the new branch office configuration is functioning as expected. Ticket status can be updated to "Done."', 3);
+EXECUTE GLPI_PAU.NEW_COMMENT(7, 3, 3, 'Training Session Feedback', 'Thank you for attending the security training session. Your feedback is valuable in improving our training programs.', 1);
+EXECUTE GLPI_PAU.NEW_COMMENT(8, 4, 4, 'Purchase Confirmation', 'The bulk purchase order has been confirmed, and delivery is scheduled for next week. We appreciate your business.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(7, 5, 5, 'Sales Discussion Initiated', 'Our sales team has initiated discussions regarding bulk purchasing options. Please let us know if you have any specific requirements.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(3, 1, 1, 'Final Update', 'This concludes the ticket resolution process. If you encounter any further issues, feel free to reopen the ticket. Thank you for choosing our services.', NULL);
+EXECUTE GLPI_PAU.NEW_COMMENT(5, 2, 2, 'Final Configuration Check', 'Performed a final check on the branch office configuration. Everything appears to be in order. Requesting final approval to close the ticket.', 3);
+EXECUTE GLPI_PAU.NEW_COMMENT(2, 3, 3, 'Training Session Completion', 'The security training session has been successfully completed. Certificates of completion will be distributed shortly.', 1);
+EXECUTE GLPI_PAU.NEW_COMMENT(3, 4, 4, 'Order Shipment Notification', 'Your bulk purchase order has been shipped. Tracking details have been emailed to you for reference. Thank you for your business.', NULL);
+
 
 -- Inserts pour TICKET_RESSOURCES 
 INSERT INTO GLPI_PAU.TICKET_RESSOURCES (fk_ressource, fk_ticket) VALUES (1, 4); 
