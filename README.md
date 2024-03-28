@@ -78,7 +78,10 @@ GLPI_collaborate-main/<br>
 
 ### Installation
 
+Dans le config.json, changer le mot de passe de votre user system ORACLE. 
 Pour créer la base de données, exécutez les scripts situés dans le dossier racine, database_creation_script.ps1 pour la création, et database_drop_script pour la supression.
+
+Dans le fichier BOTH/BOTH_database_link_creation.sql, le port doit être changer si votre service ORACLE SQL n'est pas sur le port 1521
 
 ### Documentation
 
