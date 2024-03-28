@@ -18,10 +18,13 @@ INSERT INTO GLPI_PAU.REF_category (category_id, "category") VALUES (3, 'Security
 -- Inserts pour REF_type
 INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (1, 'Incident');
 INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (2, 'Change');
+INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (3, 'Service Request');
+INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (4, 'Bug Report');
 
 -- Inserts pour REF_role
 INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (1, 'Manager');
 INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (2, 'Technician');
+INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (4, 'Administrator');
 INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (3, 'Customer');
 
 -- Inserts pour REF_group
@@ -38,11 +41,30 @@ INSERT INTO GLPI_PAU.HARDWARES (hardware_id, "name", "model", brand) VALUES (2, 
 INSERT INTO GLPI_PAU.HARDWARES (hardware_id, "name", "model", brand) VALUES (3, 'Switch 2','Cisco Switch 1', 'Cisco');
 
 -- Inserts pour USERS
+-- Inserts pour USERS
 EXECUTE GLPI_PAU.NEW_USER('Customer', 3, 'Password1234???', 'william_de_pau@gmail.com', 'Williams de Pau', 'Emily', '123 Industries', '');
 EXECUTE GLPI_PAU.NEW_USER('Technician', 2, 'Password1234???', 'brown_de_pau@gmail.com', 'Brown de Pau', 'Michael', '456 Corporation', '');
 EXECUTE GLPI_PAU.NEW_USER('Manager', 2, 'Password1234???', 'jones_de_pau@gmail.com', 'Jones de Pau', 'Jessica', '789 Enterprises', '');
-EXECUTE GLPI_PAU.NEW_USER('Technician', 1, 'Password1234???', 'davis_de_pau@gmail.com', 'Davis de Pau', 'Matthew', 'ABC Corp', '');
+EXECUTE GLPI_PAU.NEW_USER('Administrator', 1, 'Password1234???', 'davis_de_pau@gmail.com', 'Davis de Pau', 'Matthew', 'ABC Corp', '');
 EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'taylor_de_pau@gmail.com', 'Taylor de Pau', 'Daniel', 'XYZ Ltd', '');
+EXECUTE GLPI_PAU.NEW_USER('Manager', 2, 'Password1234???', 'rodriguez_de_pau@gmail.com', 'Rodriguez de Pau', 'Olivia', 'XYZ Ltd', '');
+EXECUTE GLPI_PAU.NEW_USER('Customer', 3, 'Password1234???', 'martinez_de_pau@gmail.com', 'Martinez de Pau', 'Liam', 'ABC Corp', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 4, 'Password1234???', 'lopez_de_pau@gmail.com', 'Lopez de Pau', 'Ethan', '456 Corporation', '');
+EXECUTE GLPI_PAU.NEW_USER('Administrator', 2, 'Password1234???', 'gonzalez_de_pau@gmail.com', 'Gonzalez de Pau', 'Ava', '123 Industries', '');
+EXECUTE GLPI_PAU.NEW_USER('Manager', 3, 'Password1234???', 'hernandez_de_pau@gmail.com', 'Hernandez de Pau', 'Mia', '789 Enterprises', '');
+EXECUTE GLPI_PAU.NEW_USER('Administrator', 4, 'Password1234???', 'williams_de_pau@gmail.com', 'Williams de Pau Jr', 'Liam Jr', 'XYZ Ltd Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'brown_de_pau@gmail.com', 'Brown de Pau Jr', 'Ethan Jr', 'ABC Corp Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Manager', 4, 'Password1234???', 'jones_de_pau@gmail.com', 'Jones de Pau Jr', 'Ava Jr', '456 Corporation Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'davido_de_pau@gmail.com', 'Davis de Pau Jr', 'Mia Jr', '123 Industries Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'talyah_de_pau@gmail.com', 'Taylor de Pau Jr', 'Olivia Jr', '789 Enterprises Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Administrator', 4, 'Password1234???', 'martin_de_pau@gmail.com', 'Martinez de Pau Jr', 'Liam Jr', 'XYZ Ltd Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'lopez_de_pau@gmail.com', 'Lopez de Pau Jr', 'Ethan Jr', 'ABC Corp Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Manager', 4, 'Password1234???', 'gonza_de_pau@gmail.com', 'Gonzalez de Pau Jr', 'Ava Jr', '456 Corporation Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'hermado_de_pau@gmail.com', 'Hernandez de Pau Jr', 'Mia Jr', '123 Industries Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'rodriguo_de_pau@gmail.com', 'Rodriguo de Pau Jr', 'Olivia Jr', '789 Enterprises Jr', '');
+
+
+
 
 -- Inserts pour RESSOURCES
 INSERT INTO GLPI_PAU.RESSOURCES (ressource_id, ressource) VALUES (1, 'H:/TEST/test.txt');
@@ -58,6 +80,17 @@ EXECUTE GLPI_PAU.NEW_TICKET(1, 'Incident', 'Urgent', 'Network', 2, 'Change neede
 EXECUTE GLPI_PAU.NEW_TICKET(2, 'Change', 'Normal', 'Security', 3, 'Requesting security training for new employees.', 'Security Training Request', '', NULL, 2);
 EXECUTE GLPI_PAU.NEW_TICKET(2, 'Change', 'Normal', 'Software', 2, 'Unable to access sales report on server.', 'Sales Report Access Issue', '', 2, 3);
 EXECUTE GLPI_PAU.NEW_TICKET(1, 'Incident', 'Emergency', 'Software', 1, 'Seeking information regarding product pricing.', 'General Inquiry', '', NULL, NULL);
+EXECUTE GLPI_PAU.NEW_TICKET(2, 'Incident', 'Urgent', 'Software', 2, 'Unable to access email client.', 'Email Access Issue', '', 1, 3);
+EXECUTE GLPI_PAU.NEW_TICKET(3, 'Change', 'Normal', 'Network', 3, 'Requesting firewall configuration change.', 'Firewall Configuration Change Request', '', 2, 4);
+EXECUTE GLPI_PAU.NEW_TICKET(4, 'Incident', 'Low', 'Software', 1, 'Reporting slow system performance.', 'System Performance Issue', '', 3, 5);
+EXECUTE GLPI_PAU.NEW_TICKET(5, 'Incident', 'Emergency', 'Network', 2, 'Network outage in the main office.', 'Network Outage', '', 2, NULL);
+EXECUTE GLPI_PAU.NEW_TICKET(6, 'Change', 'Normal', 'Security', 3, 'Requesting access to restricted folder.', 'Access Request', '', NULL, 1);
+EXECUTE GLPI_PAU.NEW_TICKET(7, 'Incident', 'Normal', 'Software', 1, 'Installation issue with new software update.', 'Installation Issue', '', 3, 2);
+EXECUTE GLPI_PAU.NEW_TICKET(8, 'Change', 'Urgent', 'Network', 2, 'Network switch replacement required.', 'Switch Replacement Request', '', 2, 4);
+EXECUTE GLPI_PAU.NEW_TICKET(9, 'Incident', 'Emergency', 'Software', 3, 'Critical error message on server.', 'Server Error', '', 1, 5);
+EXECUTE GLPI_PAU.NEW_TICKET(10, 'Change', 'Normal', 'Security', 1, 'Requesting password reset for user account.', 'Password Reset Request', '', NULL, 3);
+EXECUTE GLPI_PAU.NEW_TICKET(11, 'Incident', 'Urgent', 'Software', 2, 'Data loss in database.', 'Data Loss Issue', '', 2, NULL);
+
 
 -- Inserts pour COMMENTS
 EXECUTE GLPI_PAU.NEW_COMMENT(1, 1, 2, 'Request Details', 'Please ensure that the latest version of Adobe Acrobat Reader is installed.', 1);
