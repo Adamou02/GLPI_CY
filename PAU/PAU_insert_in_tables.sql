@@ -1,3 +1,4 @@
+
 -- Inserts pour REF_priority
 INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (1, 'Emergency');
 INSERT INTO GLPI_PAU.REF_priority (priority_id, "priority") VALUES (2, 'Urgent');
@@ -18,11 +19,14 @@ INSERT INTO GLPI_PAU.REF_category (category_id, "category") VALUES (3, 'Security
 -- Inserts pour REF_type
 INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (1, 'Incident');
 INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (2, 'Change');
+INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (3, 'Service Request');
+INSERT INTO GLPI_PAU.REF_type (type_id, "type") VALUES (4, 'Bug Report');
 
 -- Inserts pour REF_role
 INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (1, 'Manager');
 INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (2, 'Technician');
 INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (3, 'Customer');
+INSERT INTO GLPI_PAU.REF_role (role_id, "role") VALUES (4, 'Administrator');
 
 -- Inserts pour REF_group
 INSERT INTO GLPI_PAU.REF_group ("group_id", "group") VALUES (1, 'Development Team');
@@ -78,7 +82,7 @@ DECLARE
     random_company VARCHAR2(10);
     random_group INT;
 BEGIN
-    FOR j IN 1..10 LOOP
+    FOR j IN 1..50 LOOP
         SELECT "role" INTO random_role FROM GLPI_PAU.REF_ROLE ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT "site" INTO random_site FROM GLPI_PAU.LOCATIONS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT "group_id" INTO random_group FROM GLPI_PAU.REF_GROUP ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
@@ -136,7 +140,7 @@ DECLARE
     random_ressource INT;
     random_user INT;
 BEGIN
-    FOR j IN 1..30 LOOP
+    FOR j IN 1..80 LOOP
         SELECT "type" INTO random_type FROM GLPI_PAU.REF_TYPE ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT "priority" INTO random_priority FROM GLPI_PAU.REF_PRIORITY ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT "category" INTO random_category FROM GLPI_PAU.REF_CATEGORY ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
@@ -197,7 +201,7 @@ DECLARE
     random_comment INT;
     random_ticket INT;
 BEGIN
-    FOR k IN 1..50 LOOP
+    FOR k IN 1..100 LOOP
         SELECT ressource_id INTO random_ressource FROM GLPI_PAU.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT user_id INTO random_user FROM GLPI_PAU.USERS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT comment_id INTO random_comment FROM GLPI_PAU.COMMENTS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
@@ -216,7 +220,7 @@ DECLARE
     random_ressource INT;
     random_ticket INT;
 BEGIN
-    FOR l IN 1..50 LOOP
+    FOR l IN 1..20 LOOP
         SELECT ressource_id INTO random_ressource FROM GLPI_PAU.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT ticket_id INTO random_ticket FROM GLPI_PAU.TICKETS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
          BEGIN
@@ -236,7 +240,7 @@ DECLARE
     random_ressource INT;
     random_comment INT;
 BEGIN
-    FOR m IN 1..50 LOOP
+    FOR m IN 1..20 LOOP
         SELECT ressource_id INTO random_ressource FROM GLPI_PAU.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT comment_id INTO random_comment FROM GLPI_PAU.COMMENTS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
          BEGIN
@@ -258,7 +262,7 @@ DECLARE
     random_user INT;
     random_ticket INT;
 BEGIN
-    FOR n IN 1..50 LOOP
+    FOR n IN 1..20 LOOP
         SELECT user_id INTO random_user FROM GLPI_PAU.USERS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         SELECT ticket_id INTO random_ticket FROM GLPI_PAU.TICKETS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
         BEGIN
