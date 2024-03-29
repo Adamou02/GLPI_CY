@@ -52,16 +52,16 @@ EXECUTE GLPI_PAU.NEW_USER('Customer', 3, 'Password1234???', 'martinez_de_pau@gma
 EXECUTE GLPI_PAU.NEW_USER('Technician', 1, 'Password1234???', 'lopez_de_pau@gmail.com', 'Lopez de Pau', 'Ethan', '456 Corporation', '');
 EXECUTE GLPI_PAU.NEW_USER('Administrator', 2, 'Password1234???', 'gonzalez_de_pau@gmail.com', 'Gonzalez de Pau', 'Ava', '123 Industries', '');
 EXECUTE GLPI_PAU.NEW_USER('Manager', 3, 'Password1234???', 'hernandez_de_pau@gmail.com', 'Hernandez de Pau', 'Mia', '789 Enterprises', '');
-EXECUTE GLPI_PAU.NEW_USER('Administrator', 2, 'Password1234???', 'williams_de_pau@gmail.com', 'Williams de Pau Jr', 'Liam Jr', 'XYZ Ltd Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'brown_de_pau@gmail.com', 'Brown de Pau Jr', 'Ethan Jr', 'ABC Corp Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Manager', 1, 'Password1234???', 'jones_de_pau@gmail.com', 'Jones de Pau Jr', 'Ava Jr', '456 Corporation Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'davido_de_pau@gmail.com', 'Davis de Pau Jr', 'Mia Jr', '123 Industries Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'talyah_de_pau@gmail.com', 'Taylor de Pau Jr', 'Olivia Jr', '789 Enterprises Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Administrator', 2, 'Password1234???', 'martin_de_pau@gmail.com', 'Martinez de Pau Jr', 'Liam Jr', 'XYZ Ltd Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'lopez_de_pau@gmail.com', 'Lopez de Pau Jr', 'Ethan Jr', 'ABC Corp Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Manager', 1, 'Password1234???', 'gonza_de_pau@gmail.com', 'Gonzalez de Pau Jr', 'Ava Jr', '456 Corporation Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'hermado_de_pau@gmail.com', 'Hernandez de Pau Jr', 'Mia Jr', '123 Industries Jr', '');
-EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'rodriguo_de_pau@gmail.com', 'Rodriguo de Pau Jr', 'Olivia Jr', '789 Enterprises Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Administrator', 2, 'Password1234???', 'williams_de_pau_jr@gmail.com', 'Williams de Pau Jr', 'Liam Jr', 'XYZ Ltd Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'brown_de_pau_jr@gmail.com', 'Brown de Pau Jr', 'Ethan Jr', 'ABC Corp Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Manager', 1, 'Password1234???', 'jones_de_pau_jr@gmail.com', 'Jones de Pau Jr', 'Ava Jr', '456 Corporation Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'davido_de_pau_jr@gmail.com', 'Davis de Pau Jr', 'Mia Jr', '123 Industries Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'talyah_de_pau_jr@gmail.com', 'Taylor de Pau Jr', 'Olivia Jr', '789 Enterprises Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Administrator', 2, 'Password1234???', 'martin_de_pau_jr@gmail.com', 'Martinez de Pau Jr', 'Liam Jr', 'XYZ Ltd Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'lopez_de_pau_jr@gmail.com', 'Lopez de Pau Jr', 'Ethan Jr', 'ABC Corp Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Manager', 1, 'Password1234???', 'gonza_de_pau_jr@gmail.com', 'Gonzalez de Pau Jr', 'Ava Jr', '456 Corporation Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Technician', 3, 'Password1234???', 'hermado_de_pau_jr@gmail.com', 'Hernandez de Pau Jr', 'Mia Jr', '123 Industries Jr', '');
+EXECUTE GLPI_PAU.NEW_USER('Customer', 1, 'Password1234???', 'rodriguo_de_pau_jr@gmail.com', 'Rodriguo de Pau Jr', 'Olivia Jr', '789 Enterprises Jr', '');
 
 
 

@@ -53,16 +53,16 @@ EXECUTE GLPI_CERGY.NEW_USER('Customer', 3, 'Password1234???', 'martinez_de_cergy
 EXECUTE GLPI_CERGY.NEW_USER('Technician', 1, 'Password1234???', 'lopez_de_cergy@gmail.com', 'Lopez de Cergy', 'Ethan', '456 Corporation', 'Fermat');
 EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, 'Password1234???', 'gonzalez_de_cergy@gmail.com', 'Gonzalez de Cergy', 'Ava', '123 Industries', 'St Martin');
 EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, 'Password1234???', 'hernandez_de_cergy@gmail.com', 'Hernandez de Cergy', 'Mia', '789 Enterprises', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, 'Password1234???', 'williams_de_cergy@gmail.com', 'Williams de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'brown_de_cergy@gmail.com', 'Brown de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, 'Password1234???', 'jones_de_cergy@gmail.com', 'Jones de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'davido_de_cergy@gmail.com', 'Davis de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'talyah_de_cergy@gmail.com', 'Taylor de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Administrator', 1, 'Password1234???', 'martin_de_cergy@gmail.com', 'Martinez de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'lopez_de_cergy@gmail.com', 'Lopez de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 1, 'Password1234???', 'gonza_de_cergy@gmail.com', 'Gonzalez de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'hermado_de_cergy@gmail.com', 'Hernandez de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'rodriguo_de_cergy@gmail.com', 'Rodriguo de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, 'Password1234???', 'williams_de_cergy_jr@gmail.com', 'Williams de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'brown_de_cergy_jr@gmail.com', 'Brown de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, 'Password1234???', 'jones_de_cergy_jr@gmail.com', 'Jones de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'davido_de_cergy_jr@gmail.com', 'Davis de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'talyah_de_cergy_jr@gmail.com', 'Taylor de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Administrator', 1, 'Password1234???', 'martin_de_cergy_jr@gmail.com', 'Martinez de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'lopez_de_cergy_jr@gmail.com', 'Lopez de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 1, 'Password1234???', 'gonza_de_cergy_jr@gmail.com', 'Gonzalez de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'hermado_de_cergy_jr@gmail.com', 'Hernandez de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'rodriguo_de_cergy_jr@gmail.com', 'Rodriguo de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
 
 
 -- Inserts pour RESSOURCES
