@@ -41,29 +41,58 @@ INSERT INTO GLPI_CERGY.LOCATIONS (location_id, "location", "site", city) VALUES 
 INSERT INTO GLPI_CERGY.HARDWARES (hardware_id, "name", "model", brand) VALUES (1, 'Laptop 1','HP 6','HP');
 INSERT INTO GLPI_CERGY.HARDWARES (hardware_id, "name", "model", brand) VALUES (2, 'Server 1','Cisco 2', 'Cisco');
 INSERT INTO GLPI_CERGY.HARDWARES (hardware_id, "name", "model", brand) VALUES (3, 'Switch 1','Cisco Switch 1', 'Cisco');
+DECLARE
+    i NUMBER;
+BEGIN
+    FOR i IN 1..1000 LOOP
+       INSERT INTO GLPI_CERGY.HARDWARES (hardware_id, "name", "model", brand) VALUES (0, DBMS_RANDOM.STRING('X', 6),DBMS_RANDOM.STRING('X', 10), DBMS_RANDOM.STRING('X', 5));
+    END LOOP;
+END;
+/
     
 -- Inserts pour USERS
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 3, 'Password1234???', 'william_de_cergy@gmail.com', 'Williams de Cergy', 'Emily', '123 Industries', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 2, 'Password1234???', 'brown_de_cergy@gmail.com', 'Brown de Cergy', 'Michael', '456 Corporation', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 2, 'Password1234???', 'jones_de_cergy@gmail.com', 'Jones de Cergy', 'Jessica', '789 Enterprises', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 1, 'Password1234???', 'davis_de_cergy@gmail.com', 'Davis de Cergy', 'Matthew', 'ABC Corp', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'taylor_de_cergy@gmail.com', 'Taylor de Cergy', 'Daniel', 'XYZ Ltd', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 2, 'Password1234???', 'rodriguez_de_cergy@gmail.com', 'Rodriguez de Cergy', 'Olivia', 'XYZ Ltd', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 3, 'Password1234???', 'martinez_de_cergy@gmail.com', 'Martinez de Cergy', 'Liam', 'ABC Corp', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 1, 'Password1234???', 'lopez_de_cergy@gmail.com', 'Lopez de Cergy', 'Ethan', '456 Corporation', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, 'Password1234???', 'gonzalez_de_cergy@gmail.com', 'Gonzalez de Cergy', 'Ava', '123 Industries', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, 'Password1234???', 'hernandez_de_cergy@gmail.com', 'Hernandez de Cergy', 'Mia', '789 Enterprises', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, 'Password1234???', 'williams_de_cergy_jr@gmail.com', 'Williams de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'brown_de_cergy_jr@gmail.com', 'Brown de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, 'Password1234???', 'jones_de_cergy_jr@gmail.com', 'Jones de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'davido_de_cergy_jr@gmail.com', 'Davis de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'talyah_de_cergy_jr@gmail.com', 'Taylor de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Administrator', 1, 'Password1234???', 'martin_de_cergy_jr@gmail.com', 'Martinez de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'Parc');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'lopez_de_cergy_jr@gmail.com', 'Lopez de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Manager', 1, 'Password1234???', 'gonza_de_cergy_jr@gmail.com', 'Gonzalez de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'Fermat');
-EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, 'Password1234???', 'hermado_de_cergy_jr@gmail.com', 'Hernandez de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'St Martin');
-EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, 'Password1234???', 'rodriguo_de_cergy_jr@gmail.com', 'Rodriguo de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
-
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'william_de_cergy@gmail.com', 'Williams de Cergy', 'Emily', '123 Industries', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 2, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'brown_de_cergy@gmail.com', 'Brown de Cergy', 'Michael', '456 Corporation', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 2, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'jones_de_cergy@gmail.com', 'Jones de Cergy', 'Jessica', '789 Enterprises', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'davis_de_cergy@gmail.com', 'Davis de Cergy', 'Matthew', 'ABC Corp', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'taylor_de_cergy@gmail.com', 'Taylor de Cergy', 'Daniel', 'XYZ Ltd', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 2, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'rodriguez_de_cergy@gmail.com', 'Rodriguez de Cergy', 'Olivia', 'XYZ Ltd', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'martinez_de_cergy@gmail.com', 'Martinez de Cergy', 'Liam', 'ABC Corp', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'lopez_de_cergy@gmail.com', 'Lopez de Cergy', 'Ethan', '456 Corporation', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'gonzalez_de_cergy@gmail.com', 'Gonzalez de Cergy', 'Ava', '123 Industries', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'hernandez_de_cergy@gmail.com', 'Hernandez de Cergy', 'Mia', '789 Enterprises', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Administrator', 2, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'williams_de_cergy_jr@gmail.com', 'Williams de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'brown_de_cergy_jr@gmail.com', 'Brown de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'jones_de_cergy_jr@gmail.com', 'Jones de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'davido_de_cergy_jr@gmail.com', 'Davis de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'talyah_de_cergy_jr@gmail.com', 'Taylor de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Administrator', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'martin_de_cergy_jr@gmail.com', 'Martinez de Cergy Jr', 'Liam Jr', 'XYZ Ltd Jr', 'Parc');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'lopez_de_cergy_jr@gmail.com', 'Lopez de Cergy Jr', 'Ethan Jr', 'ABC Corp Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Manager', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'gonza_de_cergy_jr@gmail.com', 'Gonzalez de Cergy Jr', 'Ava Jr', '456 Corporation Jr', 'Fermat');
+EXECUTE GLPI_CERGY.NEW_USER('Technician', 3, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'hermado_de_cergy_jr@gmail.com', 'Hernandez de Cergy Jr', 'Mia Jr', '123 Industries Jr', 'St Martin');
+EXECUTE GLPI_CERGY.NEW_USER('Customer', 1, DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?', 'rodriguo_de_cergy_jr@gmail.com', 'Rodriguo de Cergy Jr', 'Olivia Jr', '789 Enterprises Jr', 'Fermat');
+DECLARE
+    j NUMBER;
+    random_role VARCHAR2(15);
+    random_site VARCHAR2(15);
+    random_name VARCHAR2(6);
+    random_password VARCHAR2(20);
+    random_lastname VARCHAR2(8);
+    random_company VARCHAR2(10);
+    random_group INT;
+BEGIN
+    FOR j IN 1..10000 LOOP
+        SELECT "role" INTO random_role FROM GLPI_CERGY.REF_ROLE ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT "site" INTO random_site FROM GLPI_CERGY.LOCATIONS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT "group_id" INTO random_group FROM GLPI_CERGY.REF_GROUP ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        random_name := DBMS_RANDOM.STRING('X', 6);
+        random_lastname := DBMS_RANDOM.STRING('X', 8);
+        random_company := DBMS_RANDOM.STRING('X', 10);
+        random_password := DBMS_RANDOM.STRING('A', 7) || DBMS_RANDOM.STRING('a', 7) || '123?';
+        GLPI_CERGY.NEW_USER(random_role, random_group, random_password, random_name || '_de_cergy@gmail.com', random_name || ' de Cergy', random_lastname, random_company, random_site);
+    END LOOP;
+END;
+/
 
 -- Inserts pour RESSOURCES
 INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (1, 'H:/TEST/test.txt');
@@ -71,6 +100,15 @@ INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (2, 'H:/TEST/
 INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (3, 'H:/ahah.bis');
 INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (4, 'H:/ahfe.bis');
 INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (5, 'H:/afefefeh.bis');
+DECLARE
+    i NUMBER;
+BEGIN
+    FOR i IN 1..1000 LOOP
+        INSERT INTO GLPI_CERGY.RESSOURCES (ressource_id, ressource) VALUES (0, 'H:/'||DBMS_RANDOM.STRING('X', 6)||'.txt');
+    END LOOP;
+END;
+/
+    
 
 -- Inserts pour TICKETS
 EXECUTE GLPI_CERGY.NEW_TICKET(1, 'Incident', 'Emergency', 'Software', 1, 'Requesting update for Adobe Acrobat Reader.', 'Software Update Request', 'Fermat', 1, 1);
@@ -88,6 +126,34 @@ EXECUTE GLPI_CERGY.NEW_TICKET(8, 'Change', 'Urgent', 'Network', 2, 'Network swit
 EXECUTE GLPI_CERGY.NEW_TICKET(9, 'Incident', 'Emergency', 'Software', 3, 'Critical error message on server.', 'Server Error', 'Fermat', 1, 5);
 EXECUTE GLPI_CERGY.NEW_TICKET(10, 'Change', 'Normal', 'Security', 1, 'Requesting password reset for user account.', 'Password Reset Request', 'St Martin', 2, 3);
 EXECUTE GLPI_CERGY.NEW_TICKET(11, 'Incident', 'Urgent', 'Software', 2, 'Data loss in database.', 'Data Loss Issue', 'Parc', 2, 2);
+DECLARE
+    j NUMBER;
+    random_type VARCHAR2(15);
+    random_priority VARCHAR2(15);
+    random_category VARCHAR2(15);
+    random_site VARCHAR2(15);
+    random_title VARCHAR2(50);
+    random_description VARCHAR2(100);
+    random_group INT;
+    random_hardware INT;
+    random_ressource INT;
+    random_user INT;
+BEGIN
+    FOR j IN 1..30000 LOOP
+        SELECT "type" INTO random_type FROM GLPI_CERGY.REF_TYPE ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT "priority" INTO random_priority FROM GLPI_CERGY.REF_PRIORITY ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT "category" INTO random_category FROM GLPI_CERGY.REF_CATEGORY ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT "site" INTO random_site FROM GLPI_CERGY.LOCATIONS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT "group_id" INTO random_group FROM GLPI_CERGY.REF_GROUP ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT ressource_id INTO random_ressource FROM GLPI_CERGY.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT hardware_id INTO random_hardware FROM GLPI_CERGY.HARDWARES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT user_id INTO random_user FROM GLPI_CERGY.USERS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        random_title := DBMS_RANDOM.STRING('X', 50);
+        random_description := DBMS_RANDOM.STRING('X', 100);
+        GLPI_CERGY.NEW_TICKET(random_user, random_type, random_priority, random_category, random_group, random_title, random_description, random_site, random_hardware, random_ressource);
+    END LOOP;
+END;
+/
 
 -- Inserts pour COMMENTS
 EXECUTE GLPI_CERGY.NEW_COMMENT(1, 1, 2, 'Request Details', 'Please ensure that the latest version of Adobe Acrobat Reader is installed.', 1);
@@ -125,19 +191,87 @@ EXECUTE GLPI_CERGY.NEW_COMMENT(3, 1, 1, 'Final Update', 'This concludes the tick
 EXECUTE GLPI_CERGY.NEW_COMMENT(5, 2, 2, 'Final Configuration Check', 'Performed a final check on the branch office configuration. Everything appears to be in order. Requesting final approval to close the ticket.', 3);
 EXECUTE GLPI_CERGY.NEW_COMMENT(2, 3, 3, 'Training Session Completion', 'The security training session has been successfully completed. Certificates of completion will be distributed shortly.', 1);
 EXECUTE GLPI_CERGY.NEW_COMMENT(3, 4, 4, 'Order Shipment Notification', 'Your bulk purchase order has been shipped. Tracking details have been emailed to you for reference. Thank you for your business.', 2);
+DECLARE
+    k NUMBER;
+    random_task VARCHAR2(50);
+    random_content VARCHAR2(100);
+    random_ressource INT;
+    random_user INT;
+    random_comment INT;
+    random_ticket INT;
+BEGIN
+    FOR k IN 1..50000 LOOP
+        SELECT ressource_id INTO random_ressource FROM GLPI_CERGY.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT user_id INTO random_user FROM GLPI_CERGY.USERS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT comment_id INTO random_comment FROM GLPI_CERGY.COMMENTS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT ticket_id INTO random_ticket FROM GLPI_CERGY.TICKETS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        random_task := DBMS_RANDOM.STRING('X', 50);
+        random_content := DBMS_RANDOM.STRING('X', 100);
+        GLPI_CERGY.NEW_COMMENT(random_user, random_comment, random_ticket, random_task, random_content, random_ressource);
+    END LOOP;
+END;
+/
 
 -- Inserts pour TICKET_RESSOURCES
 INSERT INTO GLPI_CERGY.TICKET_RESSOURCES (fk_ressource, fk_ticket) VALUES (1, 4); 
+DECLARE
+    l NUMBER;
+    random_ressource INT;
+    random_ticket INT;
+BEGIN
+    FOR l IN 1..5000 LOOP
+        SELECT ressource_id INTO random_ressource FROM GLPI_CERGY.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT ticket_id INTO random_ticket FROM GLPI_CERGY.TICKETS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+         BEGIN
+            INSERT INTO GLPI_CERGY.TICKET_RESSOURCES (fk_ressource, fk_ticket) VALUES (random_ressource, random_ticket);
+        EXCEPTION
+            WHEN DUP_VAL_ON_INDEX THEN DBMS_OUTPUT.PUT_LINE('INSERT IGNORE, already exist');
+        END;
+    END LOOP;
+END;
+/
 
 -- Inserts pour COMMENT_RESSOURCES
 INSERT INTO GLPI_CERGY.COMMENT_RESSOURCES (fk_ressource, fk_comment) VALUES (4, 1);
 INSERT INTO GLPI_CERGY.COMMENT_RESSOURCES (fk_ressource, fk_comment) VALUES (4, 2);
+DECLARE
+    m NUMBER;
+    random_ressource INT;
+    random_comment INT;
+BEGIN
+    FOR m IN 1..5000 LOOP
+        SELECT ressource_id INTO random_ressource FROM GLPI_CERGY.RESSOURCES ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT comment_id INTO random_comment FROM GLPI_CERGY.COMMENTS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+         BEGIN
+            INSERT INTO GLPI_CERGY.COMMENT_RESSOURCES (fk_ressource, fk_comment) VALUES (random_ressource, random_comment);
+        EXCEPTION
+            WHEN DUP_VAL_ON_INDEX THEN DBMS_OUTPUT.PUT_LINE('INSERT IGNORE, already exist');
+        END;
+    END LOOP;
+END;
+/
 
 -- Inserts pour OBSERVERS
 EXECUTE GLPI_CERGY.ADD_REMOVE_OBSERVER_OF_TICKET(2, 1);
 EXECUTE GLPI_CERGY.ADD_REMOVE_OBSERVER_OF_TICKET(3, 1);
 EXECUTE GLPI_CERGY.ADD_REMOVE_OBSERVER_OF_TICKET(4, 2);
 EXECUTE GLPI_CERGY.ADD_REMOVE_OBSERVER_OF_TICKET(5, 2);
+DECLARE
+    n NUMBER;
+    random_user INT;
+    random_ticket INT;
+BEGIN
+    FOR n IN 1..5000 LOOP
+        SELECT user_id INTO random_user FROM GLPI_CERGY.USERS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT ticket_id INTO random_ticket FROM GLPI_CERGY.TICKETS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        BEGIN
+            GLPI_CERGY.ADD_REMOVE_OBSERVER_OF_TICKET(random_ticket, random_user);
+        EXCEPTION
+            WHEN DUP_VAL_ON_INDEX THEN DBMS_OUTPUT.PUT_LINE('INSERT IGNORE, already exist');
+        END;
+    END LOOP;
+END;
+/
 
 -- Inserts pour ASSIGNED_TO
 EXECUTE GLPI_CERGY.ASSIGN_TICKET_TO_USER(2, 1);
@@ -145,6 +279,22 @@ EXECUTE GLPI_CERGY.ASSIGN_TICKET_TO_USER(2, 2);
 EXECUTE GLPI_CERGY.ASSIGN_TICKET_TO_USER(3, 1);
 EXECUTE GLPI_CERGY.ASSIGN_TICKET_TO_USER(4, 1);
 EXECUTE GLPI_CERGY.ASSIGN_TICKET_TO_USER(5, 2);
+DECLARE
+    o NUMBER;
+    random_user INT;
+    random_ticket INT;
+BEGIN
+    FOR o IN 1..10 LOOP
+        SELECT user_id INTO random_user FROM GLPI_CERGY.USERS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        SELECT ticket_id INTO random_ticket FROM GLPI_CERGY.TICKETS ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 1 ROW ONLY;
+        BEGIN
+            GLPI_CERGY.ASSIGN_TICKET_TO_USER(random_ticket, random_user);
+        EXCEPTION
+            WHEN DUP_VAL_ON_INDEX THEN DBMS_OUTPUT.PUT_LINE('INSERT IGNORE, already exist');
+        END;
+    END LOOP;
+END;
+/
 
 COMMIT;
 exit;
