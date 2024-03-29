@@ -330,7 +330,7 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.NEW_TICKET(
     p_title IN VARCHAR2,
     p_site IN VARCHAR2,
     p_hardware IN INT, -- id of the hardware the ticket refers to (set to NULL if no hardware)
-    p_ressource IN INT  -- id of the hardware the ticket refers to (set to NULL if no hardware)
+    p_ressource IN INT  -- id of the ressource the ticket refers to (set to NULL if no ressource)
 )
 IS
     p_location VARCHAR2(200) := 'Cergy - '|| p_site;
