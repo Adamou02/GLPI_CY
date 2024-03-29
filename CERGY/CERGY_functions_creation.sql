@@ -18,7 +18,7 @@ EXCEPTION
         IF SQLCODE = -904 THEN
             DBMS_OUTPUT.PUT_LINE('La colonne ' || p_column_name || ' n''existe pas dans la table ' || p_table_name || '.');
         ELSE
-            RAISE_APPLICATION_ERROR(-20030,'Une erreur s''est CERGYuite lors de l''exécution de la fonction CHECK_VALUE_EXIST : ' || SQLERRM);
+            RAISE_APPLICATION_ERROR(-20030,'Une erreur s''est produite lors de l''exécution de la fonction CHECK_VALUE_EXIST : ' || SQLERRM);
         END IF;
         RETURN FALSE;
 END;
@@ -330,7 +330,7 @@ CREATE OR REPLACE PROCEDURE GLPI_CERGY.NEW_TICKET(
     p_title IN VARCHAR2,
     p_site IN VARCHAR2,
     p_hardware IN INT, -- id of the hardware the ticket refers to (set to NULL if no hardware)
-    p_ressource IN INT  -- id of the ressource the ticket refers to (set to NULL if no ressource)
+    p_ressource IN INT  -- id of the hardware the ticket refers to (set to NULL if no hardware)
 )
 IS
     p_location VARCHAR2(200) := 'Cergy - '|| p_site;
@@ -347,7 +347,7 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur specifier n''existe pas dans la table USERS.');
     END IF;
     -- Verifier si le hardware existe dans la table HARDWARES
-    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_hardware, 'hardaware_id', 'HARDWARES') AND p_hardware <> NULL THEN
+    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_hardware, 'hardware_id', 'HARDWARES') AND p_hardware <> NULL THEN
         RAISE_APPLICATION_ERROR(-20002, 'Le hardware specifier n''existe pas dans la table HARDWARES.');
     END IF;
     -- Verifier si le assigne group existe dans la table GROUP
@@ -483,8 +483,8 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur p_user specifier n''existe pas dans la table USERS.');
     END IF;
     -- Verifier si l'utilisateur p_answer_to existe dans la table USERS
-    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_answer_to, 'user_id', 'USERS') THEN
-        RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur p_answer_to specifier n''existe pas dans la table USERS.');
+    IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_answer_to, 'comment_id', 'COMMENTS') AND p_answer_to <> NULL THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Le comments p_answer_to specifier n''existe pas dans la table USERS.');
     END IF;
     -- Verifier si le ticket existe dans la table TICKETS
     IF NOT GLPI_CERGY.CHECK_VALUE_EXIST(p_ticket, 'ticket_id', 'TICKETS') THEN
