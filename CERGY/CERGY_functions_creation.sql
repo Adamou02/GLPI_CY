@@ -483,7 +483,7 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20002, 'L''utilisateur p_user specifier n''existe pas dans la table USERS.');
     END IF;
     -- Verifier si l'utilisateur p_answer_to existe dans la table USERS
-    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_answer_to, 'comment_id', 'COMMENTS') THEN
+    IF NOT GLPI_PAU.CHECK_VALUE_EXIST(p_answer_to, 'comment_id', 'COMMENTS') AND p_answer_to <> NULL THEN
         RAISE_APPLICATION_ERROR(-20002, 'Le comments p_answer_to specifier n''existe pas dans la table USERS.');
     END IF;
     -- Verifier si le ticket existe dans la table TICKETS
